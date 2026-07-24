@@ -3,7 +3,16 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Moon, Sun, Menu, X, ArrowRight, Coins, LogOut } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  Menu,
+  X,
+  ArrowRight,
+  Coins,
+  LogOut,
+  LayoutDashboard,
+} from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
@@ -11,7 +20,7 @@ const NAV_LINKS = [
   { label: "Serviços", href: "#servicos" },
   { label: "Mentores", href: "#mentores" },
   { label: "Criar/Inovar", href: "#inovar" },
-  { label: "Preços", href: "#precos" },
+  { label: "Portfólio", href: "#portfolio" },
 ];
 
 export default function Header() {
@@ -142,6 +151,13 @@ export default function Header() {
                 <Coins size={14} />
                 {tokens ?? "..."} tokens
               </span>
+              <Link
+                href="/dashboard"
+                className="flex h-9 items-center gap-1.5 rounded-md bg-ink px-4 text-sm font-medium text-canvas transition-colors hover:bg-angola-red dark:bg-ink-dark dark:text-canvas-dark"
+              >
+                <LayoutDashboard size={15} />
+                Dashboard
+              </Link>
               <button
                 onClick={handleLogout}
                 aria-label="Terminar sessão"
@@ -191,13 +207,23 @@ export default function Header() {
                 </a>
               ))}
               {email ? (
-                <button
-                  onClick={handleLogout}
-                  className="mt-2 flex items-center justify-center gap-1.5 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-canvas dark:bg-ink-dark dark:text-canvas-dark"
-                >
-                  Sair
-                  <LogOut size={14} />
-                </button>
+                <div className="mt-2 grid gap-2">
+                  <Link
+                    href="/dashboard"
+                    onClick={() => setMenuOpen(false)}
+                    className="flex items-center justify-center gap-1.5 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-canvas dark:bg-ink-dark dark:text-canvas-dark"
+                  >
+                    Dashboard
+                    <LayoutDashboard size={14} />
+                  </Link>
+                  <button
+                    onClick={handleLogout}
+                    className="flex items-center justify-center gap-1.5 rounded-md border border-border px-4 py-2.5 text-sm font-medium text-ink dark:border-border-dark dark:text-ink-dark"
+                  >
+                    Sair
+                    <LogOut size={14} />
+                  </button>
+                </div>
               ) : (
                 <Link
                   href="/login"

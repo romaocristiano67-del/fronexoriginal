@@ -83,15 +83,24 @@ export default function AIChatWidget() {
       };
 
       setMessages((prev) => [...prev, reply]);
-      setTokensRemaining(payload.tokensRemaining);
-      window.dispatchEvent(
-        new CustomEvent("fronex:tokens-updated", {
-          detail: { tokensRemaining: payload.tokensRemaining },
-        })
-      );
-      toast.success("Token utilizado na conversa", {
-        description: `${payload.tokensRemaining} tokens restantes.`,
-      });
+      if (payload.moderated) {
+        toast.warning("Tom profissional necessário", {
+          description: "A conversa foi reconduzida para o âmbito dos serviços Fronex.",
+        });
+        return;
+      }
+
+      if (typeof payload.tokensRemaining === "number") {
+        setTokensRemaining(payload.tokensRemaining);
+        window.dispatchEvent(
+          new CustomEvent("fronex:tokens-updated", {
+            detail: { tokensRemaining: payload.tokensRemaining },
+          })
+        );
+        toast.success("Token utilizado na conversa", {
+          description: `${payload.tokensRemaining} tokens restantes.`,
+        });
+      }
     } catch (error) {
       setMessages((prev) => [
         ...prev,

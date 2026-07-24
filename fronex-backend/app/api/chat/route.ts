@@ -4,6 +4,10 @@ import { createSupabaseAdminClient } from '@/lib/supabase/admin';
 import { chatRequestSchema } from '@/lib/validations/schemas';
 import { getAIChatCompletion, type ChatMessage } from '@/lib/ai/groqClient';
 import { FRONEX_AI_SYSTEM_PROMPT } from '@/lib/ai/systemPrompts';
+import {
+  detectConductViolation,
+  FRONEX_CONDUCT_REPLY,
+} from '@/lib/ai/moderation';
 import { resolveIdentityAndTokens, deductToken } from '@/lib/tokens';
 
 const HISTORY_LIMIT = 10;
@@ -24,6 +28,15 @@ export async function POST(request: NextRequest) {
     }
 
     const { message, sessionId } = parsed.data;
+    const conduct = detectConductViolation(message);
+
+    if (conduct.blocked) {
+      return NextResponse.json({
+        reply: FRONEX_CONDUCT_REPLY,
+        moderated: true,
+        moderationReason: conduct.reason,
+      });
+    }
 
     const supabaseServer = createSupabaseServerClient();
     const admin = createSupabaseAdminClient();

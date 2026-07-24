@@ -3,7 +3,7 @@ import Hero from "@/components/hero";
 import ServicesSection from "@/components/services-section";
 import MentorsSection from "@/components/mentors-section";
 import InnovateSection from "@/components/innovate-section";
-import PricingSection from "@/components/pricing-section";
+import PortfolioSection from "@/components/portfolio-section";
 import Footer from "@/components/footer";
 
 export default function HomePage() {
@@ -14,7 +14,7 @@ export default function HomePage() {
       <ServicesSection />
       <MentorsSection />
       <InnovateSection />
-      <PricingSection />
+      <PortfolioSection />
       <Footer />
     </main>
   );
