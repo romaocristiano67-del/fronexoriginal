@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-canvas dark:bg-canvas-dark text-ink dark:text-ink-dark font-body antialiased;
+    transition: background-color 0.4s ease, color 0.4s ease;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-tight;
+  }
+
+  ::selection {
+    @apply bg-angola-red/20;
+  }
+
+  /* Foco visível para acessibilidade */
+  :focus-visible {
+    outline: 2px solid #ce1126;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border dark:bg-border-dark rounded-full;
+  }
+}
+
+@layer utilities {
+  .flag-thread {
+    @apply h-[3px] w-12 rounded-full bg-flag-thread;
+  }
+
+  .glass {
+    @apply bg-white/80 dark:bg-black/55 backdrop-blur-xl;
+  }
+
+  .container-fronex {
+    @apply mx-auto w-full max-w-7xl px-6 md:px-10;
+  }
+
+  .card-fronex {
+    @apply rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark shadow-soft transition-colors duration-300;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

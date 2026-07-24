@@ -1,0 +1,26 @@
+# ============================================================
+# Fronex — Netlify (Next.js App Router)
+# Base directory no Netlify Dashboard: fronexfrontend
+# (ou faça deploy só desta pasta)
+# ============================================================
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Runtime Next.js (OpenNext) — Netlify aplica automaticamente;
+# esta entrada garante o adapter no build.
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# Headers básicos de segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
