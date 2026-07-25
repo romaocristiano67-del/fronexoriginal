@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Check } from "lucide-react";
 import { SERVICES, formatKz } from "@/lib/pricing";
 
@@ -20,24 +17,15 @@ export default function PricingSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, i) => (
-            <motion.div
-              key={service.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.45, delay: i * 0.05 }}
-              className="card-fronex flex flex-col p-6"
-            >
+          {SERVICES.map((service) => (
+            <div key={service.id} className="card-fronex flex flex-col p-6">
               <p className="font-display text-base font-bold text-white">
                 {service.title}
               </p>
               <p className="mt-4 font-display text-3xl font-bold text-accent">
                 {formatKz(service.basePrice)}
               </p>
-              <p className="text-xs text-muted">
-                preço médio
-              </p>
+              <p className="text-xs text-muted">preço médio</p>
 
               <div className="my-5 h-px w-full bg-white/[0.06]" />
 
@@ -45,12 +33,16 @@ export default function PricingSection() {
                 <li className="flex items-center gap-2">
                   <Check size={14} className="text-accent" />
                   Piso a partir de{" "}
-                  <span className="font-bold text-accent">{formatKz(service.minPrice)}</span>
+                  <span className="font-bold text-accent">
+                    {formatKz(service.minPrice)}
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check size={14} className="text-accent" />
                   Teto máximo de{" "}
-                  <span className="font-bold text-accent">{formatKz(service.maxPrice)}</span>
+                  <span className="font-bold text-accent">
+                    {formatKz(service.maxPrice)}
+                  </span>
                 </li>
                 <li className="flex items-center gap-2">
                   <Check size={14} className="text-accent" />
@@ -58,13 +50,10 @@ export default function PricingSection() {
                 </li>
               </ul>
 
-              <a
-                href="#servicos"
-                className="btn-secondary mt-6 justify-center"
-              >
+              <a href="#servicos" className="btn-secondary mt-6 justify-center">
                 Simular orçamento
               </a>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

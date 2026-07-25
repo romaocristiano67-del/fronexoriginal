@@ -37,3 +37,16 @@ export const calculatePriceSchema = z.object({
 });
 
 export type CalculatePriceRequest = z.infer<typeof calculatePriceSchema>;
+
+// ============================================================
+// /api/innovate — Criar e Inovar
+// ============================================================
+export const innovateRequestSchema = z.object({
+  idea: z
+    .string()
+    .min(1, 'A ideia não pode ser vazia')
+    .max(2000, 'A ideia é muito longa (máx. 2000 caracteres)'),
+  sessionId: z.string().uuid('sessionId inválido').optional(),
+});
+
+export type InnovateRequest = z.infer<typeof innovateRequestSchema>;

@@ -181,9 +181,8 @@ export default function MentorsSection() {
 
           <motion.div
             key={activeMentor.id}
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35 }}
+            initial={false}
+            animate={{ opacity: 1 }}
             className="card-fronex flex min-h-[460px] flex-col p-6"
           >
             <div>

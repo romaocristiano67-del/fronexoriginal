@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowUpRight, BriefcaseBusiness, MonitorSmartphone } from "lucide-react";
 import { toast } from "sonner";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -108,13 +107,9 @@ export default function PortfolioSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
-          {PORTFOLIO_ITEMS.map((item, index) => (
-            <motion.article
+          {PORTFOLIO_ITEMS.map((item) => (
+            <article
               key={item.title}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.5, delay: index * 0.05 }}
               className={`group overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition-colors hover:border-accent/25 ${
                 item.featured ? "lg:col-span-7" : "lg:col-span-5"
               }`}
@@ -157,7 +152,7 @@ export default function PortfolioSection() {
                   <ArrowUpRight size={15} />
                 </button>
               </div>
-            </motion.article>
+            </article>
           ))}
         </div>
       </div>

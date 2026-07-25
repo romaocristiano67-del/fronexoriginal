@@ -1,75 +1,77 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, Loader2, ArrowRight } from "lucide-react";
-import { SERVICES } from "@/lib/pricing";
-
-interface PlanStep {
-  title: string;
-  description: string;
-  relatedServiceIds: string[];
-}
-
-// Gera um plano de ação simples a partir de palavras-chave da ideia.
-// Pronto para ser substituído por uma chamada real à API de IA da Fronex.
-function generatePlan(idea: string): PlanStep[] {
-  const lower = idea.toLowerCase();
-
-  const steps: PlanStep[] = [
-    {
-      title: "Validar e posicionar a ideia",
-      description:
-        "Defina o público-alvo em Luanda (ou na sua cidade) e o que torna a sua oferta diferente. Um Mentor de Investimentos pode ajudar a validar o potencial do negócio.",
-      relatedServiceIds: [],
-    },
-    {
-      title: "Criar presença digital",
-      description: lower.includes("loja") || lower.includes("venda")
-        ? "Uma loja online simples permite vender e receber pedidos sem depender só das redes sociais."
-        : "Um site institucional transmite confiança e credibilidade desde o primeiro contacto com o cliente.",
-      relatedServiceIds: ["web"],
-    },
-    {
-      title: "Construir marca visual",
-      description:
-        "Logotipo, cores e materiais consistentes ajudam o negócio a ser reconhecido e lembrado.",
-      relatedServiceIds: ["design"],
-    },
-    {
-      title: "Gerar visibilidade nas redes",
-      description:
-        "Conteúdo regular no Instagram e TikTok atrai clientes locais e constrói confiança ao longo do tempo.",
-      relatedServiceIds: ["social", "video-edit"],
-    },
-  ];
-
-  if (lower.includes("app") || lower.includes("sistema") || lower.includes("plataforma")) {
-    steps.push({
-      title: "Desenvolver o produto digital",
-      description:
-        "Se a ideia depende de uma aplicação ou sistema, comece por um MVP simples antes de expandir funcionalidades.",
-      relatedServiceIds: ["apps"],
-    });
-  }
-
-  return steps;
-}
+import { Sparkles, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import RichMessage from "@/components/rich-message";
+import { assessInnovateIdea } from "@/lib/ai/innovate";
 
 export default function InnovateSection() {
   const [idea, setIdea] = useState("");
   const [loading, setLoading] = useState(false);
-  const [plan, setPlan] = useState<PlanStep[] | null>(null);
+  const [reply, setReply] = useState<string | null>(null);
 
-  const handleSimulate = () => {
-    if (!idea.trim()) return;
+  const getSessionId = () => {
+    const key = "fronex_session_id";
+    const existing = window.localStorage.getItem(key);
+    if (existing) return existing;
+    const created = crypto.randomUUID();
+    window.localStorage.setItem(key, created);
+    return created;
+  };
+
+  const handleSimulate = async () => {
+    const content = idea.trim();
+    if (!content || loading) return;
+
+    // Blindagem imediata no cliente — sem planos genéricos
+    const assessment = assessInnovateIdea(content);
+    if (!assessment.valid) {
+      setReply(assessment.clarification);
+      return;
+    }
+
     setLoading(true);
-    setPlan(null);
-    // Simula latência de geração — substituir por chamada real à API
-    setTimeout(() => {
-      setPlan(generatePlan(idea));
+    setReply(null);
+
+    try {
+      const response = await fetch("/api/innovate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          idea: content,
+          sessionId: getSessionId(),
+        }),
+      });
+
+      const payload = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          toast.error("Sem tokens disponíveis", {
+            description: payload?.upgradeMessage ?? "Tente novamente amanhã.",
+          });
+        }
+        throw new Error(payload?.error ?? "Não foi possível organizar o plano.");
+      }
+
+      setReply(typeof payload.reply === "string" ? payload.reply : assessment.clarification);
+
+      if (typeof payload.tokensRemaining === "number") {
+        window.dispatchEvent(
+          new CustomEvent("fronex:tokens-updated", {
+            detail: { tokensRemaining: payload.tokensRemaining },
+          })
+        );
+      }
+    } catch (error) {
+      toast.error("Criar e Inovar indisponível", {
+        description:
+          error instanceof Error ? error.message : "Tente novamente em instantes.",
+      });
+    } finally {
       setLoading(false);
-    }, 1100);
+    }
   };
 
   return (
@@ -81,9 +83,9 @@ export default function InnovateSection() {
             Criar e Inovar
           </h2>
           <p className="text-base text-ink-muted md:text-lg">
-            Escreva a ideia como ela está na sua cabeça. A Fronex organiza os
-            próximos passos, liga cada etapa ao serviço certo e ajuda a sair da
-            intenção para a execução.
+            Escreva a ideia como ela está na sua cabeça. A Fronex organiza a
+            estratégia de produto e engenharia — com planos ricos quando a ideia
+            é clara, e perguntas directas quando ainda não está.
           </p>
         </div>
 
@@ -111,57 +113,12 @@ export default function InnovateSection() {
             </button>
           </div>
 
-          <AnimatePresence>
-            {plan && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="mt-8 overflow-hidden"
-              >
-                <p className="section-label mb-4">Próximos passos</p>
-                <div className="flex flex-col gap-4">
-                  {plan.map((step, i) => (
-                    <motion.div
-                      key={step.title}
-                      initial={{ opacity: 0, x: -12 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.08 }}
-                      className="flex gap-4 rounded-xl border border-white/[0.06] bg-canvas/50 p-4"
-                    >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent text-xs font-bold text-canvas">
-                        {i + 1}
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold text-white">{step.title}</p>
-                        <p className="mt-1 text-sm text-ink-muted">
-                          {step.description}
-                        </p>
-                        {step.relatedServiceIds.length > 0 && (
-                          <div className="mt-3 flex flex-wrap gap-2">
-                            {step.relatedServiceIds.map((id) => {
-                              const service = SERVICES.find((s) => s.id === id);
-                              if (!service) return null;
-                              return (
-                                <a
-                                  key={id}
-                                  href="#servicos"
-                                  className="flex items-center gap-1 rounded-full border border-accent/30 px-3 py-1.5 text-xs font-medium text-accent hover:bg-accent/10"
-                                >
-                                  {service.title}
-                                  <ArrowRight size={11} />
-                                </a>
-                              );
-                            })}
-                          </div>
-                        )}
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {reply && (
+            <div className="mt-8 rounded-xl border border-white/[0.06] bg-canvas/50 p-5">
+              <p className="section-label mb-4">Resposta estratégica</p>
+              <RichMessage content={reply} />
+            </div>
+          )}
         </div>
       </div>
     </section>

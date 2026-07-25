@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -572,8 +573,14 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
         <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-[#141C2E] bg-canvas p-5 lg:block">
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="flex h-10 w-10 items-center justify-center rounded-md bg-accent text-sm font-bold text-canvas">
-                F
+              <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md border border-white/10 bg-white">
+                <Image
+                  src="/images/logo-fronex-crop.jpg"
+                  alt="Fronex"
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
               </span>
               <span className="font-display text-xl font-bold uppercase tracking-[0.18em]">
                 FRONEX

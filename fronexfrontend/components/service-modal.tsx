@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowLeft, ArrowRight, Check, MessageCircle, Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -132,8 +133,19 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
-          className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-white/[0.08] bg-surface text-white shadow-soft-lg md:rounded-2xl"
+          className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-accent/25 bg-surface text-white shadow-soft-lg md:rounded-2xl"
         >
+          <div className="relative h-32 w-full shrink-0 overflow-hidden border-b border-accent/25">
+            <Image
+              src={service.image}
+              alt={service.title}
+              fill
+              sizes="512px"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent" />
+          </div>
+
           {/* Cabeçalho */}
           <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-5">
             <div>

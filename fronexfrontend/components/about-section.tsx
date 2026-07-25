@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { ArrowRight, BarChart3, Rocket, Shield } from "lucide-react";
 
 const FEATURES = [
@@ -26,7 +23,7 @@ const FEATURES = [
 
 export default function AboutSection() {
   return (
-    <section id="sobre" className="relative bg-canvas py-24 md:py-32">
+    <section id="sobre" className="relative bg-[#050B14] py-24 md:py-32">
       <div
         aria-hidden
         className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,255,163,0.04),transparent_60%)]"
@@ -54,17 +51,10 @@ export default function AboutSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-          {FEATURES.map((feature, index) => {
+          {FEATURES.map((feature) => {
             const Icon = feature.icon;
             return (
-              <motion.article
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.45, delay: index * 0.08 }}
-                className="card-surface group"
-              >
+              <article key={feature.title} className="card-surface group">
                 <span className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
                   <Icon size={22} strokeWidth={1.5} />
                 </span>
@@ -74,7 +64,7 @@ export default function AboutSection() {
                 <p className="mt-2 text-sm leading-6 text-ink-muted">
                   {feature.description}
                 </p>
-              </motion.article>
+              </article>
             );
           })}
         </div>

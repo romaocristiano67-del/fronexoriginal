@@ -2,6 +2,7 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
@@ -13,26 +14,6 @@ type Step = "email" | "credentials";
 
 const inputClassName =
   "w-full rounded-lg border border-white/10 bg-canvas-light px-3.5 py-[0.85rem] text-[0.925rem] text-white outline-none placeholder:text-muted transition-colors focus:border-accent focus:ring-1 focus:ring-accent";
-
-function FronexMark() {
-  return (
-    <span className="relative flex h-8 w-8 items-center justify-center">
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
-        style={{ clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)" }}
-      />
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-accent"
-        style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)" }}
-      />
-      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
-        F
-      </span>
-    </span>
-  );
-}
 
 function GoogleIcon() {
   return (
@@ -150,10 +131,16 @@ function LoginContent() {
 
       <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
         <div className="relative flex flex-col px-6 py-6 sm:px-10 lg:px-12 lg:py-8">
-          <Link href="/" className="inline-flex w-fit items-center gap-3">
-            <FronexMark />
-            <span className="font-display text-sm font-bold uppercase tracking-[0.28em] text-white">
-              Fronex
+          <Link href="/" className="inline-flex w-fit items-center">
+            <span className="relative h-10 w-32 overflow-hidden rounded-lg border border-white/10 bg-white shadow-sm">
+              <Image
+                src="/images/logo-fronex-wordmark.jpg"
+                alt="Fronex"
+                fill
+                sizes="128px"
+                className="object-cover"
+                priority
+              />
             </span>
           </Link>
 

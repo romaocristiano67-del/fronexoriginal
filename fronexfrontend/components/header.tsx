@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -23,30 +24,6 @@ const NAV_LINKS = [
   { label: "Criar/Inovar", href: "#inovar" },
   { label: "Portfólio", href: "#portfolio" },
 ];
-
-function FronexMark({ className = "" }: { className?: string }) {
-  return (
-    <span className={`relative flex h-8 w-8 items-center justify-center ${className}`}>
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
-        style={{
-          clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)",
-        }}
-      />
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-accent"
-        style={{
-          clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)",
-        }}
-      />
-      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
-        F
-      </span>
-    </span>
-  );
-}
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -119,15 +96,19 @@ export default function Header() {
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
-        {/* Logótipo */}
-        <Link href="/" className="group flex min-w-0 items-center gap-3">
-          <FronexMark />
-          <span className="font-display text-sm font-bold uppercase tracking-[0.28em] text-white transition-colors group-hover:text-accent sm:text-base">
-            Fronex
+        <Link href="/" className="group flex min-w-0 items-center gap-2.5">
+          <span className="relative h-10 w-28 overflow-hidden rounded-lg border border-white/10 bg-white shadow-sm sm:w-36">
+            <Image
+              src="/images/logo-fronex-wordmark.jpg"
+              alt="Fronex"
+              fill
+              sizes="(min-width: 640px) 144px, 112px"
+              className="object-cover"
+              priority
+            />
           </span>
         </Link>
 
-        {/* Navegação desktop */}
         <nav className="hidden items-center gap-9 md:flex">
           {NAV_LINKS.map((link) => (
             <a
@@ -140,7 +121,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* Ações à direita */}
         <div className="flex items-center gap-3">
           <button
             onClick={toggleTheme}
@@ -196,7 +176,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Menu mobile */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -226,19 +205,13 @@ export default function Header() {
                     Dashboard
                     <LayoutDashboard size={14} />
                   </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="btn-secondary justify-center"
-                  >
+                  <button onClick={handleLogout} className="btn-secondary justify-center">
                     Sair
                     <LogOut size={14} />
                   </button>
                 </div>
               ) : (
-                <Link
-                  href="/login"
-                  className="btn-primary mt-2 justify-center"
-                >
+                <Link href="/login" className="btn-primary mt-2 justify-center">
                   Entrar / Criar Conta
                   <ArrowRight size={14} />
                 </Link>

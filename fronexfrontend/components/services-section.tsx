@@ -1,28 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  ArrowUpRight,
-  Clapperboard,
-  Film,
-  Globe,
-  Palette,
-  Share2,
-  Smartphone,
-  type LucideIcon,
-} from "lucide-react";
-import { SERVICES, formatKz, ServiceDefinition, ServiceId } from "@/lib/pricing";
+import Image from "next/image";
+import { ArrowUpRight } from "lucide-react";
+import { SERVICES, formatKz, ServiceDefinition } from "@/lib/pricing";
 import ServiceModal from "@/components/service-modal";
-
-const SERVICE_ICONS: Record<ServiceId, LucideIcon> = {
-  web: Globe,
-  apps: Smartphone,
-  social: Share2,
-  "ai-video": Film,
-  "video-edit": Clapperboard,
-  design: Palette,
-};
 
 export default function ServicesSection() {
   const [activeService, setActiveService] = useState<ServiceDefinition | null>(
@@ -45,54 +27,52 @@ export default function ServicesSection() {
         </div>
 
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, index) => {
-            const Icon = SERVICE_ICONS[service.id] ?? Globe;
-            return (
-              <motion.div
-                key={service.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="group flex flex-col overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition-colors hover:border-accent/30"
-              >
-                <div className="flex items-center gap-4 border-b border-white/[0.06] px-6 py-5">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent transition-shadow group-hover:shadow-neon">
-                    <Icon size={22} strokeWidth={1.5} />
-                  </span>
-                  <h3 className="font-display text-lg font-bold text-white">
-                    {service.title}
-                  </h3>
-                </div>
+          {SERVICES.map((service) => (
+            <div
+              key={service.id}
+              className="group flex flex-col overflow-hidden rounded-2xl border border-accent/25 bg-surface transition-colors hover:border-accent/45"
+            >
+              <div className="relative h-44 w-full overflow-hidden border-b border-accent/20">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-canvas/70 to-transparent" />
+              </div>
 
-                <div className="flex flex-1 flex-col p-6">
-                  <p className="flex-1 text-sm leading-6 text-ink-muted">
-                    {service.description}
-                  </p>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className="font-display text-lg font-bold text-white">
+                  {service.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-6 text-ink-muted">
+                  {service.description}
+                </p>
 
-                  <div className="mt-5 flex items-end justify-between border-t border-white/[0.06] pt-4">
-                    <div>
-                      <p className="text-xs text-muted">Média</p>
-                      <p className="font-display text-lg font-bold text-accent">
-                        {formatKz(service.basePrice)}
-                      </p>
-                      <p className="text-[11px] font-bold text-accent/80">
-                        até {formatKz(service.maxPrice)}
-                      </p>
-                    </div>
-
-                    <button
-                      onClick={() => setActiveService(service)}
-                      className="btn-primary min-h-10 px-4 text-xs"
-                    >
-                      Estou Interessado
-                      <ArrowUpRight size={13} />
-                    </button>
+                <div className="mt-5 flex items-end justify-between border-t border-white/[0.06] pt-4">
+                  <div>
+                    <p className="text-xs text-muted">Média</p>
+                    <p className="font-display text-lg font-bold text-accent">
+                      {formatKz(service.basePrice)}
+                    </p>
+                    <p className="text-[11px] font-bold text-accent/80">
+                      até {formatKz(service.maxPrice)}
+                    </p>
                   </div>
+
+                  <button
+                    onClick={() => setActiveService(service)}
+                    className="btn-primary min-h-10 px-4 text-xs"
+                  >
+                    Estou Interessado
+                    <ArrowUpRight size={13} />
+                  </button>
                 </div>
-              </motion.div>
-            );
-          })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

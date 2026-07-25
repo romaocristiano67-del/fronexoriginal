@@ -1,35 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
-
-function FronexMark() {
-  return (
-    <span className="relative flex h-9 w-9 items-center justify-center">
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
-        style={{ clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)" }}
-      />
-      <span
-        aria-hidden
-        className="absolute inset-0 rounded-md bg-accent"
-        style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)" }}
-      />
-      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
-        F
-      </span>
-    </span>
-  );
-}
 
 export default function Footer() {
   return (
     <footer className="border-t border-white/[0.06] bg-canvas py-14 text-white">
       <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
-          <div className="flex items-center gap-3">
-            <FronexMark />
-            <span className="font-display text-sm font-bold uppercase tracking-[0.28em]">
-              Fronex
+          <div className="flex items-center">
+            <span className="relative h-11 w-36 overflow-hidden rounded-lg border border-white/10 bg-white shadow-sm">
+              <Image
+                src="/images/logo-fronex-wordmark.jpg"
+                alt="Fronex"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
             </span>
           </div>
           <p className="mt-4 text-sm leading-6 text-ink-muted">
