@@ -16,11 +16,12 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = window.localStorage.getItem("fronex-theme") as Theme | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = stored ?? (prefersDark ? "dark" : "light");
+    const stored = window.localStorage.getItem("fronex-theme");
+    const initial: Theme = stored === "dark" ? "dark" : "light";
+    window.localStorage.setItem("fronex-theme", initial);
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
+    document.documentElement.style.colorScheme = initial;
     setMounted(true);
   }, []);
 
@@ -28,6 +29,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     setTheme((prev) => {
       const next = prev === "light" ? "dark" : "light";
       document.documentElement.classList.toggle("dark", next === "dark");
+      document.documentElement.style.colorScheme = next;
       window.localStorage.setItem("fronex-theme", next);
       return next;
     });

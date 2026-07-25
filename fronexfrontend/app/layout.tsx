@@ -36,9 +36,24 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const themeScript = `
+    (() => {
+      try {
+        const stored = localStorage.getItem("fronex-theme");
+        const theme = stored === "dark" ? "dark" : "light";
+        document.documentElement.classList.toggle("dark", theme === "dark");
+        document.documentElement.style.colorScheme = theme;
+      } catch {
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
+      }
+    })();
+  `;
+
   return (
     <html lang="pt-AO" suppressHydrationWarning>
       <body className={`${inter.variable} ${manrope.variable} font-body`}>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ThemeProvider>
           {children}
           <AIChatWidget />

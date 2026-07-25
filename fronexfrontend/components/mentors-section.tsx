@@ -134,16 +134,17 @@ export default function MentorsSection() {
   };
 
   return (
-    <section id="mentores" className="py-24 md:py-32">
+    <section id="mentores" className="bg-white py-24 text-zinc-950 transition-colors duration-300 dark:bg-[#0d0d0f] dark:text-[#f5f3ee] md:py-32">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
           <div className="flag-thread" />
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">
-            Fale com um mentor especializado
+            Mentoria rápida para decisões melhores
           </h2>
-          <p className="text-base text-muted dark:text-muted-dark md:text-lg">
-            Personas de IA da Fronex, treinadas para dar conselhos práticos e
-            contextualizados à realidade angolana.
+          <p className="text-base text-zinc-600 dark:text-zinc-300 md:text-lg">
+            Quando a próxima decisão ainda está nebulosa, use um mentor
+            especializado para estruturar finanças, comunicação ou formalização
+            com contexto local.
           </p>
         </div>
 
@@ -155,13 +156,13 @@ export default function MentorsSection() {
                 onClick={() => setSelected(mentor.id)}
                 className={`flex items-start gap-4 rounded-lg border p-4 text-left transition-colors ${
                   selected === mentor.id
-                    ? "border-ink bg-ink text-canvas dark:border-ink-dark dark:bg-ink-dark dark:text-canvas-dark"
-                    : "border-border hover:border-ink/30 dark:border-border-dark dark:hover:border-ink-dark/30"
+                    ? "border-zinc-950 bg-zinc-950 text-white dark:border-white dark:bg-white dark:text-zinc-950"
+                    : "border-zinc-200 bg-white hover:border-zinc-950/30 dark:border-white/10 dark:bg-white/[0.045] dark:hover:border-white/30"
                 }`}
               >
                 <span
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
-                    selected === mentor.id ? "bg-white/15" : "bg-canvas dark:bg-canvas-dark"
+                    selected === mentor.id ? "bg-white/15 dark:bg-zinc-950/10" : "bg-[#f8f7f3] dark:bg-white/[0.06]"
                   }`}
                 >
                   {mentor.icon}
@@ -171,8 +172,8 @@ export default function MentorsSection() {
                   <p
                     className={`mt-0.5 text-xs ${
                       selected === mentor.id
-                        ? "text-canvas/70 dark:text-canvas-dark/70"
-                        : "text-muted dark:text-muted-dark"
+                        ? "text-white/70 dark:text-zinc-700"
+                        : "text-zinc-500 dark:text-zinc-400"
                     }`}
                   >
                     {mentor.role}
@@ -201,7 +202,7 @@ export default function MentorsSection() {
               </p>
             </div>
 
-            <div className="mt-6 flex min-h-0 flex-1 flex-col rounded-lg border border-border bg-surface/80 dark:border-border-dark dark:bg-surface-dark/80">
+            <div className="mt-6 flex min-h-0 flex-1 flex-col rounded-2xl border border-zinc-200 bg-white/80 dark:border-white/10 dark:bg-zinc-950/45">
               <div className="flex-1 space-y-3 overflow-y-auto p-4">
                 {messages.map((message) => (
                   <div
@@ -211,8 +212,8 @@ export default function MentorsSection() {
                     <p
                       className={`max-w-[82%] rounded-lg px-3.5 py-2.5 text-sm leading-relaxed ${
                         message.role === "user"
-                          ? "bg-ink text-canvas dark:bg-ink-dark dark:text-canvas-dark"
-                          : "bg-canvas text-ink dark:bg-canvas-dark dark:text-ink-dark"
+                          ? "bg-zinc-950 text-white dark:bg-white dark:text-zinc-950"
+                          : "bg-[#f8f7f3] text-zinc-950 dark:bg-white/[0.08] dark:text-white"
                       }`}
                     >
                       {message.content}
@@ -222,7 +223,7 @@ export default function MentorsSection() {
 
                 {loading && (
                   <div className="flex justify-start">
-                    <div className="flex items-center gap-2 rounded-lg bg-canvas px-3.5 py-2.5 text-xs text-muted dark:bg-canvas-dark dark:text-muted-dark">
+                    <div className="flex items-center gap-2 rounded-lg bg-[#f8f7f3] px-3.5 py-2.5 text-xs text-zinc-500 dark:bg-white/[0.08] dark:text-zinc-300">
                       <Loader2 size={14} className="animate-spin" />
                       A pensar
                     </div>
@@ -230,19 +231,19 @@ export default function MentorsSection() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2 border-t border-border p-3 dark:border-border-dark">
+              <div className="flex items-center gap-2 border-t border-zinc-200 p-3 dark:border-white/10">
                 <input
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={(event) => event.key === "Enter" && sendMessage()}
                   placeholder={`Pergunte ao ${activeMentor.name.toLowerCase()}...`}
-                  className="flex-1 rounded-md border border-border bg-canvas px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-ink dark:border-border-dark dark:bg-canvas-dark dark:focus:border-ink-dark"
+                  className="min-h-11 flex-1 rounded-xl border border-zinc-200 bg-[#f8f7f3] px-3.5 py-2.5 text-sm outline-none transition-colors focus:border-zinc-950 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:placeholder:text-zinc-500 dark:focus:border-white/40"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || loading}
                   aria-label="Enviar pergunta ao mentor"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-ink text-canvas transition-colors hover:bg-angola-red disabled:cursor-not-allowed disabled:opacity-40 dark:bg-ink-dark dark:text-canvas-dark"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-zinc-950 text-white transition-colors hover:bg-angola-red disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
                 >
                   {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
                 </button>

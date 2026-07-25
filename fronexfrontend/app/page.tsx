@@ -8,12 +8,12 @@ import Footer from "@/components/footer";
 
 const PortfolioSection = dynamic(() => import("@/components/portfolio-section"), {
   ssr: false,
-  loading: () => <div className="min-h-96 bg-zinc-950" />,
+  loading: () => <div className="min-h-96 bg-[#f8f7f3] dark:bg-[#080809]" />,
 });
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-50">
+    <main className="min-h-screen bg-[#f8f7f3] text-zinc-950 transition-colors duration-300 dark:bg-[#080809] dark:text-[#f5f3ee]">
       <Header />
       <Hero />
       <ServicesSection />

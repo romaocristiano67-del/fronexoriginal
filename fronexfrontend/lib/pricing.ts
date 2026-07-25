@@ -221,7 +221,7 @@ export const SERVICES: ServiceDefinition[] = [
     id: "design",
     title: "Design Gráfico",
     description: "Identidade visual, artes e materiais de marca.",
-    image: "/images/service-design.jpg",
+    image: "/portfolio/photoshop-fronex.jpg",
     basePrice: 10000,
     minPrice: 4000,
     maxPrice: 18000,

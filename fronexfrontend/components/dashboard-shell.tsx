@@ -737,7 +737,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       </h3>
                     </div>
                     <span className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-300">
-                      Mobile-first
+                      Actualizado
                     </span>
                   </div>
 

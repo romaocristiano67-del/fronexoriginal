@@ -1,22 +1,24 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Instagram, MessageCircle, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border py-14 dark:border-border-dark">
+    <footer className="border-t border-zinc-200 bg-white py-14 text-zinc-950 transition-colors duration-300 dark:border-white/10 dark:bg-[#0d0d0f] dark:text-[#f5f3ee]">
       <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
-          <div className="flex items-center gap-2.5">
-            <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-ink dark:bg-ink-dark">
-              <span className="font-display text-sm font-bold text-canvas dark:text-canvas-dark">
-                F
-              </span>
-            </span>
-            <span className="font-display text-lg font-semibold tracking-tight">
-              FRONEX
+          <div className="flex items-center">
+            <span className="relative h-11 w-36 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-white/10">
+              <Image
+                src="/images/logo-fronex-wordmark.jpg"
+                alt="Fronex"
+                fill
+                sizes="144px"
+                className="object-cover"
+              />
             </span>
           </div>
-          <p className="mt-4 text-sm text-muted dark:text-muted-dark">
+          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-300">
             Tecnologia e serviços digitais feitos em Angola, para negócios que
             querem crescer com qualidade internacional.
           </p>
@@ -25,7 +27,7 @@ export default function Footer() {
 
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted dark:text-muted-dark">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
               Navegação
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-sm">
@@ -37,7 +39,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted dark:text-muted-dark">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
               Conta
             </p>
             <ul className="mt-3 flex flex-col gap-2 text-sm">
@@ -47,7 +49,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-muted dark:text-muted-dark">
+            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
               Contacto
             </p>
             <ul className="mt-3 flex flex-col gap-3 text-sm">
@@ -85,9 +87,9 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="container-fronex mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted dark:border-border-dark dark:text-muted-dark md:flex-row md:justify-between">
+      <div className="container-fronex mt-12 flex flex-col gap-2 border-t border-zinc-200 pt-6 text-xs text-zinc-500 dark:border-white/10 dark:text-zinc-400 md:flex-row md:justify-between">
         <p>© {new Date().getFullYear()} Fronex. Todos os direitos reservados.</p>
-        <p>Feito com 🖤❤️💛 em Angola.</p>
+        <p>Design, tecnologia e produto digital em Angola.</p>
       </div>
     </footer>
   );

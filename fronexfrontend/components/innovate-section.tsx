@@ -73,16 +73,17 @@ export default function InnovateSection() {
   };
 
   return (
-    <section id="inovar" className="py-24 md:py-32">
+    <section id="inovar" className="bg-[#f8f7f3] py-24 text-zinc-950 transition-colors duration-300 dark:bg-[#080809] dark:text-[#f5f3ee] md:py-32">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
           <div className="flag-thread" />
           <h2 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">
-            Simulador de Ideias
+            Criar e Inovar
           </h2>
-          <p className="text-base text-muted dark:text-muted-dark md:text-lg">
-            Descreva o que quer criar e receba um plano de ação com os
-            serviços da Fronex que podem tornar a ideia realidade.
+          <p className="text-base text-zinc-600 dark:text-zinc-300 md:text-lg">
+            Escreva a ideia como ela está na sua cabeça. A Fronex organiza os
+            próximos passos, liga cada etapa ao serviço certo e ajuda a sair da
+            intenção para a execução.
           </p>
         </div>
 
@@ -94,19 +95,19 @@ export default function InnovateSection() {
               onChange={(e) => setIdea(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSimulate()}
               placeholder="Ex: Quero abrir uma loja de roupa online em Luanda"
-              className="flex-1 rounded-2xl border border-border bg-canvas px-4 py-3.5 text-sm outline-none transition-colors focus:border-ink dark:border-border-dark dark:bg-canvas-dark dark:focus:border-ink-dark"
+              className="min-h-12 flex-1 rounded-2xl border border-zinc-200 bg-white px-4 py-3.5 text-sm outline-none transition-colors focus:border-zinc-950 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:placeholder:text-zinc-500 dark:focus:border-white/40"
             />
             <button
               onClick={handleSimulate}
               disabled={loading || !idea.trim()}
-              className="flex items-center justify-center gap-2 rounded-2xl bg-ink px-6 py-3.5 text-sm font-medium text-canvas transition-transform hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-40 dark:bg-ink-dark dark:text-canvas-dark"
+              className="flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-zinc-950 px-6 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.02] hover:bg-angola-red disabled:cursor-not-allowed disabled:opacity-40 dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
             >
               {loading ? (
                 <Loader2 size={16} className="animate-spin" />
               ) : (
                 <Sparkles size={16} />
               )}
-              Gerar Plano
+              Organizar plano
             </button>
           </div>
 
@@ -118,8 +119,8 @@ export default function InnovateSection() {
                 exit={{ opacity: 0, height: 0 }}
                 className="mt-8 overflow-hidden"
               >
-                <p className="mb-4 text-xs uppercase tracking-wide text-muted dark:text-muted-dark">
-                  Plano de ação sugerido
+                <p className="mb-4 text-xs uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
+                  Próximos passos
                 </p>
                 <div className="flex flex-col gap-4">
                   {plan.map((step, i) => (
@@ -128,14 +129,14 @@ export default function InnovateSection() {
                       initial={{ opacity: 0, x: -12 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.08 }}
-                      className="flex gap-4 rounded-2xl border border-border p-4 dark:border-border-dark"
+                      className="flex gap-4 rounded-2xl border border-zinc-200 bg-white/70 p-4 dark:border-white/10 dark:bg-white/[0.045]"
                     >
-                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-canvas text-xs font-semibold dark:bg-canvas-dark">
+                      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-zinc-950 text-xs font-semibold text-white dark:bg-white dark:text-zinc-950">
                         {i + 1}
                       </span>
                       <div>
                         <p className="text-sm font-semibold">{step.title}</p>
-                        <p className="mt-1 text-sm text-muted dark:text-muted-dark">
+                        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-300">
                           {step.description}
                         </p>
                         {step.relatedServiceIds.length > 0 && (
@@ -147,7 +148,7 @@ export default function InnovateSection() {
                                 <a
                                   key={id}
                                   href="#servicos"
-                                  className="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-xs font-medium hover:border-ink dark:border-border-dark dark:hover:border-ink-dark"
+                                  className="flex items-center gap-1 rounded-full border border-zinc-200 px-3 py-1.5 text-xs font-medium hover:border-zinc-950 dark:border-white/10 dark:hover:border-white/40"
                                 >
                                   {service.title}
                                   <ArrowRight size={11} />

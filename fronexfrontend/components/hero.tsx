@@ -1,99 +1,70 @@
 "use client";
 
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { ArrowDown, ArrowRight, CheckCircle2, Sparkles, Zap } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
+import { ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
 
 const reveal = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   show: { opacity: 1, y: 0 },
 };
 
-const revealTransition = {
-  duration: 0.62,
+const transition = {
+  duration: 0.64,
   ease: [0.22, 1, 0.36, 1],
 };
 
-const proofPoints = [
-  "Leitura clara em ecrãs pequenos",
-  "Ações visíveis sem esforço",
-  "Fluxo vertical desenhado para toque",
-];
-
-const storySteps = [
-  {
-    kicker: "01",
-    title: "Primeiro impacto sem ruído.",
-    copy: "A mensagem entra rápido, com contraste alto, hierarquia forte e espaço suficiente para a página respirar no telemóvel.",
-  },
-  {
-    kicker: "02",
-    title: "Cada toque tem resposta.",
-    copy: "Os botões reagem no instante certo com escala, brilho e movimento curto, mantendo a experiência fluida mesmo em dispositivos modestos.",
-  },
-  {
-    kicker: "03",
-    title: "Scroll que conduz a decisão.",
-    copy: "A narrativa aparece em sequência enquanto o visitante avança com o dedo, sem excesso visual e sem distrações no caminho.",
-  },
-];
-
 export default function Hero() {
-  const shouldReduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll();
-  const gridY = useTransform(scrollYProgress, [0, 0.45], shouldReduceMotion ? [0, 0] : [0, 90]);
-  const lineScale = useTransform(scrollYProgress, [0, 0.42], [0.08, 1]);
-
   return (
-    <section className="relative isolate overflow-hidden bg-zinc-950 pt-20 text-zinc-50 md:pt-24">
-      <motion.div
+    <section className="relative isolate overflow-hidden bg-[#f8f7f3] pt-20 text-zinc-950 transition-colors duration-300 dark:bg-[#080809] dark:text-[#f5f3ee] md:pt-24">
+      <div
         aria-hidden
-        style={{ y: gridY }}
-        className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:34px_34px] opacity-50"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_20%_12%,rgba(206,17,38,0.10),transparent_28%),radial-gradient(circle_at_82%_18%,rgba(247,209,22,0.14),transparent_30%)] dark:bg-[radial-gradient(circle_at_20%_12%,rgba(206,17,38,0.20),transparent_26%),radial-gradient(circle_at_82%_18%,rgba(247,209,22,0.12),transparent_28%)]"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(9,9,11,0)_0%,#09090b_74%),linear-gradient(135deg,rgba(206,17,38,0.18)_0%,transparent_34%,rgba(247,209,22,0.08)_100%)]"
+        className="absolute inset-x-0 bottom-0 -z-10 h-1/2 bg-gradient-to-b from-transparent to-white dark:to-[#080809]"
       />
 
-      <div className="container-fronex relative z-10">
-        <div className="flex min-h-[calc(100svh-5rem)] flex-col justify-center py-10 md:min-h-[calc(100vh-6rem)] md:py-16">
-          <motion.div
+      <div className="container-fronex grid min-h-[calc(100svh-5rem)] items-center gap-10 py-10 lg:grid-cols-[0.92fr_1.08fr] lg:py-16">
+        <div className="flex flex-col items-start">
+          <motion.p
             variants={reveal}
             initial="hidden"
             animate="show"
-            transition={revealTransition}
-            className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-zinc-200 backdrop-blur-xl"
+            transition={transition}
+            className="mb-5 inline-flex rounded-full border border-zinc-200 bg-white/85 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-600 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06] dark:text-zinc-300"
           >
-            <Sparkles size={13} className="text-angola-gold" />
-            Mobile-first, dark-first, pronto para vender
-          </motion.div>
+            Estúdio digital independente
+          </motion.p>
 
           <motion.h1
             variants={reveal}
             initial="hidden"
             animate="show"
-            transition={{ ...revealTransition, delay: 0.08 }}
-            className="max-w-5xl font-display text-[3.25rem] font-semibold leading-[0.94] text-white sm:text-6xl md:text-7xl lg:text-8xl"
+            transition={{ ...transition, delay: 0.08 }}
+            className="max-w-4xl font-display text-[3.15rem] font-semibold leading-[0.94] text-zinc-950 dark:text-[#f5f3ee] sm:text-6xl md:text-7xl"
           >
-            Experiências digitais que cabem na mão e parecem maiores que a marca.
+            Marcas digitais com presença, ritmo e confiança.
           </motion.h1>
 
           <motion.p
             variants={reveal}
             initial="hidden"
             animate="show"
-            transition={{ ...revealTransition, delay: 0.16 }}
-            className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl md:leading-9"
+            transition={{ ...transition, delay: 0.16 }}
+            className="mt-6 max-w-2xl text-lg leading-8 text-zinc-600 dark:text-zinc-300 md:text-xl md:leading-9"
           >
-            Websites, apps e sistemas com UI/UX limpo, rápido e pensado primeiro
-            para quem navega no smartphone.
+            A Fronex desenha sites, apps, sistemas e identidades visuais com
+            acabamento premium, clareza comercial e atenção ao detalhe em cada
+            ecrã.
           </motion.p>
 
           <motion.div
             variants={reveal}
             initial="hidden"
             animate="show"
-            transition={{ ...revealTransition, delay: 0.24 }}
+            transition={{ ...transition, delay: 0.24 }}
             className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
           >
             <motion.a
@@ -101,9 +72,9 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 520, damping: 34 }}
-              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-md bg-white px-5 text-base font-semibold text-zinc-950 shadow-[0_18px_60px_-24px_rgba(255,255,255,0.9)] outline-none transition-[filter,box-shadow] duration-200 hover:brightness-110 active:brightness-95"
+              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-md bg-zinc-950 px-5 text-base font-semibold text-white shadow-[0_18px_60px_-30px_rgba(0,0,0,0.45)] transition-colors hover:bg-angola-red dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
             >
-              Ver portfólio
+              Ver projectos
               <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
             </motion.a>
             <motion.a
@@ -111,7 +82,7 @@ export default function Hero() {
               whileTap={{ scale: 0.97 }}
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 520, damping: 34 }}
-              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-md border border-white/15 bg-white/[0.06] px-5 text-base font-semibold text-white backdrop-blur-xl transition-[background-color,border-color,filter] duration-200 hover:border-white/30 hover:bg-white/[0.1] active:brightness-125"
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-md border border-zinc-200 bg-white/85 px-5 text-base font-semibold text-zinc-950 shadow-sm backdrop-blur-xl transition-colors hover:border-zinc-300 hover:bg-white dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/[0.1]"
             >
               Explorar serviços
             </motion.a>
@@ -121,63 +92,46 @@ export default function Hero() {
             variants={reveal}
             initial="hidden"
             animate="show"
-            transition={{ ...revealTransition, delay: 0.32 }}
-            className="mt-10 grid gap-3 text-sm text-zinc-300 sm:max-w-2xl sm:grid-cols-3"
+            transition={{ ...transition, delay: 0.32 }}
+            className="mt-8 flex flex-wrap gap-3 text-sm text-zinc-600 dark:text-zinc-300"
           >
-            {proofPoints.map((item) => (
-              <div key={item} className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.045] px-3 py-3">
-                <CheckCircle2 size={16} className="shrink-0 text-angola-gold" />
-                <span>{item}</span>
-              </div>
+            {["Feito em Angola", "Processo acompanhado", "Contacto directo"].map((item) => (
+              <span key={item} className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-white/80 px-3 py-2 shadow-sm backdrop-blur-xl dark:border-white/10 dark:bg-white/[0.06]">
+                <CheckCircle2 size={15} className="text-angola-red" />
+                {item}
+              </span>
             ))}
           </motion.div>
-
-          <motion.a
-            href="#mobile-story"
-            variants={reveal}
-            initial="hidden"
-            animate="show"
-            transition={{ ...revealTransition, delay: 0.42 }}
-            whileTap={{ scale: 0.94 }}
-            className="mt-12 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-white transition-colors duration-200 hover:bg-white/10"
-            aria-label="Continuar"
-          >
-            <ArrowDown size={18} />
-          </motion.a>
         </div>
 
-        <div id="mobile-story" className="relative pb-20 pt-6 md:pb-28">
-          <motion.div
-            aria-hidden
-            style={{ scaleY: lineScale, transformOrigin: "top" }}
-            className="absolute left-4 top-8 hidden h-[calc(100%-7rem)] w-px bg-gradient-to-b from-angola-gold via-white/20 to-transparent sm:block"
-          />
-
-          <div className="grid gap-5 md:gap-6">
-            {storySteps.map((step, index) => (
-              <motion.article
-                key={step.kicker}
-                variants={reveal}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true, amount: 0.38 }}
-                transition={{ ...revealTransition, delay: index * 0.07 }}
-                className="relative rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:ml-12 sm:p-6 md:max-w-3xl"
-              >
-                <div className="mb-5 flex items-center justify-between gap-4">
-                  <span className="text-xs font-bold tracking-[0.24em] text-angola-gold">{step.kicker}</span>
-                  <Zap size={16} className="text-zinc-500" />
-                </div>
-                <h2 className="max-w-2xl text-2xl font-semibold leading-tight text-white md:text-4xl">
-                  {step.title}
-                </h2>
-                <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-300 md:text-lg md:leading-8">
-                  {step.copy}
-                </p>
-              </motion.article>
-            ))}
+        <motion.div
+          variants={reveal}
+          initial="hidden"
+          animate="show"
+          transition={{ ...transition, delay: 0.18 }}
+          className="relative"
+        >
+          <div className="relative mx-auto aspect-[0.82/1] w-full max-w-[24rem] overflow-hidden rounded-[1.75rem] border border-zinc-200 bg-white shadow-[0_40px_120px_-65px_rgba(0,0,0,0.55)] dark:border-white/10 dark:bg-white/[0.05] dark:shadow-[0_50px_140px_-70px_rgba(0,0,0,0.95)] sm:aspect-[1.05/1] sm:max-w-xl">
+            <Image
+              src="/portfolio/websites-fronex.jpg"
+              alt="Projecto de website criado pela Fronex"
+              fill
+              priority
+              sizes="(min-width: 1024px) 520px, 90vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/65 via-transparent to-transparent" />
+            <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/30 bg-white/92 p-4 text-zinc-950 shadow-2xl backdrop-blur-xl dark:border-white/10 dark:bg-zinc-950/82 dark:text-white sm:inset-x-6 sm:bottom-6 sm:p-5">
+              <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.16em] text-angola-red">
+                <Sparkles size={14} />
+                Trabalho Fronex
+              </div>
+              <p className="mt-2 text-lg font-semibold leading-snug sm:text-2xl">
+                Interfaces com intenção clara: apresentar, vender e acompanhar.
+              </p>
+            </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

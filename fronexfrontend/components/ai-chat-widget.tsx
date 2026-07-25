@@ -18,7 +18,7 @@ const INITIAL_MESSAGE: ChatMessage = {
   id: "welcome",
   role: "assistant",
   content:
-    "Olá! Sou o Assistente Fronex.\n\n::badge[Online]\n\nPosso ajudar com orçamento, serviços, site, app, sistemas ou IA. Diga-me o que quer criar e eu organizo o próximo passo.",
+    "Olá, bem-vindo à Fronex.\n\n::badge[Online]\n\nConte-me o que pretende criar: site, app, sistema, design, conteúdo ou automação. Eu organizo o pedido e indico o próximo passo.",
 };
 
 export default function AIChatWidget() {
@@ -180,8 +180,8 @@ export default function AIChatWidget() {
         transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 16 }}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
-        aria-label="Abrir Fronex AI Assistant"
-        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-white/10 bg-zinc-950/90 text-white shadow-[0_22px_70px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl dark:bg-zinc-950/90"
+        aria-label="Abrir atendimento Fronex"
+        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200 bg-zinc-950/92 text-white shadow-[0_22px_70px_-30px_rgba(0,0,0,0.75)] backdrop-blur-xl dark:border-white/10 dark:bg-white dark:text-zinc-950"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -216,10 +216,10 @@ export default function AIChatWidget() {
                   <Sparkles size={16} />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold">Fronex AI Assistant</p>
+                  <p className="text-sm font-semibold">Atendimento Fronex</p>
                   <p className="mt-0.5 flex items-center gap-1 text-[11px] text-zinc-400">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-                    Resposta rica em Markdown
+                    Online agora
                   </p>
                 </div>
               </div>
@@ -307,8 +307,7 @@ export default function AIChatWidget() {
               </div>
 
               <p className="mt-2 text-[11px] leading-5 text-zinc-500">
-                A IA responde com Markdown rico, tabelas com scroll horizontal e
-                badges de estado quando faz sentido.
+                Respostas orientadas para orçamento, serviços e próximos passos.
               </p>
             </div>
           </motion.div>
