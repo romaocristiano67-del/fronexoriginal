@@ -6,14 +6,14 @@ import { SERVICES, formatKz } from "@/lib/pricing";
 
 export default function PricingSection() {
   return (
-    <section id="precos" className="py-24 md:py-32">
+    <section id="precos" className="bg-canvas py-24 text-white md:py-32">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
-          <div className="flag-thread" />
-          <h2 className="font-display text-3xl font-semibold tracking-tight md:text-5xl">
+          <p className="section-label">Preços</p>
+          <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-5xl">
             Preços transparentes, sem surpresas
           </h2>
-          <p className="text-base text-muted dark:text-muted-dark md:text-lg">
+          <p className="text-base text-ink-muted md:text-lg">
             Cada faixa de preço reflete a complexidade do que escolher no
             questionário. O valor final nunca ultrapassa o teto indicado.
           </p>
@@ -29,36 +29,38 @@ export default function PricingSection() {
               transition={{ duration: 0.45, delay: i * 0.05 }}
               className="card-fronex flex flex-col p-6"
             >
-              <p className="font-display text-base font-semibold">
+              <p className="font-display text-base font-bold text-white">
                 {service.title}
               </p>
-              <p className="mt-4 font-display text-3xl font-semibold">
+              <p className="mt-4 font-display text-3xl font-bold text-accent">
                 {formatKz(service.basePrice)}
               </p>
-              <p className="text-xs text-muted dark:text-muted-dark">
+              <p className="text-xs text-muted">
                 preço médio
               </p>
 
-              <div className="my-5 h-px w-full bg-border dark:bg-border-dark" />
+              <div className="my-5 h-px w-full bg-white/[0.06]" />
 
-              <ul className="flex flex-1 flex-col gap-2.5 text-sm">
+              <ul className="flex flex-1 flex-col gap-2.5 text-sm text-ink-muted">
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-angola-red" />
-                  Piso a partir de {formatKz(service.minPrice)}
+                  <Check size={14} className="text-accent" />
+                  Piso a partir de{" "}
+                  <span className="font-bold text-accent">{formatKz(service.minPrice)}</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-angola-red" />
-                  Teto máximo de {formatKz(service.maxPrice)}
+                  <Check size={14} className="text-accent" />
+                  Teto máximo de{" "}
+                  <span className="font-bold text-accent">{formatKz(service.maxPrice)}</span>
                 </li>
                 <li className="flex items-center gap-2">
-                  <Check size={14} className="text-angola-red" />
+                  <Check size={14} className="text-accent" />
                   Orçamento calculado no questionário
                 </li>
               </ul>
 
               <a
                 href="#servicos"
-                className="mt-6 flex items-center justify-center rounded-full border border-border py-2.5 text-sm font-medium transition-colors hover:border-ink dark:border-border-dark dark:hover:border-ink-dark"
+                className="btn-secondary mt-6 justify-center"
               >
                 Simular orçamento
               </a>

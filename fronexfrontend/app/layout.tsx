@@ -40,12 +40,12 @@ export default function RootLayout({
     (() => {
       try {
         const stored = localStorage.getItem("fronex-theme");
-        const theme = stored === "dark" ? "dark" : "light";
+        const theme = stored === "light" ? "light" : "dark";
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.style.colorScheme = theme;
       } catch {
-        document.documentElement.classList.remove("dark");
-        document.documentElement.style.colorScheme = "light";
+        document.documentElement.classList.add("dark");
+        document.documentElement.style.colorScheme = "dark";
       }
     })();
   `;

@@ -132,49 +132,49 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
-          className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-border bg-surface shadow-soft-lg dark:border-border-dark dark:bg-surface-dark md:rounded-2xl"
+          className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-white/[0.08] bg-surface text-white shadow-soft-lg md:rounded-2xl"
         >
           {/* Cabeçalho */}
-          <div className="flex items-center justify-between border-b border-border px-6 py-5 dark:border-border-dark">
+          <div className="flex items-center justify-between border-b border-white/[0.06] px-6 py-5">
             <div>
-              <p className="text-xs text-muted dark:text-muted-dark">
+              <p className="text-xs text-muted">
                 Orçamento — {service.title}
               </p>
-              <p className="mt-0.5 font-display text-sm font-semibold">
+              <p className="mt-0.5 font-display text-sm font-semibold text-white">
                 Passo {step + 1} de {totalSteps}
               </p>
             </div>
             <button
               onClick={onClose}
               aria-label="Fechar questionário"
-              className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10"
+              className="flex h-8 w-8 items-center justify-center rounded-full text-ink-muted hover:bg-white/10 hover:text-accent"
             >
               <X size={16} />
             </button>
           </div>
 
           {/* Barra de progresso */}
-          <div className="h-1 w-full bg-border dark:bg-border-dark">
+          <div className="h-1 w-full bg-white/10">
             <motion.div
-              className="h-full bg-flag-thread"
+              className="h-full bg-accent"
               animate={{ width: `${progressPercent}%` }}
               transition={{ duration: 0.4 }}
             />
           </div>
 
           {/* Preço em tempo real */}
-          <div className="flex items-center justify-between border-b border-border bg-canvas px-6 py-4 dark:border-border-dark dark:bg-canvas-dark">
-            <span className="text-xs uppercase tracking-wide text-muted dark:text-muted-dark">
+          <div className="flex items-center justify-between border-b border-white/[0.06] bg-canvas px-6 py-4">
+            <span className="text-xs uppercase tracking-wide text-muted">
               Orçamento estimado
             </span>
             <motion.span
               key={finalPrice}
               initial={{ opacity: 0, y: -6 }}
               animate={{ opacity: 1, y: 0 }}
-              className="font-display text-xl font-semibold text-angola-red"
+              className="font-display text-xl font-bold text-accent"
             >
               {isCalculating ? (
-                <span className="flex items-center gap-2 text-sm text-muted dark:text-muted-dark">
+                <span className="flex items-center gap-2 text-sm text-muted">
                   <Loader2 size={15} className="animate-spin" />
                   A calcular
                 </span>
@@ -195,7 +195,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                   exit={{ opacity: 0, x: -16 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h3 className="font-display text-lg font-semibold">
+                  <h3 className="font-display text-lg font-semibold text-white">
                     {currentQuestion.question}
                   </h3>
                   <div className="mt-5 flex flex-col gap-3">
@@ -210,8 +210,8 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                           }
                           className={`flex items-center justify-between rounded-lg border px-4 py-3.5 text-left text-sm transition-colors ${
                             selected
-                              ? "border-ink bg-ink text-canvas dark:border-ink-dark dark:bg-ink-dark dark:text-canvas-dark"
-                              : "border-border hover:border-ink/40 dark:border-border-dark dark:hover:border-ink-dark/40"
+                              ? "border-accent bg-accent text-canvas"
+                              : "border-white/10 text-ink-muted hover:border-accent/40 hover:text-white"
                           }`}
                         >
                           <span>{option.label}</span>
@@ -231,10 +231,10 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                   exit={{ opacity: 0, x: -16 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h3 className="font-display text-lg font-semibold">
+                  <h3 className="font-display text-lg font-semibold text-white">
                     Como podemos chamá-lo(a)?
                   </h3>
-                  <p className="mt-1 text-sm text-muted dark:text-muted-dark">
+                  <p className="mt-1 text-sm text-ink-muted">
                     Opcional — ajuda-nos a personalizar o atendimento no
                     WhatsApp.
                   </p>
@@ -243,7 +243,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                     value={clientName}
                     onChange={(e) => setClientName(e.target.value)}
                     placeholder="O seu nome"
-                    className="mt-5 w-full rounded-lg border border-border bg-canvas px-4 py-3.5 text-sm outline-none transition-colors focus:border-ink dark:border-border-dark dark:bg-canvas-dark dark:focus:border-ink-dark"
+                    className="mt-5 w-full rounded-lg border border-white/10 bg-canvas px-4 py-3.5 text-sm text-white outline-none transition-colors placeholder:text-muted focus:border-accent/50"
                   />
                 </motion.div>
               )}
@@ -256,29 +256,29 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
                   exit={{ opacity: 0, x: -16 }}
                   transition={{ duration: 0.25 }}
                 >
-                  <h3 className="font-display text-lg font-semibold">
+                  <h3 className="font-display text-lg font-semibold text-white">
                     Resumo do pedido
                   </h3>
-                  <div className="mt-4 flex flex-col divide-y divide-border rounded-lg border border-border dark:divide-border-dark dark:border-border-dark">
+                  <div className="mt-4 flex flex-col divide-y divide-white/[0.06] rounded-lg border border-white/[0.06]">
                     {summaryItems.map((item) => (
                       <div
                         key={item.question}
                         className="flex items-center justify-between px-4 py-3 text-sm"
                       >
-                        <span className="text-muted dark:text-muted-dark">
+                        <span className="text-muted">
                           {item.question}
                         </span>
-                        <span className="text-right font-medium">
+                        <span className="text-right font-medium text-white">
                           {item.answer}
                         </span>
                       </div>
                     ))}
                   </div>
-                  <div className="mt-4 flex items-center justify-between rounded-lg bg-canvas px-4 py-4 dark:bg-canvas-dark">
-                    <span className="text-sm font-medium">
+                  <div className="mt-4 flex items-center justify-between rounded-lg bg-canvas px-4 py-4">
+                    <span className="text-sm font-medium text-white">
                       Orçamento final
                     </span>
-                    <span className="font-display text-xl font-semibold text-angola-red">
+                    <span className="font-display text-xl font-bold text-accent">
                       {isCalculating ? "A calcular..." : formatKz(finalPrice)}
                     </span>
                   </div>
@@ -288,10 +288,10 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           </div>
 
           {/* Rodapé com navegação */}
-          <div className="flex items-center justify-between gap-3 border-t border-border px-6 py-5 dark:border-border-dark">
+          <div className="flex items-center justify-between gap-3 border-t border-white/[0.06] px-6 py-5">
             <button
               onClick={step === 0 ? onClose : goBack}
-              className="flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium text-muted hover:bg-black/5 dark:text-muted-dark dark:hover:bg-white/10"
+              className="flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium text-muted hover:bg-white/5 hover:text-white"
             >
               <ArrowLeft size={15} />
               {step === 0 ? "Cancelar" : "Voltar"}
@@ -312,7 +312,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
               <button
                 onClick={goNext}
                 disabled={!canAdvance || isCalculating}
-                className="flex items-center gap-1.5 rounded-md bg-ink px-5 py-2.5 text-sm font-medium text-canvas transition-transform hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-40 dark:bg-ink-dark dark:text-canvas-dark"
+                className="btn-primary disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Continuar
                 <ArrowRight size={15} />

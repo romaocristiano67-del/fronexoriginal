@@ -92,16 +92,16 @@ export default function PortfolioSection() {
   };
 
   return (
-    <section id="portfolio" className="bg-[#f8f7f3] py-24 text-zinc-950 transition-colors duration-300 dark:bg-[#080809] dark:text-[#f5f3ee] md:py-32">
+    <section id="portfolio" className="bg-canvas py-24 text-white md:py-32">
       <div className="container-fronex">
         <div className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[0.9fr_1.1fr] md:items-end">
           <div className="flex flex-col gap-4">
-            <div className="flag-thread" />
-            <h2 className="font-display text-4xl font-semibold leading-tight md:text-5xl">
+            <p className="section-label">Portfólio</p>
+            <h2 className="font-display text-4xl font-extrabold leading-tight md:text-5xl">
               Portfólio com matéria real
             </h2>
           </div>
-          <p className="text-lg leading-8 text-zinc-600 dark:text-zinc-300">
+          <p className="text-lg leading-8 text-ink-muted">
             Em vez de mockups genéricos, a secção mostra peças visuais criadas
             para comunicar entrega, contexto e nível de acabamento.
           </p>
@@ -115,11 +115,11 @@ export default function PortfolioSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.5, delay: index * 0.05 }}
-              className={`group overflow-hidden rounded-2xl border border-zinc-200 bg-white shadow-[0_26px_90px_-58px_rgba(0,0,0,0.5)] transition-colors dark:border-white/10 dark:bg-white/[0.055] dark:shadow-[0_34px_110px_-65px_rgba(0,0,0,0.95)] ${
+              className={`group overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition-colors hover:border-accent/25 ${
                 item.featured ? "lg:col-span-7" : "lg:col-span-5"
               }`}
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-zinc-100">
+              <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
                 <Image
                   src={item.image}
                   alt={item.title}
@@ -127,30 +127,31 @@ export default function PortfolioSection() {
                   sizes={item.featured ? "(min-width: 1024px) 58vw, 100vw" : "(min-width: 1024px) 42vw, 100vw"}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent" />
               </div>
 
               <div className="p-5 sm:p-6">
                 <div className="mb-4 flex items-center justify-between gap-3">
-                  <span className="inline-flex items-center gap-2 rounded-full border border-zinc-200 bg-[#f8f7f3] px-3 py-1.5 text-xs font-semibold text-zinc-600 dark:border-white/10 dark:bg-white/[0.06] dark:text-zinc-300">
+                  <span className="inline-flex items-center gap-2 rounded-full border border-accent/25 bg-accent/10 px-3 py-1.5 text-xs font-semibold text-accent">
                     <BriefcaseBusiness size={13} />
                     {item.service}
                   </span>
-                  <span className="flex h-10 w-10 items-center justify-center rounded-full bg-zinc-950 text-white dark:bg-white dark:text-zinc-950">
-                    <MonitorSmartphone size={17} />
+                  <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/25 bg-accent/10 text-accent">
+                    <MonitorSmartphone size={17} strokeWidth={1.5} />
                   </span>
                 </div>
 
-                <h3 className="font-display text-2xl font-semibold leading-tight text-zinc-950 dark:text-white">
+                <h3 className="font-display text-2xl font-bold leading-tight text-white">
                   {item.title}
                 </h3>
-                <p className="mt-3 text-sm leading-7 text-zinc-600 dark:text-zinc-300">
+                <p className="mt-3 text-sm leading-7 text-ink-muted">
                   {item.description}
                 </p>
 
                 <button
                   type="button"
                   onClick={() => handleServiceRequest(item.service)}
-                  className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-md bg-zinc-950 px-4 text-sm font-semibold text-white transition-colors hover:bg-angola-red active:scale-[0.98] dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
+                  className="btn-primary mt-5 min-h-11 px-4 text-sm"
                 >
                   Solicitar orçamento
                   <ArrowUpRight size={15} />

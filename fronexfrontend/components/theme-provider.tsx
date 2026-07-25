@@ -12,12 +12,12 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  const [theme, setTheme] = useState<Theme>("dark");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     const stored = window.localStorage.getItem("fronex-theme");
-    const initial: Theme = stored === "dark" ? "dark" : "light";
+    const initial: Theme = stored === "light" ? "light" : "dark";
     window.localStorage.setItem("fronex-theme", initial);
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");
@@ -39,7 +39,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   // Só evita mismatch de tema até montar no cliente.
   if (!mounted) {
     return (
-      <ThemeContext.Provider value={{ theme: "light", toggleTheme: () => undefined }}>
+      <ThemeContext.Provider value={{ theme: "dark", toggleTheme: () => undefined }}>
         {children}
       </ThemeContext.Provider>
     );

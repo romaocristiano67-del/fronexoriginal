@@ -181,7 +181,7 @@ export default function AIChatWidget() {
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir atendimento Fronex"
-        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-zinc-200 bg-zinc-950/92 text-white shadow-[0_22px_70px_-30px_rgba(0,0,0,0.75)] backdrop-blur-xl dark:border-white/10 dark:bg-white dark:text-zinc-950"
+        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-canvas shadow-neon backdrop-blur-xl"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -204,28 +204,28 @@ export default function AIChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
             style={panelStyle}
-            className={`fixed z-[90] flex flex-col overflow-hidden border border-white/10 bg-zinc-950/96 text-white shadow-[0_42px_120px_-42px_rgba(0,0,0,0.98)] backdrop-blur-2xl ${
+            className={`fixed z-[90] flex flex-col overflow-hidden border border-white/[0.08] bg-surface text-white shadow-soft-dark backdrop-blur-2xl ${
               isMobile
                 ? "left-3 right-3 rounded-[1.75rem]"
                 : "bottom-24 right-6 h-[620px] w-[min(92vw,26rem)] rounded-[1.75rem]"
             }`}
           >
-            <div className="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-4 py-4">
+            <div className="flex items-center justify-between border-b border-white/[0.06] bg-canvas/40 px-4 py-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/10 text-white">
+                <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-accent">
                   <Sparkles size={16} />
                 </span>
                 <div>
                   <p className="text-sm font-semibold">Atendimento Fronex</p>
-                  <p className="mt-0.5 flex items-center gap-1 text-[11px] text-zinc-400">
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                  <p className="mt-0.5 flex items-center gap-1 text-[11px] text-ink-muted">
+                    <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     Online agora
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.05] px-2.5 py-1 text-[11px] font-medium text-zinc-300">
-                <Cpu size={12} />
+              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-canvas/50 px-2.5 py-1 text-[11px] font-medium text-ink-muted">
+                <Cpu size={12} className="text-accent" />
                 {tokensRemaining ?? VISITOR_TOKEN_LIMIT} tokens
               </div>
             </div>
@@ -241,16 +241,16 @@ export default function AIChatWidget() {
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
                   <div
-                    className={`max-w-[88%] rounded-3xl px-4 py-3 shadow-[0_10px_30px_-18px_rgba(0,0,0,0.7)] ${
+                    className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-soft ${
                       msg.role === "user"
-                        ? "bg-white text-zinc-950"
-                        : "border border-white/10 bg-white/[0.045] text-zinc-50"
+                        ? "bg-accent text-canvas"
+                        : "border border-white/[0.06] bg-canvas/60 text-ink-muted"
                     }`}
                   >
                     {msg.role === "assistant" ? (
                       <RichMessage content={msg.content} />
                     ) : (
-                      <p className="whitespace-pre-wrap text-sm leading-6 text-zinc-950">
+                      <p className="whitespace-pre-wrap text-sm leading-6 text-canvas">
                         {msg.content}
                       </p>
                     )}
@@ -300,7 +300,7 @@ export default function AIChatWidget() {
                   whileTap={{ scale: 0.96 }}
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 520, damping: 34 }}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-white text-zinc-950 shadow-[0_14px_40px_-20px_rgba(255,255,255,0.9)] transition-[filter,opacity] duration-200 hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-canvas shadow-neon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {isTyping ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </motion.button>

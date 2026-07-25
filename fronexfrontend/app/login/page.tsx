@@ -3,19 +3,36 @@
 import { Suspense, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Newsreader } from "next/font/google";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 
-const loginSerif = Newsreader({
-  subsets: ["latin"],
-  display: "swap",
-});
-
 type Mode = "login" | "signup";
 type Step = "email" | "credentials";
+
+const inputClassName =
+  "w-full rounded-lg border border-white/10 bg-canvas-light px-3.5 py-[0.85rem] text-[0.925rem] text-white outline-none placeholder:text-muted transition-colors focus:border-accent focus:ring-1 focus:ring-accent";
+
+function FronexMark() {
+  return (
+    <span className="relative flex h-8 w-8 items-center justify-center">
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
+        style={{ clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-accent"
+        style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)" }}
+      />
+      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
+        F
+      </span>
+    </span>
+  );
+}
 
 function GoogleIcon() {
   return (
@@ -78,18 +95,26 @@ function LoginContent() {
 
       if (result.error) throw result.error;
 
-      toast.success(mode === "login" ? "Login efetuado com sucesso" : "Conta criada com sucesso", {
-        description:
-          mode === "login"
-            ? "A sua sessão Fronex está ativa."
-            : "Se a confirmação por email estiver ativa, verifique a sua caixa de entrada.",
-      });
+      toast.success(
+        mode === "login"
+          ? "Login efetuado com sucesso"
+          : "Conta criada com sucesso",
+        {
+          description:
+            mode === "login"
+              ? "A sua sessão Fronex está activa."
+              : "Se a confirmação por email estiver activa, verifique a sua caixa de entrada.",
+        },
+      );
 
       router.replace(nextPath);
       router.refresh();
     } catch (error) {
       toast.error("Não foi possível autenticar", {
-        description: error instanceof Error ? error.message : "Confirme os dados e tente novamente.",
+        description:
+          error instanceof Error
+            ? error.message
+            : "Confirme os dados e tente novamente.",
       });
     } finally {
       setLoading(false);
@@ -113,43 +138,53 @@ function LoginContent() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F9F8F6] text-[#191919]">
-      <div className="mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
-        {/* Esquerda — marca + cartão */}
+    <div className="relative min-h-screen overflow-hidden bg-canvas text-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-hero-glow"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,255,163,0.08),transparent_50%)]"
+      />
+
+      <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
         <div className="relative flex flex-col px-6 py-6 sm:px-10 lg:px-12 lg:py-8">
-          <Link href="/" className="inline-flex w-fit items-center gap-2.5">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-[#191919]">
-              <span className="text-[13px] font-bold text-[#F9F8F6]">F</span>
-            </span>
-            <span className={`${loginSerif.className} text-[1.35rem] leading-none tracking-[-0.02em]`}>
+          <Link href="/" className="inline-flex w-fit items-center gap-3">
+            <FronexMark />
+            <span className="font-display text-sm font-bold uppercase tracking-[0.28em] text-white">
               Fronex
             </span>
           </Link>
 
           <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-10">
             <div className="text-center">
-              <h1
-                className={`${loginSerif.className} text-[2.5rem] leading-[1.12] tracking-[-0.03em] text-[#191919] sm:text-[3.15rem]`}
-              >
+              <p className="section-label mb-3">Autenticação</p>
+              <h1 className="font-display text-[2.35rem] font-extrabold leading-[1.1] tracking-tight text-white sm:text-[2.85rem]">
                 Question what&apos;s next
+                <span className="text-accent">.</span>
               </h1>
-              <p className={`${loginSerif.className} mt-3 text-[1.05rem] leading-snug text-[#191919]/sm:text-[1.15rem]`}>
+              <p className="mt-3 text-base leading-relaxed text-ink-muted">
                 O seu parceiro digital para grandes ambições
               </p>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-[#E8E6E1] bg-white px-6 py-7 shadow-[0_1px_2px_rgba(0,0,0,0.04)] sm:px-7 sm:py-8">
+            <div className="mt-8 rounded-2xl border border-white/[0.06] bg-surface px-6 py-7 sm:px-7 sm:py-8">
               <button
                 type="button"
                 onClick={handleGoogle}
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-3 rounded-lg border border-[#D9D7D2] bg-white px-4 py-[0.85rem] text-[0.925rem] font-medium text-[#191919] transition-colors hover:bg-[#FAFAF8] disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-3 rounded-lg border border-white/10 bg-canvas-light px-4 py-[0.85rem] text-[0.925rem] font-medium text-white transition-colors hover:border-accent/40 hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {loading ? <Loader2 size={16} className="animate-spin" /> : <GoogleIcon />}
+                {loading ? (
+                  <Loader2 size={16} className="animate-spin text-accent" />
+                ) : (
+                  <GoogleIcon />
+                )}
                 Continuar com Google
               </button>
 
-              <div className="my-5 text-center text-[11px] font-medium uppercase tracking-[0.16em] text-[#A3A09A]">
+              <div className="my-5 text-center text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
                 or
               </div>
 
@@ -170,11 +205,11 @@ function LoginContent() {
                       value={email}
                       onChange={(event) => setEmail(event.target.value)}
                       placeholder="Introduza o seu email"
-                      className="w-full rounded-lg border border-[#D9D7D2] bg-white px-3.5 py-[0.85rem] text-[0.925rem] text-[#191919] outline-none placeholder:text-[#A3A09A] focus:border-[#191919]"
+                      className={inputClassName}
                     />
                     <button
                       type="submit"
-                      className="w-full rounded-lg bg-[#191919] py-[0.85rem] text-[0.925rem] font-medium text-white transition-opacity hover:opacity-90"
+                      className="btn-primary w-full py-[0.85rem] text-[0.925rem] font-bold"
                     >
                       Continuar com email
                     </button>
@@ -192,7 +227,7 @@ function LoginContent() {
                     <button
                       type="button"
                       onClick={() => setStep("email")}
-                      className="self-start text-left text-xs text-[#6F6C66] hover:text-[#191919]"
+                      className="self-start text-left text-xs text-muted transition-colors hover:text-accent"
                     >
                       ← {email}
                     </button>
@@ -204,7 +239,7 @@ function LoginContent() {
                         value={fullName}
                         onChange={(event) => setFullName(event.target.value)}
                         placeholder="Nome completo"
-                        className="w-full rounded-lg border border-[#D9D7D2] bg-white px-3.5 py-[0.85rem] text-[0.925rem] outline-none placeholder:text-[#A3A09A] focus:border-[#191919]"
+                        className={inputClassName}
                       />
                     )}
 
@@ -216,33 +251,46 @@ function LoginContent() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         placeholder="Palavra-passe"
-                        className="w-full rounded-lg border border-[#D9D7D2] bg-white px-3.5 py-[0.85rem] pr-11 text-[0.925rem] outline-none placeholder:text-[#A3A09A] focus:border-[#191919]"
+                        className={`${inputClassName} pr-11`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowPassword((v) => !v)}
-                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#A3A09A] hover:text-[#191919]"
-                        aria-label={showPassword ? "Ocultar palavra-passe" : "Mostrar palavra-passe"}
+                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted transition-colors hover:text-accent"
+                        aria-label={
+                          showPassword
+                            ? "Ocultar palavra-passe"
+                            : "Mostrar palavra-passe"
+                        }
                       >
-                        {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                        {showPassword ? (
+                          <EyeOff size={16} />
+                        ) : (
+                          <Eye size={16} />
+                        )}
                       </button>
                     </div>
 
                     <button
                       type="submit"
                       disabled={loading}
-                      className="flex w-full items-center justify-center gap-2 rounded-lg bg-[#191919] py-[0.85rem] text-[0.925rem] font-medium text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+                      className="btn-primary w-full py-[0.85rem] text-[0.925rem] font-bold disabled:cursor-not-allowed disabled:opacity-60"
                     >
-                      {loading && <Loader2 size={15} className="animate-spin" />}
+                      {loading && (
+                        <Loader2 size={15} className="animate-spin" />
+                      )}
                       {mode === "login" ? "Entrar" : "Criar conta"}
                     </button>
                   </motion.form>
                 )}
               </AnimatePresence>
 
-              <p className="mt-5 text-center text-[11.5px] leading-relaxed text-[#8A867F]">
+              <p className="mt-5 text-center text-[11.5px] leading-relaxed text-muted">
                 Ao continuar, reconhece a{" "}
-                <a href="#" className="underline underline-offset-2 hover:text-[#191919]">
+                <a
+                  href="#"
+                  className="text-ink-muted underline underline-offset-2 transition-colors hover:text-accent"
+                >
                   Política de Privacidade
                 </a>{" "}
                 da Fronex.
@@ -250,15 +298,12 @@ function LoginContent() {
             </div>
 
             <div className="mt-5 flex justify-center">
-              <Link
-                href="/"
-                className="inline-flex items-center gap-2 rounded-lg border border-[#D9D7D2] bg-white px-4 py-2.5 text-sm text-[#191919] transition-colors hover:bg-[#FAFAF8]"
-              >
+              <Link href="/" className="btn-secondary px-4 py-2.5 text-sm">
                 Voltar ao site
               </Link>
             </div>
 
-            <p className="mt-5 text-center text-sm text-[#6F6C66]">
+            <p className="mt-5 text-center text-sm text-ink-muted">
               {mode === "login" ? "Ainda não tem conta?" : "Já tem uma conta?"}{" "}
               <button
                 type="button"
@@ -267,7 +312,7 @@ function LoginContent() {
                   setStep("email");
                   setPassword("");
                 }}
-                className="font-medium text-[#191919] underline underline-offset-4"
+                className="font-semibold text-accent underline underline-offset-4 transition-opacity hover:opacity-80"
               >
                 {mode === "login" ? "Criar conta" : "Entrar"}
               </button>
@@ -275,17 +320,40 @@ function LoginContent() {
           </div>
         </div>
 
-        {/* Direita — imagem arredondada, como na foto */}
+        {/* Painel visual abstrato */}
         <div className="relative hidden p-5 lg:block lg:p-6">
-          <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem]">
-            <video
-              className="absolute inset-0 h-full w-full object-cover"
-              src="/videos/login-institucional.mp4"
-              autoPlay
-              muted
-              loop
-              playsInline
+          <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-white/[0.06] bg-surface">
+            <div
+              aria-hidden
+              className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(0,255,163,0.14),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(0,180,255,0.1),transparent_45%)]"
             />
+            <div
+              aria-hidden
+              className="absolute inset-[12%] opacity-[0.14]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(0,255,163,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,163,0.55) 1px, transparent 1px)",
+                backgroundSize: "36px 36px",
+                maskImage:
+                  "radial-gradient(ellipse at center, black 25%, transparent 72%)",
+              }}
+            />
+            <div
+              aria-hidden
+              className="absolute left-[18%] top-[28%] h-36 w-36 border border-accent/50 bg-gradient-to-br from-accent/20 to-transparent shadow-neon"
+              style={{ transform: "rotate(28deg) skewY(-8deg)" }}
+            />
+            <div
+              aria-hidden
+              className="absolute bottom-[22%] right-[16%] h-28 w-28 border border-cyan-400/40 bg-gradient-to-tl from-cyan-400/15 to-transparent"
+              style={{ transform: "rotate(-18deg) skewY(6deg)" }}
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas/90 to-transparent p-8">
+              <p className="section-label mb-2">Fronex Studio</p>
+              <p className="max-w-sm font-display text-2xl font-bold leading-snug text-white">
+                Inteligência digital com presença, ritmo e confiança.
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -297,7 +365,7 @@ export default function LoginPage() {
   return (
     <Suspense
       fallback={
-        <div className="flex min-h-screen items-center justify-center bg-[#F9F8F6] text-sm text-[#6F6C66]">
+        <div className="flex min-h-screen items-center justify-center bg-canvas text-sm text-ink-muted">
           A carregar...
         </div>
       }

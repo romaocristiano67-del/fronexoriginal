@@ -1,93 +1,115 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Instagram, MessageCircle, Mail } from "lucide-react";
+import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
+
+function FronexMark() {
+  return (
+    <span className="relative flex h-9 w-9 items-center justify-center">
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
+        style={{ clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)" }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-accent"
+        style={{ clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)" }}
+      />
+      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
+        F
+      </span>
+    </span>
+  );
+}
 
 export default function Footer() {
   return (
-    <footer className="border-t border-zinc-200 bg-white py-14 text-zinc-950 transition-colors duration-300 dark:border-white/10 dark:bg-[#0d0d0f] dark:text-[#f5f3ee]">
+    <footer className="border-t border-white/[0.06] bg-canvas py-14 text-white">
       <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
-          <div className="flex items-center">
-            <span className="relative h-11 w-36 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-white/10">
-              <Image
-                src="/images/logo-fronex-wordmark.jpg"
-                alt="Fronex"
-                fill
-                sizes="144px"
-                className="object-cover"
-              />
+          <div className="flex items-center gap-3">
+            <FronexMark />
+            <span className="font-display text-sm font-bold uppercase tracking-[0.28em]">
+              Fronex
             </span>
           </div>
-          <p className="mt-4 text-sm text-zinc-600 dark:text-zinc-300">
+          <p className="mt-4 text-sm leading-6 text-ink-muted">
             Tecnologia e serviços digitais feitos em Angola, para negócios que
             querem crescer com qualidade internacional.
           </p>
-          <div className="mt-5 flag-thread" />
         </div>
 
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-              Navegação
-            </p>
-            <ul className="mt-3 flex flex-col gap-2 text-sm">
-              <li><a href="#servicos" className="hover:text-angola-red">Serviços</a></li>
-              <li><a href="#mentores" className="hover:text-angola-red">Mentores</a></li>
-              <li><a href="#inovar" className="hover:text-angola-red">Criar/Inovar</a></li>
-              <li><a href="#precos" className="hover:text-angola-red">Preços</a></li>
+            <p className="section-label">Navegação</p>
+            <ul className="mt-3 flex flex-col gap-2 text-sm text-ink-muted">
+              <li><a href="#sobre" className="transition-colors hover:text-accent">Sobre</a></li>
+              <li><a href="#servicos" className="transition-colors hover:text-accent">Serviços</a></li>
+              <li><a href="#mentores" className="transition-colors hover:text-accent">Mentores</a></li>
+              <li><a href="#inovar" className="transition-colors hover:text-accent">Criar/Inovar</a></li>
+              <li><a href="#portfolio" className="transition-colors hover:text-accent">Portfólio</a></li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-              Conta
-            </p>
-            <ul className="mt-3 flex flex-col gap-2 text-sm">
-              <li><Link href="/login" className="hover:text-angola-red">Entrar</Link></li>
-              <li><Link href="/login" className="hover:text-angola-red">Criar Conta</Link></li>
+            <p className="section-label">Conta</p>
+            <ul className="mt-3 flex flex-col gap-2 text-sm text-ink-muted">
+              <li><Link href="/login" className="transition-colors hover:text-accent">Entrar</Link></li>
+              <li><Link href="/login" className="transition-colors hover:text-accent">Criar Conta</Link></li>
             </ul>
           </div>
 
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500 dark:text-zinc-400">
-              Contacto
-            </p>
-            <ul className="mt-3 flex flex-col gap-3 text-sm">
+            <p className="section-label">Contacto</p>
+            <ul className="mt-3 flex flex-col gap-3 text-sm text-ink-muted">
               <li>
                 <a
                   href="https://wa.me/244946419129"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 hover:text-angola-red"
+                  className="flex items-center gap-2 transition-colors hover:text-accent"
                 >
-                  <MessageCircle size={15} />
+                  <MessageCircle size={15} className="text-accent" />
                   +244 946 419 129
                 </a>
               </li>
               <li>
                 <a
                   href="mailto:geral@fronex.ao"
-                  className="flex items-center gap-2 hover:text-angola-red"
+                  className="flex items-center gap-2 transition-colors hover:text-accent"
                 >
-                  <Mail size={15} />
+                  <Mail size={15} className="text-accent" />
                   geral@fronex.ao
                 </a>
               </li>
-              <li>
-                <a
-                  href="#"
-                  className="flex items-center gap-2 hover:text-angola-red"
-                >
-                  <Instagram size={15} />
-                  @fronex.ao
-                </a>
-              </li>
             </ul>
+            <div className="mt-5 flex items-center gap-3">
+              <a
+                href="#"
+                aria-label="LinkedIn"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
+              >
+                <Linkedin size={16} />
+              </a>
+              <a
+                href="#"
+                aria-label="Instagram"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
+              >
+                <Instagram size={16} />
+              </a>
+              <a
+                href="#"
+                aria-label="GitHub"
+                className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
+              >
+                <Github size={16} />
+              </a>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="container-fronex mt-12 flex flex-col gap-2 border-t border-zinc-200 pt-6 text-xs text-zinc-500 dark:border-white/10 dark:text-zinc-400 md:flex-row md:justify-between">
+      <div className="container-fronex mt-12 flex flex-col gap-2 border-t border-white/[0.06] pt-6 text-xs text-muted md:flex-row md:justify-between">
         <p>© {new Date().getFullYear()} Fronex. Todos os direitos reservados.</p>
         <p>Design, tecnologia e produto digital em Angola.</p>
       </div>

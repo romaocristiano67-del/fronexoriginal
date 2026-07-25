@@ -2,27 +2,51 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  Moon,
-  Sun,
   Menu,
   X,
   ArrowRight,
   Coins,
   LogOut,
   LayoutDashboard,
+  Moon,
+  Sun,
 } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 const NAV_LINKS = [
+  { label: "Sobre", href: "#sobre" },
   { label: "Serviços", href: "#servicos" },
   { label: "Mentores", href: "#mentores" },
   { label: "Criar/Inovar", href: "#inovar" },
   { label: "Portfólio", href: "#portfolio" },
 ];
+
+function FronexMark({ className = "" }: { className?: string }) {
+  return (
+    <span className={`relative flex h-8 w-8 items-center justify-center ${className}`}>
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-gradient-to-br from-white via-white to-accent"
+        style={{
+          clipPath: "polygon(0 0, 55% 0, 55% 100%, 0 100%)",
+        }}
+      />
+      <span
+        aria-hidden
+        className="absolute inset-0 rounded-md bg-accent"
+        style={{
+          clipPath: "polygon(45% 0, 100% 0, 100% 100%, 45% 100%)",
+        }}
+      />
+      <span className="relative z-10 font-display text-sm font-black tracking-tight text-canvas">
+        F
+      </span>
+    </span>
+  );
+}
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme();
@@ -90,27 +114,17 @@ export default function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-zinc-200/80 bg-[#f8f7f3]/88 text-zinc-950 shadow-[0_18px_60px_-38px_rgba(0,0,0,0.25)] backdrop-blur-xl dark:border-white/10 dark:bg-[#080809]/82 dark:text-[#f5f3ee]"
-          : "bg-[#f8f7f3]/72 text-zinc-950 backdrop-blur-xl dark:bg-[#080809]/65 dark:text-[#f5f3ee]"
+          ? "border-b border-white/[0.06] bg-canvas/90 text-white shadow-[0_18px_60px_-38px_rgba(0,0,0,0.65)] backdrop-blur-xl"
+          : "bg-transparent text-white"
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
         {/* Logótipo */}
-        <Link href="/" className="group flex min-w-0 items-center gap-2.5">
-          <span className="relative h-10 w-28 overflow-hidden rounded-lg border border-zinc-200 bg-white shadow-sm dark:border-white/10 sm:w-36">
-            <Image
-              src="/images/logo-fronex-wordmark.jpg"
-              alt="Fronex"
-              fill
-              sizes="(min-width: 640px) 144px, 112px"
-              className="object-cover"
-            />
+        <Link href="/" className="group flex min-w-0 items-center gap-3">
+          <FronexMark />
+          <span className="font-display text-sm font-bold uppercase tracking-[0.28em] text-white transition-colors group-hover:text-accent sm:text-base">
+            Fronex
           </span>
-          {/* Bandeira de Angola discreta, como assinatura da marca */}
-          <span
-            aria-hidden
-            className="hidden h-2 w-3 rounded-[2px] bg-flag-thread opacity-80 transition-opacity group-hover:opacity-100 sm:block"
-          />
         </Link>
 
         {/* Navegação desktop */}
@@ -119,7 +133,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-zinc-600 transition-colors hover:text-zinc-950 dark:text-zinc-300 dark:hover:text-white"
+              className="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
             >
               {link.label}
             </a>
@@ -131,7 +145,7 @@ export default function Header() {
           <button
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-white text-zinc-950 shadow-sm transition-colors hover:bg-zinc-100 dark:border-white/10 dark:bg-white/[0.06] dark:text-white dark:hover:bg-white/[0.1]"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:flex"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -149,41 +163,35 @@ export default function Header() {
 
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 rounded-md border border-zinc-200 bg-white px-3 py-2 text-xs font-medium text-zinc-600 shadow-sm dark:border-white/10 dark:bg-white/[0.06] dark:text-zinc-300">
-                <Coins size={14} />
+              <span className="flex items-center gap-1.5 rounded-md border border-white/10 bg-surface px-3 py-2 text-xs font-medium text-ink-muted">
+                <Coins size={14} className="text-accent" />
                 {tokens ?? "..."} tokens
               </span>
-              <Link
-                href="/dashboard"
-                className="flex h-9 items-center gap-1.5 rounded-md bg-zinc-950 px-4 text-sm font-medium text-white transition-colors hover:bg-angola-red dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
-              >
+              <Link href="/dashboard" className="btn-primary h-9 px-4 text-sm">
                 <LayoutDashboard size={15} />
                 Dashboard
               </Link>
               <button
                 onClick={handleLogout}
                 aria-label="Terminar sessão"
-                className="flex h-9 w-9 items-center justify-center rounded-md bg-zinc-950 text-white transition-colors hover:bg-angola-red dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-surface text-white transition-colors hover:border-accent/40 hover:text-accent"
               >
                 <LogOut size={15} />
               </button>
             </div>
           ) : (
-            <Link
-              href="/login"
-              className="hidden items-center gap-1.5 rounded-md bg-zinc-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-angola-red dark:bg-white dark:text-zinc-950 dark:hover:bg-angola-gold md:flex"
-            >
+            <Link href="/login" className="btn-primary hidden h-9 px-4 text-sm md:flex">
               Entrar / Criar Conta
               <ArrowRight size={14} />
             </Link>
           )}
 
           <button
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 bg-white text-zinc-950 dark:border-white/10 dark:bg-white/[0.06] dark:text-white md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md text-accent transition-colors hover:bg-accent/10 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Abrir menu"
           >
-            {menuOpen ? <X size={18} /> : <Menu size={18} />}
+            {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
       </div>
@@ -195,7 +203,7 @@ export default function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-zinc-200 bg-[#f8f7f3]/95 text-zinc-950 backdrop-blur-xl dark:border-white/10 dark:bg-[#080809]/95 dark:text-white md:hidden"
+            className="overflow-hidden border-t border-white/[0.06] bg-canvas/95 text-white backdrop-blur-xl md:hidden"
           >
             <div className="container-fronex flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link) => (
@@ -203,7 +211,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-700 hover:bg-white dark:text-zinc-200 dark:hover:bg-white/[0.08]"
+                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted hover:bg-surface hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -213,14 +221,14 @@ export default function Header() {
                   <Link
                     href="/dashboard"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-center gap-1.5 rounded-md bg-zinc-950 px-4 py-2.5 text-sm font-medium text-white dark:bg-white dark:text-zinc-950"
+                    className="btn-primary justify-center"
                   >
                     Dashboard
                     <LayoutDashboard size={14} />
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center justify-center gap-1.5 rounded-md border border-zinc-200 bg-white px-4 py-2.5 text-sm font-medium text-zinc-950 dark:border-white/10 dark:bg-white/[0.06] dark:text-white"
+                    className="btn-secondary justify-center"
                   >
                     Sair
                     <LogOut size={14} />
@@ -229,7 +237,7 @@ export default function Header() {
               ) : (
                 <Link
                   href="/login"
-                  className="mt-2 flex items-center justify-center gap-1.5 rounded-md bg-zinc-950 px-4 py-2.5 text-sm font-medium text-white dark:bg-white dark:text-zinc-950"
+                  className="btn-primary mt-2 justify-center"
                 >
                   Entrar / Criar Conta
                   <ArrowRight size={14} />

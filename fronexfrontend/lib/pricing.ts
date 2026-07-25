@@ -45,9 +45,9 @@ export const SERVICES: ServiceDefinition[] = [
     title: "Sites & Web",
     description: "Sites institucionais, landing pages e lojas online.",
     image: "/images/service-web.jpg",
-    basePrice: 20000,
-    minPrice: 8000,
-    maxPrice: 35000,
+    basePrice: 25000, // +25%
+    minPrice: 10000, // +25%
+    maxPrice: 43750, // +25%
     questions: [
       {
         id: "pages",
@@ -83,9 +83,9 @@ export const SERVICES: ServiceDefinition[] = [
     title: "Apps & Sistemas",
     description: "Aplicações móveis e sistemas de gestão à medida.",
     image: "/images/service-apps.jpg",
-    basePrice: 70000,
-    minPrice: 40000,
-    maxPrice: 120000,
+    basePrice: 87500, // +25%
+    minPrice: 50000, // +25%
+    maxPrice: 150000, // +25%
     questions: [
       {
         id: "platform",
@@ -120,9 +120,9 @@ export const SERVICES: ServiceDefinition[] = [
     title: "Gestão de Redes/TikTok",
     description: "Gestão de conteúdo e crescimento nas redes sociais.",
     image: "/images/service-social.jpg",
-    basePrice: 25000,
-    minPrice: 12000,
-    maxPrice: 40000,
+    basePrice: 31250, // +25%
+    minPrice: 15000, // +25%
+    maxPrice: 50000, // +25%
     questions: [
       {
         id: "platforms",
@@ -222,9 +222,9 @@ export const SERVICES: ServiceDefinition[] = [
     title: "Design Gráfico",
     description: "Identidade visual, artes e materiais de marca.",
     image: "/portfolio/photoshop-fronex.jpg",
-    basePrice: 10000,
-    minPrice: 4000,
-    maxPrice: 18000,
+    basePrice: 12500,
+    minPrice: 5000,
+    maxPrice: 22500,
     questions: [
       {
         id: "scope",
