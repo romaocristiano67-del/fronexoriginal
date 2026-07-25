@@ -89,15 +89,15 @@ export default function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "glass border-b border-border dark:border-border-dark"
+          ? "border-b border-white/10 bg-zinc-950/85 text-white shadow-[0_18px_60px_-32px_rgba(0,0,0,0.9)] backdrop-blur-xl"
           : "bg-transparent"
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
         {/* Logótipo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-ink dark:bg-ink-dark">
-            <span className="font-display text-sm font-bold text-canvas dark:text-canvas-dark">
+          <span className="relative flex h-8 w-8 items-center justify-center rounded-lg bg-white text-zinc-950">
+            <span className="font-display text-sm font-bold">
               F
             </span>
           </span>
@@ -117,7 +117,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-muted transition-colors hover:text-ink dark:text-muted-dark dark:hover:text-ink-dark"
+              className="text-sm font-medium text-zinc-300 transition-colors hover:text-white"
             >
               {link.label}
             </a>
@@ -129,7 +129,7 @@ export default function Header() {
           <button
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-ink shadow-soft transition-colors hover:bg-black/5 dark:border-border-dark dark:bg-surface-dark dark:text-ink-dark dark:hover:bg-white/10"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.06] text-white shadow-soft transition-colors hover:bg-white/10"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -147,13 +147,13 @@ export default function Header() {
 
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-2 text-xs font-medium text-muted shadow-soft dark:border-border-dark dark:bg-surface-dark dark:text-muted-dark">
+              <span className="flex items-center gap-1.5 rounded-md border border-white/10 bg-white/[0.06] px-3 py-2 text-xs font-medium text-zinc-300 shadow-soft">
                 <Coins size={14} />
                 {tokens ?? "..."} tokens
               </span>
               <Link
                 href="/dashboard"
-                className="flex h-9 items-center gap-1.5 rounded-md bg-ink px-4 text-sm font-medium text-canvas transition-colors hover:bg-angola-red dark:bg-ink-dark dark:text-canvas-dark"
+                className="flex h-9 items-center gap-1.5 rounded-md bg-white px-4 text-sm font-medium text-zinc-950 transition-colors hover:bg-angola-gold"
               >
                 <LayoutDashboard size={15} />
                 Dashboard
@@ -161,7 +161,7 @@ export default function Header() {
               <button
                 onClick={handleLogout}
                 aria-label="Terminar sessão"
-                className="flex h-9 w-9 items-center justify-center rounded-md bg-ink text-canvas transition-colors hover:bg-angola-red dark:bg-ink-dark dark:text-canvas-dark"
+                className="flex h-9 w-9 items-center justify-center rounded-md bg-white text-zinc-950 transition-colors hover:bg-angola-gold"
               >
                 <LogOut size={15} />
               </button>
@@ -169,7 +169,7 @@ export default function Header() {
           ) : (
             <Link
               href="/login"
-              className="hidden items-center gap-1.5 rounded-md bg-ink px-4 py-2 text-sm font-medium text-canvas transition-colors hover:bg-angola-red dark:bg-ink-dark dark:text-canvas-dark md:flex"
+              className="hidden items-center gap-1.5 rounded-md bg-white px-4 py-2 text-sm font-medium text-zinc-950 transition-colors hover:bg-angola-gold md:flex"
             >
               Entrar / Criar Conta
               <ArrowRight size={14} />
@@ -177,7 +177,7 @@ export default function Header() {
           )}
 
           <button
-            className="flex h-9 w-9 items-center justify-center rounded-md border border-border dark:border-border-dark md:hidden"
+            className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-white/[0.06] text-white md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Abrir menu"
           >
@@ -193,7 +193,7 @@ export default function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-border bg-surface dark:border-border-dark dark:bg-surface-dark md:hidden"
+            className="overflow-hidden border-t border-white/10 bg-zinc-950/95 text-white backdrop-blur-xl md:hidden"
           >
             <div className="container-fronex flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link) => (
@@ -201,7 +201,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink hover:bg-black/5 dark:text-ink-dark dark:hover:bg-white/10"
+                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-zinc-100 hover:bg-white/10"
                 >
                   {link.label}
                 </a>
@@ -211,14 +211,14 @@ export default function Header() {
                   <Link
                     href="/dashboard"
                     onClick={() => setMenuOpen(false)}
-                    className="flex items-center justify-center gap-1.5 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-canvas dark:bg-ink-dark dark:text-canvas-dark"
+                    className="flex items-center justify-center gap-1.5 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-zinc-950"
                   >
                     Dashboard
                     <LayoutDashboard size={14} />
                   </Link>
                   <button
                     onClick={handleLogout}
-                    className="flex items-center justify-center gap-1.5 rounded-md border border-border px-4 py-2.5 text-sm font-medium text-ink dark:border-border-dark dark:text-ink-dark"
+                    className="flex items-center justify-center gap-1.5 rounded-md border border-white/15 px-4 py-2.5 text-sm font-medium text-white"
                   >
                     Sair
                     <LogOut size={14} />
@@ -227,7 +227,7 @@ export default function Header() {
               ) : (
                 <Link
                   href="/login"
-                  className="mt-2 flex items-center justify-center gap-1.5 rounded-md bg-ink px-4 py-2.5 text-sm font-medium text-canvas dark:bg-ink-dark dark:text-canvas-dark"
+                  className="mt-2 flex items-center justify-center gap-1.5 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-zinc-950"
                 >
                   Entrar / Criar Conta
                   <ArrowRight size={14} />

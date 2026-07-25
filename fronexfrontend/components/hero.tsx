@@ -1,180 +1,183 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import {
-  ArrowRight,
-  CheckCircle2,
-  Layers3,
-  MousePointer2,
-  Sparkles,
-} from "lucide-react";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { ArrowDown, ArrowRight, CheckCircle2, Sparkles, Zap } from "lucide-react";
+
+const reveal = {
+  hidden: { opacity: 0, y: 28 },
+  show: { opacity: 1, y: 0 },
+};
+
+const revealTransition = {
+  duration: 0.62,
+  ease: [0.22, 1, 0.36, 1],
+};
+
+const proofPoints = [
+  "Leitura clara em ecrãs pequenos",
+  "Ações visíveis sem esforço",
+  "Fluxo vertical desenhado para toque",
+];
+
+const storySteps = [
+  {
+    kicker: "01",
+    title: "Primeiro impacto sem ruído.",
+    copy: "A mensagem entra rápido, com contraste alto, hierarquia forte e espaço suficiente para a página respirar no telemóvel.",
+  },
+  {
+    kicker: "02",
+    title: "Cada toque tem resposta.",
+    copy: "Os botões reagem no instante certo com escala, brilho e movimento curto, mantendo a experiência fluida mesmo em dispositivos modestos.",
+  },
+  {
+    kicker: "03",
+    title: "Scroll que conduz a decisão.",
+    copy: "A narrativa aparece em sequência enquanto o visitante avança com o dedo, sem excesso visual e sem distrações no caminho.",
+  },
+];
 
 export default function Hero() {
-  const { scrollY } = useScroll();
-  const panelY = useTransform(scrollY, [0, 700], [0, -70]);
-  const gridY = useTransform(scrollY, [0, 700], [0, 90]);
+  const shouldReduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll();
+  const gridY = useTransform(scrollYProgress, [0, 0.45], shouldReduceMotion ? [0, 0] : [0, 90]);
+  const lineScale = useTransform(scrollYProgress, [0, 0.42], [0.08, 1]);
 
   return (
-    <section className="relative isolate min-h-screen overflow-hidden pt-20 md:pt-24">
+    <section className="relative isolate overflow-hidden bg-zinc-950 pt-20 text-zinc-50 md:pt-24">
       <motion.div
         aria-hidden
         style={{ y: gridY }}
-        className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(17,17,19,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(17,17,19,0.055)_1px,transparent_1px)] bg-[size:32px_32px] dark:bg-[linear-gradient(rgba(255,255,255,0.055)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.055)_1px,transparent_1px)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.045)_1px,transparent_1px)] bg-[size:34px_34px] opacity-50"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_50%_0%,rgba(206,17,38,0.16),transparent_34%),linear-gradient(180deg,rgba(250,250,249,0)_0%,#FAFAF9_82%)] dark:bg-[radial-gradient(circle_at_50%_0%,rgba(247,209,22,0.12),transparent_32%),linear-gradient(180deg,rgba(10,10,11,0)_0%,#0A0A0B_84%)]"
+        className="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(9,9,11,0)_0%,#09090b_74%),linear-gradient(135deg,rgba(206,17,38,0.18)_0%,transparent_34%,rgba(247,209,22,0.08)_100%)]"
       />
 
-      <div className="container-fronex relative z-10 grid min-h-[calc(100vh-5rem)] items-center gap-12 py-12 md:grid-cols-[1.02fr_0.98fr] md:py-20 lg:gap-16">
-        <div className="flex flex-col items-start">
+      <div className="container-fronex relative z-10">
+        <div className="flex min-h-[calc(100svh-5rem)] flex-col justify-center py-10 md:min-h-[calc(100vh-6rem)] md:py-16">
           <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55 }}
-            className="mb-5 flex items-center gap-2 rounded-full border border-border bg-surface/75 px-3 py-1.5 text-xs font-medium text-muted shadow-soft backdrop-blur-xl dark:border-border-dark dark:bg-surface-dark/65 dark:text-muted-dark"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={revealTransition}
+            className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1.5 text-xs font-semibold text-zinc-200 backdrop-blur-xl"
           >
-            <Sparkles size={13} className="text-angola-red" />
-            Design, software e IA para marcas ambiciosas
+            <Sparkles size={13} className="text-angola-gold" />
+            Mobile-first, dark-first, pronto para vender
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.06 }}
-            className="max-w-4xl font-display text-[2.85rem] font-semibold leading-[0.98] tracking-tight text-ink dark:text-ink-dark sm:text-6xl md:text-6xl lg:text-7xl"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={{ ...revealTransition, delay: 0.08 }}
+            className="max-w-5xl font-display text-[3.25rem] font-semibold leading-[0.94] text-white sm:text-6xl md:text-7xl lg:text-8xl"
           >
-            Produtos digitais com precisão visual e força de negócio.
+            Experiências digitais que cabem na mão e parecem maiores que a marca.
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.14 }}
-            className="mt-6 max-w-2xl text-base leading-7 text-muted dark:text-muted-dark md:text-lg"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={{ ...revealTransition, delay: 0.16 }}
+            className="mt-6 max-w-2xl text-lg leading-8 text-zinc-300 md:text-xl md:leading-9"
           >
-            A Fronex cria websites, apps, sistemas e experiências UI/UX para
-            empresas que querem parecer maiores, vender melhor e operar com
-            mais clareza desde o primeiro contacto.
+            Websites, apps e sistemas com UI/UX limpo, rápido e pensado primeiro
+            para quem navega no smartphone.
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.22 }}
-            className="mt-8 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={{ ...revealTransition, delay: 0.24 }}
+            className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row"
           >
-            <a
+            <motion.a
               href="#portfolio"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md bg-ink px-5 text-sm font-semibold text-canvas shadow-soft-lg transition-transform hover:-translate-y-0.5 dark:bg-ink-dark dark:text-canvas-dark"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 520, damping: 34 }}
+              className="group inline-flex min-h-14 items-center justify-center gap-2 rounded-md bg-white px-5 text-base font-semibold text-zinc-950 shadow-[0_18px_60px_-24px_rgba(255,255,255,0.9)] outline-none transition-[filter,box-shadow] duration-200 hover:brightness-110 active:brightness-95"
             >
               Ver portfólio
-              <ArrowRight size={16} />
-            </a>
-            <a
+              <ArrowRight size={18} className="transition-transform duration-200 group-hover:translate-x-0.5" />
+            </motion.a>
+            <motion.a
               href="#servicos"
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-md border border-border bg-surface/80 px-5 text-sm font-semibold text-ink backdrop-blur-xl transition-colors hover:border-ink dark:border-border-dark dark:bg-surface-dark/70 dark:text-ink-dark dark:hover:border-ink-dark"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 520, damping: 34 }}
+              className="inline-flex min-h-14 items-center justify-center gap-2 rounded-md border border-white/15 bg-white/[0.06] px-5 text-base font-semibold text-white backdrop-blur-xl transition-[background-color,border-color,filter] duration-200 hover:border-white/30 hover:bg-white/[0.1] active:brightness-125"
             >
               Explorar serviços
-            </a>
+            </motion.a>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.32 }}
-            className="mt-10 grid w-full max-w-xl grid-cols-1 gap-3 sm:grid-cols-3"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={{ ...revealTransition, delay: 0.32 }}
+            className="mt-10 grid gap-3 text-sm text-zinc-300 sm:max-w-2xl sm:grid-cols-3"
           >
-            {[
-              "Mobile-first",
-              "Entrega guiada",
-              "Visual premium",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-center gap-2 rounded-md border border-border bg-surface/70 px-3 py-3 text-sm text-muted backdrop-blur-xl dark:border-border-dark dark:bg-surface-dark/60 dark:text-muted-dark"
-              >
-                <CheckCircle2 size={15} className="text-angola-red" />
-                {item}
+            {proofPoints.map((item) => (
+              <div key={item} className="flex items-center gap-2 rounded-md border border-white/10 bg-white/[0.045] px-3 py-3">
+                <CheckCircle2 size={16} className="shrink-0 text-angola-gold" />
+                <span>{item}</span>
               </div>
             ))}
           </motion.div>
+
+          <motion.a
+            href="#mobile-story"
+            variants={reveal}
+            initial="hidden"
+            animate="show"
+            transition={{ ...revealTransition, delay: 0.42 }}
+            whileTap={{ scale: 0.94 }}
+            className="mt-12 inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/[0.05] text-white transition-colors duration-200 hover:bg-white/10"
+            aria-label="Continuar"
+          >
+            <ArrowDown size={18} />
+          </motion.a>
         </div>
 
-        <motion.div
-          style={{ y: panelY }}
-          initial={{ opacity: 0, y: 34, rotateX: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.18 }}
-          className="relative mx-auto w-full max-w-md perspective-1000 md:max-w-none"
-        >
-          <div className="absolute -inset-4 -z-10 rounded-[2rem] bg-angola-red/10 blur-2xl dark:bg-angola-gold/10" />
-          <div className="overflow-hidden rounded-2xl border border-white/70 bg-white/70 shadow-[0_40px_120px_-45px_rgba(0,0,0,0.55)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.07]">
-            <div className="flex items-center justify-between border-b border-border/80 px-4 py-3 dark:border-white/10">
-              <div className="flex gap-1.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-angola-red" />
-                <span className="h-2.5 w-2.5 rounded-full bg-angola-gold" />
-                <span className="h-2.5 w-2.5 rounded-full bg-ink/80 dark:bg-white/70" />
-              </div>
-              <span className="text-[11px] font-medium uppercase tracking-[0.18em] text-muted dark:text-muted-dark">
-                Fronex Studio
-              </span>
-            </div>
+        <div id="mobile-story" className="relative pb-20 pt-6 md:pb-28">
+          <motion.div
+            aria-hidden
+            style={{ scaleY: lineScale, transformOrigin: "top" }}
+            className="absolute left-4 top-8 hidden h-[calc(100%-7rem)] w-px bg-gradient-to-b from-angola-gold via-white/20 to-transparent sm:block"
+          />
 
-            <div className="grid gap-4 p-4 sm:p-5">
-              <div className="rounded-xl bg-ink p-5 text-canvas dark:bg-ink-dark dark:text-canvas-dark">
-                <div className="flex items-start justify-between gap-5">
-                  <div>
-                    <p className="text-xs uppercase tracking-[0.18em] opacity-60">
-                      Produto em foco
-                    </p>
-                    <p className="mt-6 max-w-[13rem] font-display text-2xl font-semibold leading-tight">
-                      Plataforma de vendas com área de cliente
-                    </p>
-                  </div>
-                  <Layers3 size={24} />
+          <div className="grid gap-5 md:gap-6">
+            {storySteps.map((step, index) => (
+              <motion.article
+                key={step.kicker}
+                variants={reveal}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true, amount: 0.38 }}
+                transition={{ ...revealTransition, delay: index * 0.07 }}
+                className="relative rounded-lg border border-white/10 bg-white/[0.045] p-5 backdrop-blur-xl sm:ml-12 sm:p-6 md:max-w-3xl"
+              >
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <span className="text-xs font-bold tracking-[0.24em] text-angola-gold">{step.kicker}</span>
+                  <Zap size={16} className="text-zinc-500" />
                 </div>
-                <div className="mt-8 h-2 rounded-full bg-white/15">
-                  <motion.div
-                    initial={{ width: "28%" }}
-                    animate={{ width: "82%" }}
-                    transition={{ duration: 1.6, delay: 0.8, ease: "easeOut" }}
-                    className="h-full rounded-full bg-angola-gold"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="rounded-xl border border-border bg-surface/80 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-                  <p className="text-3xl font-semibold">92%</p>
-                  <p className="mt-2 text-xs leading-5 text-muted dark:text-muted-dark">
-                    foco em clareza, velocidade e conversão
-                  </p>
-                </div>
-                <div className="rounded-xl border border-border bg-surface/80 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-                  <MousePointer2 size={20} className="text-angola-red" />
-                  <p className="mt-6 text-sm font-semibold">
-                    Interfaces pensadas para toque, leitura e ação
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-xl border border-border bg-surface/80 p-4 dark:border-white/10 dark:bg-white/[0.06]">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-sm font-semibold">Sprint visual</p>
-                    <p className="mt-1 text-xs text-muted dark:text-muted-dark">
-                      Direção criativa, UI e protótipo navegável.
-                    </p>
-                  </div>
-                  <span className="rounded-md bg-angola-red/10 px-3 py-1 text-xs font-semibold text-angola-red">
-                    Ativo
-                  </span>
-                </div>
-              </div>
-            </div>
+                <h2 className="max-w-2xl text-2xl font-semibold leading-tight text-white md:text-4xl">
+                  {step.title}
+                </h2>
+                <p className="mt-4 max-w-2xl text-base leading-7 text-zinc-300 md:text-lg md:leading-8">
+                  {step.copy}
+                </p>
+              </motion.article>
+            ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

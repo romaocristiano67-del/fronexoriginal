@@ -5,6 +5,11 @@ import { mentorRequestSchema } from '@/lib/validations/schemas';
 import { getAIChatCompletion, type ChatMessage } from '@/lib/ai/groqClient';
 import { MENTOR_PERSONAS } from '@/lib/ai/systemPrompts';
 import {
+  detectConductViolation,
+  FRONEX_CONDUCT_REPLY,
+  FRONEX_SCOPE_REDIRECT_REPLY,
+} from '@/lib/ai/moderation';
+import {
   ensureAuthenticatedProfile,
   resolveIdentityAndTokens,
   deductToken,
@@ -29,6 +34,17 @@ export async function POST(request: NextRequest) {
 
     const { message, mentorKey, sessionId } = parsed.data;
     const persona = MENTOR_PERSONAS[mentorKey];
+
+    const conduct = detectConductViolation(message);
+    if (conduct.blocked || conduct.reason === 'off_topic') {
+      return NextResponse.json({
+        reply:
+          conduct.reply ??
+          (conduct.reason === 'off_topic' ? FRONEX_SCOPE_REDIRECT_REPLY : FRONEX_CONDUCT_REPLY),
+        moderated: true,
+        moderationReason: conduct.reason,
+      });
+    }
 
     if (!persona) {
       return NextResponse.json({ error: 'Mentor não encontrado' }, { status: 404 });
@@ -98,7 +114,10 @@ export async function POST(request: NextRequest) {
     let model: string;
 
     try {
-      const completion = await getAIChatCompletion(messages);
+      const completion = await getAIChatCompletion(messages, {
+        temperature: 0.45,
+        maxTokens: 850,
+      });
       aiReply = completion.content;
       tokensUsed = completion.tokensUsed;
       model = completion.model;

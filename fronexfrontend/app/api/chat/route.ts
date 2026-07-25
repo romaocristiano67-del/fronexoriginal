@@ -7,6 +7,7 @@ import { FRONEX_AI_SYSTEM_PROMPT } from '@/lib/ai/systemPrompts';
 import {
   detectConductViolation,
   FRONEX_CONDUCT_REPLY,
+  FRONEX_SCOPE_REDIRECT_REPLY,
 } from '@/lib/ai/moderation';
 import {
   ensureAuthenticatedProfile,
@@ -36,7 +37,15 @@ export async function POST(request: NextRequest) {
 
     if (conduct.blocked) {
       return NextResponse.json({
-        reply: FRONEX_CONDUCT_REPLY,
+        reply: conduct.reply ?? FRONEX_CONDUCT_REPLY,
+        moderated: true,
+        moderationReason: conduct.reason,
+      });
+    }
+
+    if (conduct.reason === 'off_topic') {
+      return NextResponse.json({
+        reply: conduct.reply ?? FRONEX_SCOPE_REDIRECT_REPLY,
         moderated: true,
         moderationReason: conduct.reason,
       });
@@ -105,7 +114,10 @@ export async function POST(request: NextRequest) {
     let model: string;
 
     try {
-      const completion = await getAIChatCompletion(messages);
+      const completion = await getAIChatCompletion(messages, {
+        temperature: 0.35,
+        maxTokens: 900,
+      });
       aiReply = completion.content;
       tokensUsed = completion.tokensUsed;
       model = completion.model;
