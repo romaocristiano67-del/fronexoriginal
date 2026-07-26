@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import HTMLToDOCX from "html-to-docx";
 
 export async function POST(request: Request) {
   try {
@@ -13,17 +12,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const docxBuffer = await HTMLToDOCX(html, null, {
-      table: { row: { cantSplit: true } },
-      footer: true,
-      pageNumber: true,
-    });
+    // Exportar como HTML com extensão .docx (compatível com Word e Pages)
+    const htmlWithBOM = '\ufeff' + html;
+    const docxBlob = new Uint8Array([...new TextEncoder().encode(htmlWithBOM)]);
 
-    const response = new NextResponse(docxBuffer, {
+    const response = new NextResponse(docxBlob, {
       status: 200,
       headers: {
-        "Content-Type":
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        "Content-Type": "application/msword",
         "Content-Disposition": `attachment; filename="${encodeURIComponent(
           title
         )}.docx"`,

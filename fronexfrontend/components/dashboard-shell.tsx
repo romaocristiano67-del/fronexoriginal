@@ -167,7 +167,7 @@ function ProgressRing({
     <div className="rounded-2xl border border-border bg-surface p-3 sm:p-4">
       <div className="flex items-center justify-between gap-2">
         <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent sm:h-9 sm:w-9">
-          <Icon size={14} sm:size={16} />
+          <Icon className="w-[14px] h-[14px] sm:w-[16px] sm:h-[16px]" />
         </span>
         <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:text-[11px]">
           {label}
@@ -219,7 +219,7 @@ function QuickActionButton({
       className="flex min-h-20 flex-col justify-between rounded-2xl border border-border bg-surface p-3 text-left transition-colors hover:border-accent/30 active:scale-[0.98] sm:min-h-24 sm:p-4"
     >
       <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent sm:h-10 sm:w-10">
-        <Icon size={16} sm:size={18} />
+        <Icon className="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px]" />
       </span>
       <span>
         <span className="block text-sm font-bold text-ink">{label}</span>
@@ -644,7 +644,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
             <div className="flex items-center justify-between gap-2">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:gap-2 sm:text-[11px]">
-                  <PanelLeft size={12} sm:size={14} />
+                  <PanelLeft className="w-[12px] h-[12px] sm:w-[14px] sm:h-[14px]" />
                   Dashboard
                 </div>
                 <h1 className="mt-0.5 truncate font-display text-xl font-bold tracking-tight sm:mt-1 sm:text-2xl lg:text-3xl">
@@ -659,7 +659,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   aria-label="Abrir pesquisa rápida"
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:h-11 sm:w-11 lg:h-10 lg:w-auto lg:gap-2 lg:px-3"
                 >
-                  <Search size={16} sm:size={17} />
+                  <Search className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]" />
                   <span className="hidden text-xs font-semibold lg:inline">
                     Pesquisar
                   </span>
@@ -674,7 +674,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   }
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:h-11 sm:w-11"
                 >
-                  {theme === "light" ? <Moon size={16} sm:size={17} /> : <Sun size={16} sm:size={17} />}
+                  {theme === "light" ? <Moon className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]" /> : <Sun className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]" />}
                 </button>
                 <button
                   type="button"
@@ -682,7 +682,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   aria-label="Terminar sessão"
                   className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-red-50 text-red-600 transition-colors hover:bg-red-100 sm:h-11 sm:w-11"
                 >
-                  <LogOut size={16} sm:size={17} />
+                  <LogOut className="w-[16px] h-[16px] sm:w-[17px] sm:h-[17px]" />
                 </button>
               </div>
             </div>

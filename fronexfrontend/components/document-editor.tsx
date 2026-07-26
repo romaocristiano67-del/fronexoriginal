@@ -2,7 +2,6 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import { X, Printer, Download, Type, Palette } from "lucide-react";
-import { htmlToDocx } from "html-to-docx";
 
 
 interface DocumentEditorProps {
@@ -48,34 +47,25 @@ export function DocumentEditor({
     }
   };
 
-  const handleExportDocx = async () => {
+  const handleExportDocx = () => {
     if (!iframeRef.current || !iframeRef.current.contentDocument) return;
     
-    try {
-      // Obter o HTML final com as edições do utilizador
-      const doc = iframeRef.current.contentDocument;
-      const finalHtml = doc.documentElement.outerHTML;
-      
-      // Converter HTML para DOCX usando a biblioteca html-to-docx
-      const docxBlob = await htmlToDocx(finalHtml, {
-        table: { row: { cantSplit: true } },
-        footer: true,
-        pageNumber: true,
-      });
-      
-      // Criar URL e descarregar ficheiro
-      const url = URL.createObjectURL(docxBlob);
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `${title.replace(/\s+/g, '_')}.docx`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Erro ao exportar DOCX:", error);
-      alert("Erro ao exportar para Word. Por favor tente novamente.");
-    }
+    // Obter o HTML final com as edições do utilizador
+    const doc = iframeRef.current.contentDocument;
+    const finalHtml = doc.documentElement.outerHTML;
+    
+    // Exportar como HTML com extensão .docx (compatível com Word e Pages)
+    const blob = new Blob(['\ufeff', finalHtml], {
+      type: "application/msword"
+    });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `${title.replace(/\s+/g, '_')}.docx`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (
