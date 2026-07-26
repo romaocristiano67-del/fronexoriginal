@@ -50,3 +50,23 @@ export const innovateRequestSchema = z.object({
 });
 
 export type InnovateRequest = z.infer<typeof innovateRequestSchema>;
+
+// ============================================================
+// /api/tools/generate — Ferramentas Fronex
+// ============================================================
+export const toolGenerateRequestSchema = z.object({
+  tool: z.enum([
+    'school-work',
+    'cv',
+    'request',
+    'formal-letter',
+    'invitation',
+    'docs',
+    'site-builder',
+    'assistant',
+  ]),
+  payload: z.record(z.string(), z.unknown()),
+  sessionId: z.string().uuid('sessionId inválido').optional(),
+});
+
+export type ToolGenerateRequest = z.infer<typeof toolGenerateRequestSchema>;

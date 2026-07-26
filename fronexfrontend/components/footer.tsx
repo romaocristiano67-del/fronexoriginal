@@ -8,9 +8,7 @@ export default function Footer() {
       <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center">
-            <span className="rounded-[1rem] border border-border bg-surface px-4 py-3 shadow-sm">
-              <Wordmark textClassName="text-[1rem]" />
-            </span>
+            <Wordmark textClassName="text-[1rem]" />
           </div>
           <p className="mt-4 text-sm leading-6 text-ink-muted">
             Tecnologia e serviços digitais feitos em Angola, para negócios que
@@ -25,7 +23,7 @@ export default function Footer() {
               <li><a href="#sobre" className="transition-colors hover:text-accent">Sobre</a></li>
               <li><a href="#servicos" className="transition-colors hover:text-accent">Serviços</a></li>
               <li><a href="#mentores" className="transition-colors hover:text-accent">Mentores</a></li>
-              <li><a href="#inovar" className="transition-colors hover:text-accent">Criar/Inovar</a></li>
+              <li><a href="#ferramentas" className="transition-colors hover:text-accent">Ferramentas</a></li>
               <li><a href="#portfolio" className="transition-colors hover:text-accent">Portfólio</a></li>
             </ul>
           </div>

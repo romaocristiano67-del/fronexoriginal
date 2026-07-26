@@ -166,8 +166,8 @@ export default function AIChatWidget() {
 
   const panelStyle = isMobile
     ? {
+        top: "calc(0.75rem + env(safe-area-inset-top))",
         bottom: `calc(0.75rem + ${keyboardInset}px)`,
-        height: `calc(100dvh - 1.5rem - ${keyboardInset}px)`,
       }
     : undefined;
 
@@ -181,7 +181,7 @@ export default function AIChatWidget() {
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir atendimento Fronex"
-        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
+        className="fixed bottom-5 right-5 z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -204,9 +204,9 @@ export default function AIChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
             style={panelStyle}
-            className={`fixed z-[90] flex flex-col overflow-hidden border border-border bg-surface text-ink shadow-soft-dark backdrop-blur-2xl ${
+            className={`fixed z-[100] flex flex-col overflow-hidden border border-border bg-surface text-ink shadow-soft-dark backdrop-blur-2xl ${
               isMobile
-                ? "left-3 right-3 rounded-[1.75rem]"
+                ? "left-2 right-2 rounded-[1.35rem]"
                 : "bottom-24 right-6 h-[620px] w-[min(92vw,26rem)] rounded-[1.75rem]"
             }`}
           >
@@ -224,9 +224,19 @@ export default function AIChatWidget() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 rounded-full border border-border bg-canvas/50 px-2.5 py-1 text-[11px] font-medium text-ink-muted">
-                <Cpu size={12} className="text-accent" />
-                {tokensRemaining ?? VISITOR_TOKEN_LIMIT} tokens
+              <div className="flex items-center gap-2">
+                <div className="hidden items-center gap-1.5 rounded-full border border-border bg-canvas/50 px-2.5 py-1 text-[11px] font-medium text-ink-muted min-[360px]:flex">
+                  <Cpu size={12} className="text-accent" />
+                  {tokensRemaining ?? VISITOR_TOKEN_LIMIT} tokens
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Fechar atendimento Fronex"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/45 hover:text-accent"
+                >
+                  <X size={17} />
+                </button>
               </div>
             </div>
 

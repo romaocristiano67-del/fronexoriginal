@@ -8,6 +8,7 @@ import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import Wordmark from "@/components/wordmark";
+import ThemeToggle from "@/components/theme-toggle";
 
 type Mode = "login" | "signup";
 type Step = "email" | "credentials";
@@ -131,11 +132,12 @@ function LoginContent() {
 
       <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
         <div className="relative flex flex-col px-6 py-6 sm:px-10 lg:px-12 lg:py-8">
-          <Link href="/" className="inline-flex w-fit items-center">
-            <span className="rounded-[1rem] border border-border bg-surface px-4 py-3 shadow-sm">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="inline-flex w-fit items-center">
               <Wordmark textClassName="text-[1rem]" />
-            </span>
-          </Link>
+            </Link>
+            <ThemeToggle />
+          </div>
 
           <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-10">
             <div className="text-center">

@@ -10,23 +10,20 @@ import {
   Coins,
   LogOut,
   LayoutDashboard,
-  Moon,
-  Sun,
 } from "lucide-react";
-import { useTheme } from "@/components/theme-provider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import Wordmark from "@/components/wordmark";
+import ThemeToggle from "@/components/theme-toggle";
 
 const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
   { label: "Serviços", href: "#servicos" },
   { label: "Mentores", href: "#mentores" },
-  { label: "Criar/Inovar", href: "#inovar" },
+  { label: "Ferramentas", href: "#ferramentas" },
   { label: "Portfólio", href: "#portfolio" },
 ];
 
 export default function Header() {
-  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [email, setEmail] = useState<string | null>(null);
@@ -96,10 +93,8 @@ export default function Header() {
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
-        <Link href="/" className="group flex min-w-0 items-center gap-2.5">
-          <span className="rounded-[1rem] border border-border bg-surface/95 px-4 py-2 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.35)]">
-            <Wordmark textClassName="text-[1.02rem] sm:text-[1.08rem]" />
-          </span>
+        <Link href="/" className="group flex min-w-0 items-center">
+          <Wordmark textClassName="text-[1.06rem] sm:text-[1.16rem]" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -115,24 +110,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <button
-            onClick={toggleTheme}
-            aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-            className="hidden h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:flex"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.span
-                key={theme}
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0, rotate: 90 }}
-                transition={{ duration: 0.25 }}
-                className="flex"
-              >
-                {theme === "light" ? <Moon size={16} /> : <Sun size={16} />}
-              </motion.span>
-            </AnimatePresence>
-          </button>
+          <ThemeToggle />
 
           {email ? (
             <div className="hidden items-center gap-2 md:flex">

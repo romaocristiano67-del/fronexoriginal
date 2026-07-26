@@ -8,13 +8,12 @@ export default function Wordmark({
   textClassName = "",
 }: WordmarkProps) {
   return (
-    <span className={`inline-flex flex-col items-start leading-none ${className}`}>
+    <span className={`inline-flex items-center leading-none ${className}`}>
       <span
-        className={`font-display text-xl font-black uppercase tracking-[0.34em] text-ink ${textClassName}`}
+        className={`font-display text-xl font-extrabold uppercase tracking-[0.38em] text-ink drop-shadow-[0_10px_22px_rgba(15,23,42,0.12)] ${textClassName}`}
       >
-        Fronex
+        Fron<span className="relative inline-block pr-[0.03em] text-accent">e<span className="absolute left-[0.08em] right-[0.05em] top-[0.48em] h-[0.12em] bg-surface" /></span>x
       </span>
-      <span className="mt-1 h-0.5 w-12 rounded-full bg-[linear-gradient(90deg,#2563eb_0%,#22d3ee_100%)]" />
     </span>
   );
 }
