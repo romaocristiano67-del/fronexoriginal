@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
+import Wordmark from "@/components/wordmark";
 
 export default function Footer() {
   return (
@@ -8,14 +8,8 @@ export default function Footer() {
       <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
         <div className="max-w-xs">
           <div className="flex items-center">
-            <span className="relative h-11 w-36 overflow-hidden rounded-[1rem] border border-border bg-surface p-1 shadow-sm">
-              <Image
-                src="/images/logo-fronex-original.jpg"
-                alt="Fronex"
-                fill
-                sizes="144px"
-                className="object-cover object-center"
-              />
+            <span className="rounded-[1rem] border border-border bg-surface px-4 py-3 shadow-sm">
+              <Wordmark textClassName="text-[1rem]" />
             </span>
           </div>
           <p className="mt-4 text-sm leading-6 text-ink-muted">

@@ -4,40 +4,40 @@
 
 @layer base {
   :root {
-    --color-canvas: 247 243 236;
-    --color-canvas-light: 252 249 244;
-    --color-canvas-dark: 7 10 15;
+    --color-canvas: 243 247 251;
+    --color-canvas-light: 249 251 255;
+    --color-canvas-dark: 6 10 18;
     --color-surface: 255 255 255;
-    --color-surface-dark: 15 19 27;
-    --color-surface-elevated: 245 240 232;
-    --color-border: 223 214 202;
-    --color-border-dark: 44 54 70;
-    --color-ink: 17 17 17;
-    --color-ink-dark: 245 243 239;
-    --color-ink-muted: 92 86 80;
-    --color-muted: 120 112 104;
-    --color-muted-dark: 166 172 186;
-    --color-accent: 210 31 43;
-    --color-accent-soft: 242 201 76;
-    --color-accent-dim: 210 31 43;
+    --color-surface-dark: 12 18 30;
+    --color-surface-elevated: 243 247 251;
+    --color-border: 213 224 238;
+    --color-border-dark: 33 44 62;
+    --color-ink: 15 23 42;
+    --color-ink-dark: 241 245 249;
+    --color-ink-muted: 71 85 105;
+    --color-muted: 100 116 139;
+    --color-muted-dark: 148 163 184;
+    --color-accent: 37 99 235;
+    --color-accent-soft: 34 211 238;
+    --color-accent-dim: 14 165 233;
   }
 
   .dark {
-    --color-canvas: 7 10 15;
-    --color-canvas-light: 12 16 24;
-    --color-surface: 14 19 28;
-    --color-surface-dark: 10 14 21;
-    --color-surface-elevated: 18 25 36;
-    --color-border: 40 50 65;
-    --color-border-dark: 40 50 65;
-    --color-ink: 245 243 239;
-    --color-ink-dark: 245 243 239;
-    --color-ink-muted: 172 180 196;
-    --color-muted: 147 156 173;
-    --color-muted-dark: 147 156 173;
-    --color-accent: 226 63 74;
-    --color-accent-soft: 242 201 76;
-    --color-accent-dim: 226 63 74;
+    --color-canvas: 6 10 18;
+    --color-canvas-light: 11 18 31;
+    --color-surface: 12 18 30;
+    --color-surface-dark: 8 13 23;
+    --color-surface-elevated: 18 28 45;
+    --color-border: 31 41 55;
+    --color-border-dark: 31 41 55;
+    --color-ink: 241 245 249;
+    --color-ink-dark: 241 245 249;
+    --color-ink-muted: 148 163 184;
+    --color-muted: 113 128 150;
+    --color-muted-dark: 113 128 150;
+    --color-accent: 56 189 248;
+    --color-accent-soft: 34 211 238;
+    --color-accent-dim: 96 165 250;
   }
 
   html {
@@ -59,7 +59,7 @@
   }
 
   ::selection {
-    background-color: rgba(210, 31, 43, 0.22);
+    background-color: rgba(37, 99, 235, 0.18);
     color: rgb(var(--color-ink));
   }
 
@@ -128,7 +128,7 @@
   }
 
   .text-gradient-neon {
-    @apply bg-gradient-to-r from-ink via-ink to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-accent via-ink to-accent-soft bg-clip-text text-transparent;
   }
 }
 

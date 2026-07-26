@@ -2,12 +2,12 @@
 
 import { Suspense, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import Wordmark from "@/components/wordmark";
 
 type Mode = "login" | "signup";
 type Step = "email" | "credentials";
@@ -126,21 +126,14 @@ function LoginContent() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(210,31,43,0.08),transparent_50%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.08),transparent_50%)]"
       />
 
       <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
         <div className="relative flex flex-col px-6 py-6 sm:px-10 lg:px-12 lg:py-8">
           <Link href="/" className="inline-flex w-fit items-center">
-            <span className="relative h-10 w-36 overflow-hidden rounded-[1rem] border border-border bg-surface p-1 shadow-sm">
-              <Image
-                src="/images/logo-fronex-original.jpg"
-                alt="Fronex"
-                fill
-                sizes="144px"
-                className="object-cover object-center"
-                priority
-              />
+            <span className="rounded-[1rem] border border-border bg-surface px-4 py-3 shadow-sm">
+              <Wordmark textClassName="text-[1rem]" />
             </span>
           </Link>
 
@@ -310,31 +303,31 @@ function LoginContent() {
 
         {/* Painel visual abstrato */}
         <div className="relative hidden p-5 lg:block lg:p-6">
-          <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-border bg-surface">
-            <div
-              aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(210,31,43,0.16),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(242,201,76,0.12),transparent_45%)]"
-            />
-            <div
-              aria-hidden
-              className="absolute inset-[12%] opacity-[0.14]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(210,31,43,0.42) 1px, transparent 1px), linear-gradient(90deg, rgba(242,201,76,0.42) 1px, transparent 1px)",
-                backgroundSize: "36px 36px",
-                maskImage:
-                  "radial-gradient(ellipse at center, black 25%, transparent 72%)",
-              }}
-            />
+            <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-border bg-surface">
+              <div
+                aria-hidden
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(37,99,235,0.16),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(34,211,238,0.12),transparent_45%)]"
+              />
+              <div
+                aria-hidden
+                className="absolute inset-[12%] opacity-[0.14]"
+                style={{
+                  backgroundImage:
+                  "linear-gradient(rgba(37,99,235,0.42) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.42) 1px, transparent 1px)",
+                  backgroundSize: "36px 36px",
+                  maskImage:
+                    "radial-gradient(ellipse at center, black 25%, transparent 72%)",
+                }}
+              />
             <div
               aria-hidden
               className="absolute left-[18%] top-[28%] h-36 w-36 border border-accent/50 bg-gradient-to-br from-accent/20 to-transparent shadow-neon"
-              style={{ transform: "rotate(28deg) skewY(-8deg)" }}
+              style={{ transform: "rotate(18deg) skewY(-6deg)" }}
             />
             <div
               aria-hidden
-              className="absolute bottom-[22%] right-[16%] h-28 w-28 border border-cyan-400/40 bg-gradient-to-tl from-cyan-400/15 to-transparent"
-              style={{ transform: "rotate(-18deg) skewY(6deg)" }}
+              className="absolute bottom-[22%] right-[16%] h-28 w-28 border border-accent-soft/40 bg-gradient-to-tl from-accent-soft/15 to-transparent"
+              style={{ transform: "rotate(-14deg) skewY(5deg)" }}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas/90 to-transparent p-8">
               <p className="section-label mb-2">Fronex Studio</p>

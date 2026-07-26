@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import {
   ArrowUpRight,
@@ -31,6 +30,7 @@ import {
   buildPremiumServiceRequestMessage,
   getWhatsAppLink,
 } from "@/lib/whatsapp";
+import Wordmark from "@/components/wordmark";
 
 type DashboardTab = "overview" | "profile" | "preferences" | "services";
 
@@ -562,28 +562,19 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
     <main className="min-h-screen bg-canvas text-ink">
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(180deg,rgba(210,31,43,0.05)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgba(242,201,76,0.08),transparent_45%)]"
+        className="fixed inset-0 bg-[linear-gradient(180deg,rgba(37,99,235,0.05)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgba(34,211,238,0.08),transparent_45%)]"
       />
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(rgba(210,31,43,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(242,201,76,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
+        className="fixed inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
       />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1600px]">
         <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border bg-canvas p-5 lg:block">
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-[1rem] border border-border bg-surface p-1">
-                <Image
-                  src="/images/logo-fronex-original.jpg"
-                  alt="Fronex"
-                  fill
-                  sizes="40px"
-                  className="object-cover object-center"
-                />
-              </span>
-              <span className="font-display text-xl font-bold uppercase tracking-[0.18em]">
-                FRONEX
+              <span className="rounded-[1rem] border border-border bg-surface px-4 py-3 shadow-sm">
+                <Wordmark textClassName="text-[0.92rem]" />
               </span>
             </Link>
 
@@ -787,21 +778,21 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       label="Conta"
                       caption="Dados usados nas propostas."
                       value={serviceMetrics.profileProgress}
-                      accent="#D21F2B"
+                      accent="#2563EB"
                       icon={UserRound}
                     />
                     <ProgressRing
                       label="Projetos"
                       caption={`${serviceMetrics.totalServices - serviceMetrics.pending}/${serviceMetrics.totalServices} em curso`}
                       value={serviceMetrics.projectProgress}
-                      accent="#F2C94C"
+                      accent="#22D3EE"
                       icon={CircleDashed}
                     />
                     <ProgressRing
                       label="Tokens"
                       caption={`${tokensRemaining ?? 25} disponíveis hoje`}
                       value={serviceMetrics.tokensProgress}
-                      accent="#D21F2B"
+                      accent="#14B8A6"
                       icon={ShieldCheck}
                     />
                   </div>
@@ -826,10 +817,10 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                     {ACTIVE_SERVICES.map((service, index) => {
                       const accent =
                         index === 0
-                          ? "#D21F2B"
+                          ? "#2563EB"
                           : index === 1
-                            ? "#F2C94C"
-                            : "#D21F2B";
+                            ? "#22D3EE"
+                            : "#14B8A6";
 
                       return (
                         <article
@@ -849,7 +840,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                               <div
                                 className="relative h-14 w-14 rounded-full"
                                 style={{
-                                  background: `conic-gradient(${accent} ${index === 0 ? 72 : index === 1 ? 48 : 48}deg, rgba(17,17,17,0.10) 0deg)`,
+                                background: `conic-gradient(${accent} ${index === 0 ? 72 : index === 1 ? 48 : 48}deg, rgba(17,17,17,0.10) 0deg)`,
                                 }}
                               >
                                 <div className="absolute inset-[0.22rem] rounded-full border border-border bg-canvas" />
@@ -1140,8 +1131,8 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                             width: `${index === 0 ? 72 : 48}%`,
                             background:
                               index === 0
-                                ? "linear-gradient(90deg,#D21F2B,#F2C94C)"
-                                : "linear-gradient(90deg,#F2C94C,#D21F2B)",
+                                ? "linear-gradient(90deg,#2563EB,#22D3EE)"
+                                : "linear-gradient(90deg,#22D3EE,#2563EB)",
                           }}
                         />
                       </div>

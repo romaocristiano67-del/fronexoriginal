@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
@@ -16,6 +15,7 @@ import {
 } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import Wordmark from "@/components/wordmark";
 
 const NAV_LINKS = [
   { label: "Sobre", href: "#sobre" },
@@ -97,15 +97,8 @@ export default function Header() {
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
         <Link href="/" className="group flex min-w-0 items-center gap-2.5">
-          <span className="relative h-10 w-32 overflow-hidden rounded-[1rem] border border-border bg-surface/95 p-1 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.35)] sm:w-36">
-            <Image
-              src="/images/logo-fronex-crop.jpg"
-              alt="Fronex"
-              fill
-              sizes="(min-width: 640px) 144px, 128px"
-              className="object-cover object-center"
-              priority
-            />
+          <span className="rounded-[1rem] border border-border bg-surface/95 px-4 py-2 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.35)]">
+            <Wordmark textClassName="text-[1.02rem] sm:text-[1.08rem]" />
           </span>
         </Link>
 

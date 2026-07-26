@@ -26,7 +26,7 @@ export default function AboutSection() {
     <section id="sobre" className="relative bg-canvas py-20 md:py-28">
       <div
         aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(210,31,43,0.06),transparent_60%)]"
+        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.07),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(34,211,238,0.06),transparent_45%)]"
       />
 
       <div className="container-fronex relative">
