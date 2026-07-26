@@ -13,7 +13,7 @@ type Mode = "login" | "signup";
 type Step = "email" | "credentials";
 
 const inputClassName =
-  "w-full rounded-lg border border-white/10 bg-canvas-light px-3.5 py-[0.85rem] text-[0.925rem] text-white outline-none placeholder:text-muted transition-colors focus:border-accent focus:ring-1 focus:ring-accent";
+  "w-full rounded-lg border border-border bg-canvas-light px-3.5 py-[0.85rem] text-[0.925rem] text-ink outline-none placeholder:text-muted transition-colors focus:border-accent focus:ring-1 focus:ring-accent";
 
 function GoogleIcon() {
   return (
@@ -119,26 +119,26 @@ function LoginContent() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-canvas text-white">
+    <div className="relative min-h-screen overflow-hidden bg-canvas text-ink">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 bg-hero-glow"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(0,255,163,0.08),transparent_50%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(210,31,43,0.08),transparent_50%)]"
       />
 
       <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
         <div className="relative flex flex-col px-6 py-6 sm:px-10 lg:px-12 lg:py-8">
           <Link href="/" className="inline-flex w-fit items-center">
-            <span className="relative h-10 w-32 overflow-hidden rounded-lg border border-white/10 bg-white shadow-sm">
+            <span className="relative h-10 w-36 overflow-hidden rounded-[1rem] border border-border bg-surface p-1 shadow-sm">
               <Image
-                src="/images/logo-fronex-wordmark.jpg"
+                src="/images/logo-fronex-original.jpg"
                 alt="Fronex"
                 fill
-                sizes="128px"
-                className="object-cover"
+                sizes="144px"
+                className="object-cover object-center"
                 priority
               />
             </span>
@@ -147,21 +147,22 @@ function LoginContent() {
           <div className="mx-auto flex w-full max-w-[400px] flex-1 flex-col justify-center py-10">
             <div className="text-center">
               <p className="section-label mb-3">Autenticação</p>
-              <h1 className="font-display text-[2.35rem] font-extrabold leading-[1.1] tracking-tight text-white sm:text-[2.85rem]">
-                Question what&apos;s next
+              <h1 className="font-display text-[2.35rem] font-extrabold leading-[1.1] tracking-tight text-ink sm:text-[2.85rem]">
+                Entrar na experiência Fronex
                 <span className="text-accent">.</span>
               </h1>
               <p className="mt-3 text-base leading-relaxed text-ink-muted">
-                O seu parceiro digital para grandes ambições
+                Acesso rápido à sua conta, com uma interface mais limpa e
+                ajustada para telemóvel.
               </p>
             </div>
 
-            <div className="mt-8 rounded-2xl border border-white/[0.06] bg-surface px-6 py-7 sm:px-7 sm:py-8">
+            <div className="mt-8 rounded-2xl border border-border bg-surface px-6 py-7 sm:px-7 sm:py-8">
               <button
                 type="button"
                 onClick={handleGoogle}
                 disabled={loading}
-                className="flex w-full items-center justify-center gap-3 rounded-lg border border-white/10 bg-canvas-light px-4 py-[0.85rem] text-[0.925rem] font-medium text-white transition-colors hover:border-accent/40 hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-60"
+                className="flex w-full items-center justify-center gap-3 rounded-lg border border-border bg-canvas-light px-4 py-[0.85rem] text-[0.925rem] font-medium text-ink transition-colors hover:border-accent/40 hover:bg-canvas disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {loading ? (
                   <Loader2 size={16} className="animate-spin text-accent" />
@@ -172,7 +173,7 @@ function LoginContent() {
               </button>
 
               <div className="my-5 text-center text-[11px] font-medium uppercase tracking-[0.16em] text-muted">
-                or
+                ou
               </div>
 
               <AnimatePresence mode="wait">
@@ -309,17 +310,17 @@ function LoginContent() {
 
         {/* Painel visual abstrato */}
         <div className="relative hidden p-5 lg:block lg:p-6">
-          <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-white/[0.06] bg-surface">
+          <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-border bg-surface">
             <div
               aria-hidden
-              className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(0,255,163,0.14),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(0,180,255,0.1),transparent_45%)]"
+              className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(210,31,43,0.16),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(242,201,76,0.12),transparent_45%)]"
             />
             <div
               aria-hidden
               className="absolute inset-[12%] opacity-[0.14]"
               style={{
                 backgroundImage:
-                  "linear-gradient(rgba(0,255,163,0.55) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,163,0.55) 1px, transparent 1px)",
+                  "linear-gradient(rgba(210,31,43,0.42) 1px, transparent 1px), linear-gradient(90deg, rgba(242,201,76,0.42) 1px, transparent 1px)",
                 backgroundSize: "36px 36px",
                 maskImage:
                   "radial-gradient(ellipse at center, black 25%, transparent 72%)",
@@ -337,8 +338,8 @@ function LoginContent() {
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas/90 to-transparent p-8">
               <p className="section-label mb-2">Fronex Studio</p>
-              <p className="max-w-sm font-display text-2xl font-bold leading-snug text-white">
-                Inteligência digital com presença, ritmo e confiança.
+              <p className="max-w-sm font-display text-2xl font-bold leading-snug text-ink">
+                Presença digital com ritmo, confiança e leitura mobile.
               </p>
             </div>
           </div>

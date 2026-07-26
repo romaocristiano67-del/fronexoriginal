@@ -17,12 +17,12 @@ function ErroContent() {
   const mensagem = MOTIVOS[motivo] ?? MOTIVOS.erro_interno;
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-canvas px-6 text-white">
-      <div className="w-full max-w-md rounded-2xl border border-white/[0.06] bg-surface p-8 text-center">
+    <main className="flex min-h-screen items-center justify-center bg-canvas px-6 text-ink">
+      <div className="w-full max-w-md rounded-2xl border border-border bg-surface p-8 text-center">
         <div className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full border border-accent/30 bg-accent/10">
           <AlertCircle className="text-accent" size={22} />
         </div>
-        <h1 className="font-display text-2xl font-bold text-white">
+        <h1 className="font-display text-2xl font-bold text-ink">
           Login não concluído
         </h1>
         <p className="mt-3 text-sm text-ink-muted">{mensagem}</p>

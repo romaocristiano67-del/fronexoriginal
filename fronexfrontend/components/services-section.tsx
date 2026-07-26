@@ -12,17 +12,17 @@ export default function ServicesSection() {
   );
 
   return (
-    <section id="servicos" className="bg-canvas-light py-24 text-white md:py-32">
+    <section id="servicos" className="bg-canvas-light py-20 text-ink md:py-28">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-20 md:max-w-2xl">
           <p className="section-label">Serviços</p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-            Serviços desenhados para resolver, não apenas decorar
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
+            Serviços que resolvem e ainda elevam a marca
           </h2>
           <p className="text-base text-ink-muted md:text-lg">
-            Cada serviço parte de uma necessidade concreta: vender melhor,
-            organizar operação, lançar produto ou fortalecer a percepção da sua
-            marca.
+            Cada entrega parte de uma necessidade real: vender melhor,
+            organizar operação, lançar produto ou apresentar a marca com mais
+            força no mobile.
           </p>
         </div>
 
@@ -30,7 +30,7 @@ export default function ServicesSection() {
           {SERVICES.map((service) => (
             <div
               key={service.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-accent/25 bg-surface transition-colors hover:border-accent/45"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-accent/45"
             >
               <div className="relative h-44 w-full overflow-hidden border-b border-accent/20">
                 <Image
@@ -44,14 +44,14 @@ export default function ServicesSection() {
               </div>
 
               <div className="flex flex-1 flex-col p-6">
-                <h3 className="font-display text-lg font-bold text-white">
+                <h3 className="font-display text-lg font-bold text-ink">
                   {service.title}
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-6 text-ink-muted">
                   {service.description}
                 </p>
 
-                <div className="mt-5 flex items-end justify-between border-t border-white/[0.06] pt-4">
+                <div className="mt-5 flex items-end justify-between border-t border-border pt-4">
                   <div>
                     <p className="text-xs text-muted">Média</p>
                     <p className="font-display text-lg font-bold text-accent">

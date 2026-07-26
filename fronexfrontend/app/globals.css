@@ -3,37 +3,68 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-canvas: 247 243 236;
+    --color-canvas-light: 252 249 244;
+    --color-canvas-dark: 7 10 15;
+    --color-surface: 255 255 255;
+    --color-surface-dark: 15 19 27;
+    --color-surface-elevated: 245 240 232;
+    --color-border: 223 214 202;
+    --color-border-dark: 44 54 70;
+    --color-ink: 17 17 17;
+    --color-ink-dark: 245 243 239;
+    --color-ink-muted: 92 86 80;
+    --color-muted: 120 112 104;
+    --color-muted-dark: 166 172 186;
+    --color-accent: 210 31 43;
+    --color-accent-soft: 242 201 76;
+    --color-accent-dim: 210 31 43;
+  }
+
+  .dark {
+    --color-canvas: 7 10 15;
+    --color-canvas-light: 12 16 24;
+    --color-surface: 14 19 28;
+    --color-surface-dark: 10 14 21;
+    --color-surface-elevated: 18 25 36;
+    --color-border: 40 50 65;
+    --color-border-dark: 40 50 65;
+    --color-ink: 245 243 239;
+    --color-ink-dark: 245 243 239;
+    --color-ink-muted: 172 180 196;
+    --color-muted: 147 156 173;
+    --color-muted-dark: 147 156 173;
+    --color-accent: 226 63 74;
+    --color-accent-soft: 242 201 76;
+    --color-accent-dim: 226 63 74;
+  }
+
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: #050b14;
-    color: #ffffff;
+    background-color: rgb(var(--color-canvas));
+    color: rgb(var(--color-ink));
     @apply font-body antialiased;
     transition: background-color 0.4s ease, color 0.4s ease;
-  }
-
-  .dark body {
-    background-color: #050b14;
-    color: #ffffff;
   }
 
   h1,
   h2,
   h3,
   h4 {
-    @apply font-display tracking-tight text-white;
+    @apply font-display tracking-tight text-ink;
   }
 
   ::selection {
-    background-color: rgba(0, 255, 163, 0.25);
-    color: #ffffff;
+    background-color: rgba(210, 31, 43, 0.22);
+    color: rgb(var(--color-ink));
   }
 
-  /* Foco visível para acessibilidade */
   :focus-visible {
-    outline: 2px solid #00ffa3;
+    outline: 2px solid rgb(var(--color-accent));
     outline-offset: 3px;
     border-radius: 4px;
   }
@@ -42,28 +73,28 @@
     width: 10px;
   }
   ::-webkit-scrollbar-track {
-    background: #050b14;
+    background: rgb(var(--color-canvas));
   }
   ::-webkit-scrollbar-thumb {
     @apply rounded-full;
-    background: #1a2438;
+    background: rgb(var(--color-border));
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #00ffa3;
+    background: rgb(var(--color-accent));
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-5 py-3 text-sm font-semibold text-canvas transition-all duration-200 hover:bg-accent-soft hover:shadow-neon;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-soft hover:text-ink hover:shadow-neon;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border border-accent/60 bg-transparent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:border-accent hover:bg-accent/10;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-transparent px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:border-accent hover:bg-accent/10 hover:text-ink;
   }
 
   .card-surface {
-    @apply rounded-2xl border border-white/[0.06] bg-surface p-6 transition-colors duration-300;
+    @apply rounded-2xl border border-border bg-surface p-6 transition-colors duration-300;
   }
 
   .link-accent {
@@ -81,7 +112,7 @@
   }
 
   .glass {
-    @apply border border-white/[0.06] bg-surface/80 shadow-soft-dark backdrop-blur-2xl;
+    @apply border border-border bg-surface/80 shadow-soft-dark backdrop-blur-2xl;
   }
 
   .container-fronex {
@@ -89,7 +120,7 @@
   }
 
   .card-fronex {
-    @apply rounded-2xl border border-white/[0.06] bg-surface shadow-soft-dark transition-colors duration-300;
+    @apply rounded-2xl border border-border bg-surface shadow-soft-dark transition-colors duration-300;
   }
 
   .safe-bottom {
@@ -97,7 +128,7 @@
   }
 
   .text-gradient-neon {
-    @apply bg-gradient-to-r from-white via-white to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-ink via-ink to-accent bg-clip-text text-transparent;
   }
 }
 

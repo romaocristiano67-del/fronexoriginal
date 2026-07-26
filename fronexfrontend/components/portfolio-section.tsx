@@ -91,18 +91,18 @@ export default function PortfolioSection() {
   };
 
   return (
-    <section id="portfolio" className="bg-canvas py-24 text-white md:py-32">
+    <section id="portfolio" className="bg-canvas py-20 text-ink md:py-28">
       <div className="container-fronex">
         <div className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[0.9fr_1.1fr] md:items-end">
           <div className="flex flex-col gap-4">
             <p className="section-label">Portfólio</p>
-            <h2 className="font-display text-4xl font-extrabold leading-tight md:text-5xl">
-              Portfólio com matéria real
+            <h2 className="font-display text-4xl font-extrabold leading-tight text-ink md:text-5xl">
+              Portfólio com matéria, não com enfeite
             </h2>
           </div>
           <p className="text-lg leading-8 text-ink-muted">
-            Em vez de mockups genéricos, a secção mostra peças visuais criadas
-            para comunicar entrega, contexto e nível de acabamento.
+            Em vez de mockups genéricos, a secção mostra peças visuais pensadas
+            para comunicar contexto, entrega e nível de acabamento.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function PortfolioSection() {
           {PORTFOLIO_ITEMS.map((item) => (
             <article
               key={item.title}
-              className={`group overflow-hidden rounded-2xl border border-white/[0.06] bg-surface transition-colors hover:border-accent/25 ${
+              className={`group overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-accent/25 ${
                 item.featured ? "lg:col-span-7" : "lg:col-span-5"
               }`}
             >
@@ -136,7 +136,7 @@ export default function PortfolioSection() {
                   </span>
                 </div>
 
-                <h3 className="font-display text-2xl font-bold leading-tight text-white">
+                <h3 className="font-display text-2xl font-bold leading-tight text-ink">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-ink-muted">

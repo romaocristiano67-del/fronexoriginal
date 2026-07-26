@@ -18,7 +18,7 @@ const INITIAL_MESSAGE: ChatMessage = {
   id: "welcome",
   role: "assistant",
   content:
-    "Olá, bem-vindo à Fronex.\n\n::badge[Online]\n\nConte-me o que pretende criar: site, app, sistema, design, conteúdo ou automação. Eu organizo o pedido e indico o próximo passo.",
+    "Olá, bem-vindo à Fronex.\n\n::badge[Online]\n\nDiga-me o que quer construir: site, app, sistema, design, conteúdo ou automação. Eu organizo o pedido e indico o próximo passo.",
 };
 
 export default function AIChatWidget() {
@@ -173,7 +173,7 @@ export default function AIChatWidget() {
 
   return (
     <>
-      <motion.button
+        <motion.button
         onClick={() => setOpen((v) => !v)}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -181,7 +181,7 @@ export default function AIChatWidget() {
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir atendimento Fronex"
-        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-canvas shadow-neon backdrop-blur-xl"
+        className="fixed bottom-5 right-5 z-[90] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -204,19 +204,19 @@ export default function AIChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
             style={panelStyle}
-            className={`fixed z-[90] flex flex-col overflow-hidden border border-white/[0.08] bg-surface text-white shadow-soft-dark backdrop-blur-2xl ${
+            className={`fixed z-[90] flex flex-col overflow-hidden border border-border bg-surface text-ink shadow-soft-dark backdrop-blur-2xl ${
               isMobile
                 ? "left-3 right-3 rounded-[1.75rem]"
                 : "bottom-24 right-6 h-[620px] w-[min(92vw,26rem)] rounded-[1.75rem]"
             }`}
           >
-            <div className="flex items-center justify-between border-b border-white/[0.06] bg-canvas/40 px-4 py-4">
+            <div className="flex items-center justify-between border-b border-border bg-canvas/40 px-4 py-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-accent">
                   <Sparkles size={16} />
                 </span>
                 <div>
-                  <p className="text-sm font-semibold">Atendimento Fronex</p>
+                  <p className="text-sm font-semibold text-ink">Atendimento Fronex</p>
                   <p className="mt-0.5 flex items-center gap-1 text-[11px] text-ink-muted">
                     <span className="h-1.5 w-1.5 rounded-full bg-accent" />
                     Online agora
@@ -224,7 +224,7 @@ export default function AIChatWidget() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1.5 rounded-full border border-white/10 bg-canvas/50 px-2.5 py-1 text-[11px] font-medium text-ink-muted">
+              <div className="flex items-center gap-1.5 rounded-full border border-border bg-canvas/50 px-2.5 py-1 text-[11px] font-medium text-ink-muted">
                 <Cpu size={12} className="text-accent" />
                 {tokensRemaining ?? VISITOR_TOKEN_LIMIT} tokens
               </div>
@@ -240,11 +240,11 @@ export default function AIChatWidget() {
                   key={msg.id}
                   className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                 >
-                  <div
-                    className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-soft ${
+                <div
+                  className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-soft ${
                       msg.role === "user"
                         ? "bg-accent text-canvas"
-                        : "border border-white/[0.06] bg-canvas/60 text-ink-muted"
+                        : "border border-border bg-canvas/60 text-ink-muted"
                     }`}
                   >
                     {msg.role === "assistant" ? (
@@ -260,7 +260,7 @@ export default function AIChatWidget() {
 
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="w-[min(18rem,88%)] rounded-3xl border border-white/10 bg-white/[0.05] px-4 py-3">
+                  <div className="w-[min(18rem,88%)] rounded-3xl border border-border bg-white/[0.05] px-4 py-3">
                     <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
                       <Loader2 size={12} className="animate-spin" />
                       A preparar resposta
@@ -279,9 +279,9 @@ export default function AIChatWidget() {
               )}
             </div>
 
-            <div className="border-t border-white/10 bg-black/30 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+            <div className="border-t border-border bg-black/30 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
               <div className="flex items-end gap-2">
-                <div className="flex-1 rounded-3xl border border-white/10 bg-white/[0.05] px-4 py-3 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.65)]">
+                <div className="flex-1 rounded-3xl border border-border bg-white/[0.05] px-4 py-3 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.65)]">
                   <input
                     ref={inputRef}
                     value={input}
@@ -289,7 +289,7 @@ export default function AIChatWidget() {
                     onKeyDown={(event) => event.key === "Enter" && !event.shiftKey && handleSend()}
                     onFocus={() => requestAnimationFrame(() => scrollToBottom("smooth"))}
                     placeholder="Escreva a sua pergunta..."
-                    className="w-full bg-transparent text-sm text-white outline-none placeholder:text-zinc-500"
+                    className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted"
                   />
                 </div>
 
@@ -306,7 +306,7 @@ export default function AIChatWidget() {
                 </motion.button>
               </div>
 
-              <p className="mt-2 text-[11px] leading-5 text-zinc-500">
+              <p className="mt-2 text-[11px] leading-5 text-muted">
                 Respostas orientadas para orçamento, serviços e próximos passos.
               </p>
             </div>

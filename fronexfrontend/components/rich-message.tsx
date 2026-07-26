@@ -164,7 +164,7 @@ function toneForBadge(label: string) {
   if (/(erro|falha|inv[aá]lido|negado|off-topic|off topic)/.test(lower)) {
     return "border-rose-400/30 bg-rose-500/15 text-rose-100";
   }
-  return "border-white/15 bg-white/10 text-zinc-100";
+  return "border-border bg-canvas/60 text-ink";
 }
 
 function renderInline(text: string): ReactNode[] {
@@ -177,7 +177,7 @@ function renderInline(text: string): ReactNode[] {
       return (
         <code
           key={`${token}-${index}`}
-          className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.92em] text-white"
+          className="rounded bg-accent/10 px-1.5 py-0.5 font-mono text-[0.92em] text-ink"
         >
           {token.slice(1, -1)}
         </code>
@@ -186,7 +186,7 @@ function renderInline(text: string): ReactNode[] {
 
     if (token.startsWith("**") && token.endsWith("**")) {
       return (
-        <strong key={`${token}-${index}`} className="font-semibold text-white">
+        <strong key={`${token}-${index}`} className="font-semibold text-ink">
           {token.slice(2, -2)}
         </strong>
       );
@@ -200,7 +200,7 @@ function renderInline(text: string): ReactNode[] {
           href={linkMatch[2]}
           target="_blank"
           rel="noreferrer"
-          className="text-angola-gold underline decoration-white/20 underline-offset-4 transition-colors hover:text-white"
+          className="text-accent underline decoration-accent/20 underline-offset-4 transition-colors hover:text-accent-soft"
         >
           {linkMatch[1]}
         </a>
@@ -231,7 +231,7 @@ function renderBlock(block: MarkdownBlock, index: number) {
     return (
       <blockquote
         key={`${block.type}-${index}`}
-        className="border-l-2 border-angola-gold/60 bg-white/[0.04] px-4 py-3 text-sm leading-6 text-zinc-200"
+        className="border-l-2 border-accent/60 bg-canvas/50 px-4 py-3 text-sm leading-6 text-ink-muted"
       >
         {renderInline(block.text)}
       </blockquote>
@@ -243,7 +243,7 @@ function renderBlock(block: MarkdownBlock, index: number) {
     return (
       <ListTag
         key={`${block.type}-${index}`}
-        className={`space-y-2 text-sm leading-6 text-zinc-200 ${block.ordered ? "list-decimal pl-5" : "list-disc pl-5"}`}
+        className={`space-y-2 text-sm leading-6 text-ink-muted ${block.ordered ? "list-decimal pl-5" : "list-disc pl-5"}`}
       >
         {block.items.map((item, itemIndex) => (
           <li key={`${item}-${itemIndex}`}>{renderInline(item)}</li>
@@ -256,14 +256,14 @@ function renderBlock(block: MarkdownBlock, index: number) {
     return (
       <div
         key={`${block.type}-${index}`}
-        className="overflow-hidden rounded-xl border border-white/10 bg-[#0b0b0d]"
+        className="overflow-hidden rounded-xl border border-border bg-surface"
       >
         {block.lang ? (
-          <div className="border-b border-white/10 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+          <div className="border-b border-border px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
             {block.lang}
           </div>
         ) : null}
-        <pre className="overflow-x-auto px-3 py-3 text-[12px] leading-6 text-zinc-100">
+        <pre className="overflow-x-auto px-3 py-3 text-[12px] leading-6 text-ink">
           <code className="whitespace-pre">{block.text}</code>
         </pre>
       </div>
@@ -274,14 +274,14 @@ function renderBlock(block: MarkdownBlock, index: number) {
     const columns = block.headers.length;
 
     return (
-      <div key={`${block.type}-${index}`} className="overflow-x-auto rounded-xl border border-white/10">
+      <div key={`${block.type}-${index}`} className="overflow-x-auto rounded-xl border border-border">
         <table className="min-w-full border-collapse text-left text-sm">
-          <thead className="bg-white/[0.06]">
+          <thead className="bg-canvas/60">
             <tr>
               {block.headers.map((header, headerIndex) => (
                 <th
                   key={`${header}-${headerIndex}`}
-                  className="whitespace-nowrap border-b border-white/10 px-3 py-2 font-semibold text-zinc-100"
+                  className="whitespace-nowrap border-b border-border px-3 py-2 font-semibold text-ink"
                 >
                   {renderInline(header)}
                 </th>
@@ -290,9 +290,9 @@ function renderBlock(block: MarkdownBlock, index: number) {
           </thead>
           <tbody>
             {block.rows.map((row, rowIndex) => (
-              <tr key={`row-${rowIndex}`} className="border-b border-white/10 last:border-b-0">
+              <tr key={`row-${rowIndex}`} className="border-b border-border last:border-b-0">
                 {Array.from({ length: columns }).map((_, cellIndex) => (
-                  <td key={`cell-${rowIndex}-${cellIndex}`} className="align-top px-3 py-2 text-zinc-200">
+                  <td key={`cell-${rowIndex}-${cellIndex}`} className="align-top px-3 py-2 text-ink-muted">
                     {renderInline(row[cellIndex] ?? "")}
                   </td>
                 ))}
@@ -305,7 +305,7 @@ function renderBlock(block: MarkdownBlock, index: number) {
   }
 
   return (
-    <p key={`${block.type}-${index}`} className="text-sm leading-7 text-zinc-200">
+    <p key={`${block.type}-${index}`} className="text-sm leading-7 text-ink-muted">
       {renderInline(block.text)}
     </p>
   );

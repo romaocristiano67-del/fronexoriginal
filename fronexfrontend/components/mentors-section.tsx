@@ -130,17 +130,17 @@ export default function MentorsSection() {
   };
 
   return (
-    <section id="mentores" className="bg-canvas py-24 text-white md:py-32">
+    <section id="mentores" className="bg-canvas py-20 text-ink md:py-28">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
           <p className="section-label">Mentores</p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-            Mentoria rápida para decisões melhores
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
+            Mentoria rápida para decisões com mais contexto
           </h2>
           <p className="text-base text-ink-muted md:text-lg">
-            Quando a próxima decisão ainda está nebulosa, use um mentor
-            especializado para estruturar finanças, comunicação ou formalização
-            com contexto local.
+            Quando a próxima decisão ainda está em aberto, use um mentor
+            especializado para organizar finanças, comunicação ou formalização
+            com contexto local e linguagem clara.
           </p>
         </div>
 
@@ -152,8 +152,8 @@ export default function MentorsSection() {
                 onClick={() => setSelected(mentor.id)}
                 className={`flex items-start gap-4 rounded-xl border p-4 text-left transition-colors ${
                   selected === mentor.id
-                    ? "border-accent/50 bg-accent/10 text-white"
-                    : "border-white/[0.06] bg-surface hover:border-accent/30"
+                    ? "border-accent/50 bg-accent/10 text-ink"
+                    : "border-border bg-surface hover:border-accent/30"
                 }`}
               >
                 <span
@@ -166,7 +166,7 @@ export default function MentorsSection() {
                   {mentor.icon}
                 </span>
                 <div>
-                  <p className="text-sm font-semibold text-white">{mentor.name}</p>
+                  <p className="text-sm font-semibold text-ink">{mentor.name}</p>
                   <p
                     className={`mt-0.5 text-xs ${
                       selected === mentor.id ? "text-accent/80" : "text-muted"
@@ -189,7 +189,7 @@ export default function MentorsSection() {
               <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
                 {activeMentor.icon}
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold text-white">
+              <h3 className="mt-5 font-display text-xl font-bold text-ink">
                 {activeMentor.name}
               </h3>
               <p className="mt-2 max-w-md text-sm text-ink-muted">
@@ -197,7 +197,7 @@ export default function MentorsSection() {
               </p>
             </div>
 
-            <div className="mt-6 flex min-h-0 flex-1 flex-col rounded-2xl border border-white/[0.06] bg-canvas/60">
+            <div className="mt-6 flex min-h-0 flex-1 flex-col rounded-2xl border border-border bg-canvas/60">
               <div className="flex-1 space-y-3 overflow-y-auto p-4">
                 {messages.map((message) => (
                   <div
@@ -226,13 +226,13 @@ export default function MentorsSection() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2 border-t border-white/[0.06] p-3">
+              <div className="flex items-center gap-2 border-t border-border p-3">
                 <input
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={(event) => event.key === "Enter" && sendMessage()}
                   placeholder={`Pergunte ao ${activeMentor.name.toLowerCase()}...`}
-                  className="min-h-11 flex-1 rounded-xl border border-white/10 bg-surface px-3.5 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-muted focus:border-accent/50"
+                  className="min-h-11 flex-1 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
                 />
                 <button
                   onClick={sendMessage}

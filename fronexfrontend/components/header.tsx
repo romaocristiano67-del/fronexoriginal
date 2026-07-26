@@ -91,19 +91,19 @@ export default function Header() {
     <header
       className={`fixed top-0 z-50 w-full transition-all duration-300 ${
         scrolled
-          ? "border-b border-white/[0.06] bg-canvas/90 text-white shadow-[0_18px_60px_-38px_rgba(0,0,0,0.65)] backdrop-blur-xl"
-          : "bg-transparent text-white"
+          ? "border-b border-border bg-surface/90 text-ink shadow-[0_18px_60px_-38px_rgba(0,0,0,0.18)] backdrop-blur-xl"
+          : "bg-transparent text-ink"
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
         <Link href="/" className="group flex min-w-0 items-center gap-2.5">
-          <span className="relative h-10 w-28 overflow-hidden rounded-lg border border-white/10 bg-white shadow-sm sm:w-36">
+          <span className="relative h-10 w-32 overflow-hidden rounded-[1rem] border border-border bg-surface/95 p-1 shadow-[0_12px_30px_-18px_rgba(0,0,0,0.35)] sm:w-36">
             <Image
-              src="/images/logo-fronex-wordmark.jpg"
+              src="/images/logo-fronex-crop.jpg"
               alt="Fronex"
               fill
-              sizes="(min-width: 640px) 144px, 112px"
-              className="object-cover"
+              sizes="(min-width: 640px) 144px, 128px"
+              className="object-cover object-center"
               priority
             />
           </span>
@@ -125,7 +125,7 @@ export default function Header() {
           <button
             onClick={toggleTheme}
             aria-label={theme === "light" ? "Ativar modo escuro" : "Ativar modo claro"}
-            className="hidden h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:flex"
+            className="hidden h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:flex"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.span
@@ -143,7 +143,7 @@ export default function Header() {
 
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 rounded-md border border-white/10 bg-surface px-3 py-2 text-xs font-medium text-ink-muted">
+              <span className="flex items-center gap-1.5 rounded-md border border-border bg-canvas/60 px-3 py-2 text-xs font-medium text-ink-muted">
                 <Coins size={14} className="text-accent" />
                 {tokens ?? "..."} tokens
               </span>
@@ -154,7 +154,7 @@ export default function Header() {
               <button
                 onClick={handleLogout}
                 aria-label="Terminar sessão"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-white/10 bg-surface text-white transition-colors hover:border-accent/40 hover:text-accent"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-ink transition-colors hover:border-accent/40 hover:text-accent"
               >
                 <LogOut size={15} />
               </button>
@@ -182,7 +182,7 @@ export default function Header() {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-white/[0.06] bg-canvas/95 text-white backdrop-blur-xl md:hidden"
+            className="overflow-hidden border-t border-border bg-surface/95 text-ink backdrop-blur-xl md:hidden"
           >
             <div className="container-fronex flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link) => (
@@ -190,7 +190,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted hover:bg-surface hover:text-accent"
+                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted hover:bg-canvas/60 hover:text-accent"
                 >
                   {link.label}
                 </a>

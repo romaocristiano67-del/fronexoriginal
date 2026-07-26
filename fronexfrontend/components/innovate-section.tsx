@@ -75,29 +75,29 @@ export default function InnovateSection() {
   };
 
   return (
-    <section id="inovar" className="bg-canvas-light py-24 text-white md:py-32">
+    <section id="inovar" className="bg-canvas-light py-20 text-ink md:py-28">
       <div className="container-fronex">
         <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
           <p className="section-label">Criar e inovar</p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight md:text-5xl">
-            Criar e Inovar
+          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
+            Criar e inovar sem perder a identidade
           </h2>
           <p className="text-base text-ink-muted md:text-lg">
             Escreva a ideia como ela está na sua cabeça. A Fronex organiza a
-            estratégia de produto e engenharia — com planos ricos quando a ideia
-            é clara, e perguntas directas quando ainda não está.
+            estratégia do produto e faz perguntas diretas quando ainda falta
+            claridade.
           </p>
         </div>
 
         <div className="card-fronex mx-auto max-w-3xl p-6 md:p-8">
-          <label className="text-sm font-medium text-white">A sua ideia</label>
+          <label className="text-sm font-medium text-ink">A sua ideia</label>
           <div className="mt-3 flex flex-col gap-3 sm:flex-row">
             <input
               value={idea}
               onChange={(e) => setIdea(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleSimulate()}
               placeholder="Ex: Quero abrir uma loja de roupa online em Luanda"
-              className="min-h-12 flex-1 rounded-xl border border-white/10 bg-canvas px-4 py-3.5 text-sm text-white outline-none transition-colors placeholder:text-muted focus:border-accent/50"
+              className="min-h-12 flex-1 rounded-xl border border-border bg-canvas px-4 py-3.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
             />
             <button
               onClick={handleSimulate}
@@ -114,7 +114,7 @@ export default function InnovateSection() {
           </div>
 
           {reply && (
-            <div className="mt-8 rounded-xl border border-white/[0.06] bg-canvas/50 p-5">
+            <div className="mt-8 rounded-xl border border-border bg-canvas/50 p-5">
               <p className="section-label mb-4">Resposta estratégica</p>
               <RichMessage content={reply} />
             </div>

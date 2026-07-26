@@ -98,7 +98,7 @@ const ACTIVE_SERVICES = [
     title: "Sistema web de gestão",
     status: "Inativo",
     detail:
-      "Dashboards, área administrativa e fluxos internos preparados sob orçamento.",
+      "Painéis, área administrativa e fluxos internos preparados à medida.",
   },
 ];
 
@@ -123,17 +123,17 @@ function ToggleRow({
     <button
       type="button"
       onClick={onChange}
-      className="flex w-full items-center justify-between gap-5 rounded-2xl border border-[#141C2E] bg-surface p-4 text-left transition-colors hover:border-accent/30"
+      className="flex w-full items-center justify-between gap-5 rounded-2xl border border-border bg-surface p-4 text-left transition-colors hover:border-accent/30"
     >
       <span>
-        <span className="block text-sm font-bold text-white">{label}</span>
+        <span className="block text-sm font-bold text-ink">{label}</span>
         <span className="mt-1 block text-xs leading-5 text-ink-muted">
           {description}
         </span>
       </span>
       <span
         className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
-          checked ? "bg-accent" : "bg-white/15"
+          checked ? "bg-accent" : "bg-surface/15"
         }`}
       >
         <span
@@ -164,7 +164,7 @@ function ProgressRing({
   const clamped = Math.max(0, Math.min(100, value));
 
   return (
-    <div className="rounded-2xl border border-[#141C2E] bg-surface p-4">
+    <div className="rounded-2xl border border-border bg-surface p-4">
       <div className="flex items-center justify-between gap-3">
         <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
           <Icon size={16} />
@@ -180,10 +180,10 @@ function ProgressRing({
             background: `conic-gradient(${accent} ${clamped * 3.6}deg, rgba(255,255,255,0.12) 0deg)`,
           }}
         >
-          <div className="absolute inset-[0.3rem] rounded-full border border-[#141C2E] bg-canvas" />
+          <div className="absolute inset-[0.3rem] rounded-full border border-border bg-canvas" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-lg font-bold text-white">
+              <div className="text-lg font-bold text-ink">
                 {Math.round(clamped)}
                 {suffix}
               </div>
@@ -191,7 +191,7 @@ function ProgressRing({
           </div>
         </div>
         <div className="min-w-0">
-          <p className="text-sm font-bold text-white">{caption}</p>
+          <p className="text-sm font-bold text-ink">{caption}</p>
           <p className="mt-1 text-xs leading-5 text-ink-muted">
             Atualizado em tempo real com base na sessão actual.
           </p>
@@ -216,13 +216,13 @@ function QuickActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-24 flex-col justify-between rounded-2xl border border-[#141C2E] bg-surface p-4 text-left transition-colors hover:border-accent/30 active:scale-[0.98]"
+      className="flex min-h-24 flex-col justify-between rounded-2xl border border-border bg-surface p-4 text-left transition-colors hover:border-accent/30 active:scale-[0.98]"
     >
       <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
         <Icon size={18} />
       </span>
       <span>
-        <span className="block text-sm font-bold text-white">{label}</span>
+        <span className="block text-sm font-bold text-ink">{label}</span>
         <span className="mt-1 block text-xs leading-5 text-ink-muted">
           {description}
         </span>
@@ -285,9 +285,9 @@ function CommandPalette({
             exit={{ opacity: 0, y: 24, scale: 0.98 }}
             transition={{ duration: 0.2 }}
             onMouseDown={(event) => event.stopPropagation()}
-            className="mx-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-[#141C2E] bg-surface text-white shadow-soft-dark"
+            className="mx-auto flex w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-border bg-surface text-ink shadow-soft-dark"
           >
-            <div className="flex items-center gap-3 border-b border-[#141C2E] bg-canvas/50 px-4 py-4">
+            <div className="flex items-center gap-3 border-b border-border bg-canvas/50 px-4 py-4">
               <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                 <Command size={18} />
               </span>
@@ -297,7 +297,7 @@ function CommandPalette({
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Pesquisar acções, secções ou serviços..."
-                  className="w-full bg-transparent text-sm text-white outline-none placeholder:text-muted"
+                  className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted"
                 />
                 <p className="mt-1 text-[11px] text-muted">
                   Ctrl+K no desktop. No mobile, toque numa acção rápida ou no
@@ -307,7 +307,7 @@ function CommandPalette({
               <button
                 type="button"
                 onClick={onClose}
-                className="rounded-xl border border-[#141C2E] bg-canvas px-3 py-2 text-xs font-semibold text-ink-muted hover:text-accent"
+                className="rounded-xl border border-border bg-canvas px-3 py-2 text-xs font-semibold text-ink-muted hover:text-accent"
               >
                 Fechar
               </button>
@@ -326,13 +326,13 @@ function CommandPalette({
                           command.onSelect();
                           onClose();
                         }}
-                        className="flex items-start gap-3 rounded-xl border border-[#141C2E] bg-canvas/40 p-4 text-left transition-colors hover:border-accent/30 hover:bg-accent/5"
+                        className="flex items-start gap-3 rounded-xl border border-border bg-canvas/40 p-4 text-left transition-colors hover:border-accent/30 hover:bg-accent/5"
                       >
                         <span className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
                           <Icon size={18} />
                         </span>
                         <span className="min-w-0">
-                          <span className="block text-sm font-bold text-white">
+                          <span className="block text-sm font-bold text-ink">
                             {command.label}
                           </span>
                           <span className="mt-1 block text-xs leading-5 text-ink-muted">
@@ -344,7 +344,7 @@ function CommandPalette({
                   })}
                 </div>
               ) : (
-                <div className="rounded-2xl border border-dashed border-[#141C2E] bg-canvas/40 px-4 py-10 text-center text-sm text-ink-muted">
+                <div className="rounded-2xl border border-dashed border-border bg-canvas/40 px-4 py-10 text-center text-sm text-ink-muted">
                   Nenhuma acção encontrada. Tente outro termo.
                 </div>
               )}
@@ -538,7 +538,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
       keywords: ["whatsapp", "apoio", "contactar"],
       icon: PhoneCall,
       onSelect: () =>
-        handleServiceRequest("Apoio rápido da Dashboard", "Pedido rápido"),
+        handleServiceRequest("Atendimento Fronex", "Pedido prioritário"),
     },
     {
       id: "theme",
@@ -559,27 +559,27 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
   ];
 
   return (
-    <main className="min-h-screen bg-canvas text-white">
+    <main className="min-h-screen bg-canvas text-ink">
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(180deg,rgba(0,255,163,0.04)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgba(0,255,163,0.08),transparent_45%)]"
+        className="fixed inset-0 bg-[linear-gradient(180deg,rgba(210,31,43,0.05)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgba(242,201,76,0.08),transparent_45%)]"
       />
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(rgba(0,255,163,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(0,255,163,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
+        className="fixed inset-0 bg-[linear-gradient(rgba(210,31,43,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(242,201,76,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
       />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1600px]">
-        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-[#141C2E] bg-canvas p-5 lg:block">
+        <aside className="sticky top-0 hidden h-screen w-72 shrink-0 border-r border-border bg-canvas p-5 lg:block">
           <div className="flex h-full flex-col">
             <Link href="/" className="flex items-center gap-2.5">
-              <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-md border border-white/10 bg-white">
+              <span className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-[1rem] border border-border bg-surface p-1">
                 <Image
-                  src="/images/logo-fronex-crop.jpg"
+                  src="/images/logo-fronex-original.jpg"
                   alt="Fronex"
                   fill
                   sizes="40px"
-                  className="object-cover"
+                  className="object-cover object-center"
                 />
               </span>
               <span className="font-display text-xl font-bold uppercase tracking-[0.18em]">
@@ -587,7 +587,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
               </span>
             </Link>
 
-            <div className="mt-8 rounded-2xl border border-[#141C2E] bg-surface p-4">
+            <div className="mt-8 rounded-2xl border border-border bg-surface p-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 font-semibold text-accent">
                   {initials || "F"}
@@ -615,7 +615,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                     className={`flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-semibold transition-colors ${
                       active
                         ? "border border-accent/40 bg-accent/10 text-accent"
-                        : "border border-transparent text-ink-muted hover:bg-surface hover:text-white"
+                        : "border border-transparent text-ink-muted hover:bg-surface hover:text-ink"
                     }`}
                   >
                     <span className="flex items-center gap-3">
@@ -649,7 +649,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
         </aside>
 
         <section className="flex min-w-0 flex-1 flex-col pb-24 lg:pb-0">
-          <header className="sticky top-0 z-20 border-b border-[#141C2E] bg-canvas/90 px-4 py-4 sm:px-6 lg:px-8">
+          <header className="sticky top-0 z-20 border-b border-border bg-canvas/90 px-4 py-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
@@ -666,7 +666,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   type="button"
                   onClick={() => setPaletteOpen(true)}
                   aria-label="Abrir pesquisa rápida"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#141C2E] bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent lg:h-10 lg:w-auto lg:gap-2 lg:px-3"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent lg:h-10 lg:w-auto lg:gap-2 lg:px-3"
                 >
                   <Search size={17} />
                   <span className="hidden text-xs font-semibold lg:inline">
@@ -681,7 +681,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       ? "Ativar modo escuro"
                       : "Ativar modo claro"
                   }
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#141C2E] bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent"
                 >
                   {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
                 </button>
@@ -706,29 +706,28 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="grid gap-4 lg:grid-cols-12"
               >
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-7 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-7 lg:p-6">
                   <div className="flex flex-col gap-5">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-[#141C2E] bg-accent/10 px-3 py-1.5 text-xs font-semibold text-ink-muted">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-accent/10 px-3 py-1.5 text-xs font-semibold text-ink-muted">
                           <Sparkles size={13} className="text-accent" />
-                          Resumo em tempo real
+                          Resumo da conta
                         </div>
-                        <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight text-white sm:text-4xl">
-                          {displayName || "Cliente Fronex"}, a sua operação está
-                          pronta para avançar.
+                        <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
+                          {displayName || "Conta Fronex"}, a sua área está pronta
+                          para operar.
                         </h2>
                         <p className="mt-3 max-w-2xl text-sm leading-7 text-ink-muted sm:text-base">
-                          A visão geral foi reorganizada em módulos pequenos
-                          para leitura rápida no telemóvel, com os dados da
-                          sessão a manterem-se ligados ao Supabase.
+                          A visão geral foi compactada para leitura rápida no
+                          telemóvel, com os dados da conta ligados ao Supabase.
                         </p>
                       </div>
 
                       <button
                         type="button"
                         onClick={() => setPaletteOpen(true)}
-                        className="hidden h-12 w-12 items-center justify-center rounded-xl border border-[#141C2E] bg-surface text-accent transition-colors hover:border-accent/40 sm:flex"
+                        className="hidden h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface text-accent transition-colors hover:border-accent/40 sm:flex"
                       >
                         <Command size={18} />
                       </button>
@@ -738,87 +737,87 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       <QuickActionButton
                         icon={PhoneCall}
                         label="WhatsApp"
-                        description="Abrir o atendimento premium."
+                        description="Abrir o canal directo Fronex."
                         onClick={() =>
                           handleServiceRequest(
-                            "Apoio rápido da Dashboard",
-                            "Pedido rápido",
+                            "Atendimento da área privada",
+                            "Contacto breve",
                           )
                         }
                       />
                       <QuickActionButton
                         icon={UserRound}
                         label="Editar perfil"
-                        description="Ir para os dados do cliente."
+                        description="Afinar os dados do perfil."
                         onClick={() => setActiveTab("profile")}
                       />
                       <QuickActionButton
                         icon={BriefcaseBusiness}
                         label="Ver serviços"
-                        description="Consultar o estado actual."
+                        description="Ver a operação em curso."
                         onClick={() => setActiveTab("services")}
                       />
                       <QuickActionButton
                         icon={Settings2}
                         label="Preferências"
-                        description="Tema e layout da interface."
+                        description="Ajustar tema e densidade visual."
                         onClick={() => setActiveTab("preferences")}
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-5 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-5 lg:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Estado rápido
+                        Sinais da conta
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                        Indicadores compactos
+                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                        Métricas essenciais
                       </h3>
                     </div>
-                    <span className="rounded-full border border-[#141C2E] bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
-                      Actualizado
+                    <span className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                      Agora
                     </span>
                   </div>
 
                   <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                     <ProgressRing
-                      label="Perfil"
-                      caption="Completo para propostas mais precisas"
+                      label="Conta"
+                      caption="Dados usados nas propostas."
                       value={serviceMetrics.profileProgress}
-                      accent="#00FFA3"
+                      accent="#D21F2B"
                       icon={UserRound}
                     />
                     <ProgressRing
                       label="Projetos"
-                      caption={`${serviceMetrics.totalServices - serviceMetrics.pending}/${serviceMetrics.totalServices} em circulação`}
+                      caption={`${serviceMetrics.totalServices - serviceMetrics.pending}/${serviceMetrics.totalServices} em curso`}
                       value={serviceMetrics.projectProgress}
-                      accent="#00E0FF"
+                      accent="#F2C94C"
                       icon={CircleDashed}
                     />
                     <ProgressRing
                       label="Tokens"
                       caption={`${tokensRemaining ?? 25} disponíveis hoje`}
                       value={serviceMetrics.tokensProgress}
-                      accent="#00FFA3"
+                      accent="#D21F2B"
                       icon={ShieldCheck}
                     />
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-8 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-8 lg:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Serviços em foco
+                        Serviços em curso
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                        Estado dos projectos
+                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                        Estado dos serviços
                       </h3>
                     </div>
-                    <span className="rounded-full border border-[#141C2E] bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                    <span className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                       {serviceMetrics.pending} em revisão
                     </span>
                   </div>
@@ -827,19 +826,19 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                     {ACTIVE_SERVICES.map((service, index) => {
                       const accent =
                         index === 0
-                          ? "#00FFA3"
+                          ? "#D21F2B"
                           : index === 1
-                            ? "#00E0FF"
-                            : "#00FFA3";
+                            ? "#F2C94C"
+                            : "#D21F2B";
 
                       return (
                         <article
                           key={service.title}
-                          className="rounded-2xl border border-[#141C2E] bg-canvas/50 p-4"
+                          className="rounded-2xl border border-border bg-canvas/50 p-4"
                         >
                           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                             <div className="min-w-0">
-                              <p className="font-display text-lg font-bold text-white">
+                              <p className="font-display text-lg font-bold text-ink">
                                 {service.title}
                               </p>
                               <p className="mt-2 text-sm leading-6 text-ink-muted">
@@ -850,18 +849,18 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                               <div
                                 className="relative h-14 w-14 rounded-full"
                                 style={{
-                                  background: `conic-gradient(${accent} ${index === 0 ? 72 : index === 1 ? 48 : 48}deg, rgba(255,255,255,0.12) 0deg)`,
+                                  background: `conic-gradient(${accent} ${index === 0 ? 72 : index === 1 ? 48 : 48}deg, rgba(17,17,17,0.10) 0deg)`,
                                 }}
                               >
-                                <div className="absolute inset-[0.22rem] rounded-full border border-[#141C2E] bg-canvas" />
-                                <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-white">
+                                <div className="absolute inset-[0.22rem] rounded-full border border-border bg-canvas" />
+                                <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-ink">
                                   {index === 0 ? "72%" : "48%"}
                                 </div>
                               </div>
                               <span
                                 className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
                                   service.status === "A aguardar verificação"
-                                    ? "bg-accent/15 text-white"
+                                    ? "bg-accent/15 text-ink"
                                     : "bg-accent/10 text-ink-muted"
                                 }`}
                               >
@@ -875,14 +874,14 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-4 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-4 lg:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
                         Perfil
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                        Dados do cliente
+                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                        Identidade da conta
                       </h3>
                     </div>
                     <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 font-semibold text-accent">
@@ -891,42 +890,42 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   </div>
 
                   <div className="mt-5 grid gap-4">
-                    <label className="grid gap-2 text-sm font-bold text-white">
+                    <label className="grid gap-2 text-sm font-bold text-ink">
                       Nome completo
                       <input
                         value={displayName}
                         onChange={(event) => setDisplayName(event.target.value)}
                         placeholder="Introduza o seu nome"
-                        className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas-light px-4 py-3 text-sm font-normal text-white outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
+                        className="min-h-12 rounded-xl border border-border bg-canvas-light px-4 py-3 text-sm font-normal text-ink outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
                       />
                     </label>
-                    <label className="grid gap-2 text-sm font-bold text-white">
+                    <label className="grid gap-2 text-sm font-bold text-ink">
                       Email
                       <input
                         value={user.email}
                         readOnly
-                        className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas/60 px-4 py-3 text-sm font-normal text-ink-muted outline-none"
+                        className="min-h-12 rounded-xl border border-border bg-canvas/60 px-4 py-3 text-sm font-normal text-ink-muted outline-none"
                       />
                     </label>
-                    <label className="grid gap-2 text-sm font-bold text-white">
+                    <label className="grid gap-2 text-sm font-bold text-ink">
                       Telefone
                       <input
                         value={phone}
                         onChange={(event) => setPhone(event.target.value)}
                         placeholder="+244 ..."
-                        className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas-light px-4 py-3 text-sm font-normal text-white outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
+                        className="min-h-12 rounded-xl border border-border bg-canvas-light px-4 py-3 text-sm font-normal text-ink outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
                       />
                     </label>
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-6 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-6 lg:p-6">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                      Preferências rápidas
+                      Definições da conta
                     </p>
-                    <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                      Controlo de uma só mão
+                    <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                      Ajustes rápidos
                     </h3>
                   </div>
                   <div className="mt-5 grid gap-3">
@@ -951,20 +950,20 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-[#141C2E] bg-surface p-5 lg:col-span-6 lg:p-6">
+                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-6 lg:p-6">
                   <div className="flex items-center justify-between gap-4">
                     <div>
                       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Acesso rápido
+                        Atalhos
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-white">
-                        Ações grandes e sem erro
+                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                        Ações directas
                       </h3>
                     </div>
                     <button
                       type="button"
                       onClick={() => setPaletteOpen(true)}
-                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-[#141C2E] bg-surface text-accent transition-colors hover:border-accent/40"
+                      className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-accent transition-colors hover:border-accent/40"
                     >
                       <Search size={17} />
                     </button>
@@ -973,31 +972,31 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   <div className="mt-5 grid grid-cols-2 gap-3">
                     <QuickActionButton
                       icon={MessageSquareMore}
-                      label="Pesquisa rápida"
-                      description="Abrir o command palette."
+                      label="Pesquisa"
+                      description="Abrir o comando rápido."
                       onClick={() => setPaletteOpen(true)}
                     />
                     <QuickActionButton
                       icon={PhoneCall}
                       label="WhatsApp"
-                      description="Falar com a equipa."
+                      description="Abrir o canal directo Fronex."
                       onClick={() =>
                         handleServiceRequest(
-                          "Apoio rápido da Dashboard",
-                          "Pedido rápido",
+                          "Atendimento da área privada",
+                          "Contacto breve",
                         )
                       }
                     />
                     <QuickActionButton
                       icon={LayoutDashboard}
                       label="Resumo"
-                      description="Voltar à visão geral."
+                      description="Voltar ao resumo."
                       onClick={() => setActiveTab("overview")}
                     />
                     <QuickActionButton
                       icon={LogOut}
                       label="Sair"
-                      description="Terminar sessão com segurança."
+                      description="Encerrar a sessão."
                       onClick={handleLogout}
                     />
                   </div>
@@ -1010,47 +1009,47 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 key="profile"
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="max-w-3xl rounded-2xl border border-[#141C2E] bg-surface p-5 sm:p-6"
+                className="max-w-3xl rounded-2xl border border-border bg-surface p-5 sm:p-6"
               >
                 <div className="flex items-center gap-3">
                   <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 font-semibold text-accent">
                     {initials || "F"}
                   </span>
                   <div>
-                    <p className="text-sm font-bold text-white">
-                      Dados do cliente
+                    <p className="text-sm font-bold text-ink">
+                      Dados da conta
                     </p>
                     <p className="text-xs text-ink-muted">
-                      Sessão activa: {user.email}
+                      Conta activa: {user.email}
                     </p>
                   </div>
                 </div>
 
                 <div className="mt-6 grid gap-4">
-                  <label className="grid gap-2 text-sm font-bold text-white">
+                  <label className="grid gap-2 text-sm font-bold text-ink">
                     Nome completo
                     <input
                       value={displayName}
                       onChange={(event) => setDisplayName(event.target.value)}
                       placeholder="Introduza o seu nome"
-                      className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas-light px-4 py-3 text-sm font-normal text-white outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
+                      className="min-h-12 rounded-xl border border-border bg-canvas-light px-4 py-3 text-sm font-normal text-ink outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
                     />
                   </label>
-                  <label className="grid gap-2 text-sm font-bold text-white">
+                  <label className="grid gap-2 text-sm font-bold text-ink">
                     Email
                     <input
                       value={user.email}
                       readOnly
-                      className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas/60 px-4 py-3 text-sm font-normal text-ink-muted outline-none"
+                      className="min-h-12 rounded-xl border border-border bg-canvas/60 px-4 py-3 text-sm font-normal text-ink-muted outline-none"
                     />
                   </label>
-                  <label className="grid gap-2 text-sm font-bold text-white">
+                  <label className="grid gap-2 text-sm font-bold text-ink">
                     Telefone
                     <input
                       value={phone}
                       onChange={(event) => setPhone(event.target.value)}
                       placeholder="+244 ..."
-                      className="min-h-12 rounded-xl border border-[#141C2E] bg-canvas-light px-4 py-3 text-sm font-normal text-white outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
+                      className="min-h-12 rounded-xl border border-border bg-canvas-light px-4 py-3 text-sm font-normal text-ink outline-none placeholder:text-muted focus:border-accent focus:ring-1 focus:ring-accent"
                     />
                   </label>
                 </div>
@@ -1066,20 +1065,20 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
               >
                 <ToggleRow
                   checked={theme === "dark"}
-                  label="Tema escuro"
-                  description="Alterna a interface entre claro e escuro."
+                  label="Tema"
+                  description="Alterna entre claro e escuro."
                   onChange={toggleTheme}
                 />
                 <ToggleRow
                   checked={notifications}
                   label="Notificações"
-                  description="Receber avisos sobre propostas, serviços e actualizações."
+                  description="Receber avisos sobre pedidos e mudanças."
                   onChange={() => setNotifications((value) => !value)}
                 />
                 <ToggleRow
                   checked={compactLayout}
                   label="Layout compacto"
-                  description="Reduz espaçamentos para uma experiência mais densa."
+                  description="Reduz os espaços entre blocos."
                   onChange={() => setCompactLayout((value) => !value)}
                 />
               </motion.div>
@@ -1095,11 +1094,11 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 {ACTIVE_SERVICES.map((service, index) => (
                   <article
                     key={service.title}
-                    className="rounded-2xl border border-[#141C2E] bg-surface p-5"
+                    className="rounded-2xl border border-border bg-surface p-5"
                   >
                     <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
                       <div>
-                        <p className="font-display text-xl font-bold text-white">
+                        <p className="font-display text-xl font-bold text-ink">
                           {service.title}
                         </p>
                         <p className="mt-2 text-sm leading-6 text-ink-muted">
@@ -1110,7 +1109,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                         <span
                           className={`w-fit rounded-full px-3 py-1.5 text-xs font-semibold ${
                             service.status === "A aguardar verificação"
-                              ? "bg-accent/15 text-white"
+                              ? "bg-accent/15 text-ink"
                               : "bg-accent/10 text-ink-muted"
                           }`}
                         >
@@ -1141,8 +1140,8 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                             width: `${index === 0 ? 72 : 48}%`,
                             background:
                               index === 0
-                                ? "linear-gradient(90deg,#00FFA3,#00E0FF)"
-                                : "linear-gradient(90deg,#00E0FF,#00FFA3)",
+                                ? "linear-gradient(90deg,#D21F2B,#F2C94C)"
+                                : "linear-gradient(90deg,#F2C94C,#D21F2B)",
                           }}
                         />
                       </div>
@@ -1158,7 +1157,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
         </section>
       </div>
 
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-[#141C2E] bg-canvas/95 px-3 py-2 backdrop-blur-xl lg:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-canvas/95 px-3 py-2 backdrop-blur-xl lg:hidden">
         <div className="mx-auto grid max-w-md grid-cols-4 gap-2">
           {TABS.map((tab) => {
             const Icon = tab.icon;
@@ -1171,7 +1170,7 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 className={`flex min-h-14 flex-col items-center justify-center gap-1 rounded-2xl text-[11px] font-semibold transition-colors ${
                   active
                     ? "bg-accent/15 text-accent"
-                    : "text-ink-muted hover:bg-surface hover:text-white"
+                    : "text-ink-muted hover:bg-surface hover:text-ink"
                 }`}
               >
                 <Icon size={18} />
@@ -1204,3 +1203,4 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
     </main>
   );
 }
+

@@ -20,7 +20,7 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Fronex | Tecnologia e Serviços Digitais em Angola",
   description:
-    "A Fronex cria sites, apps, sistemas, conteúdo e inteligência artificial para negócios angolanos. Orçamento instantâneo, entrega rápida, qualidade internacional.",
+    "A Fronex cria sites, apps, sistemas e conteúdo digital com presença forte, acabamento moderno e foco no mobile.",
   keywords: [
     "Fronex",
     "tecnologia Angola",
@@ -40,12 +40,12 @@ export default function RootLayout({
     (() => {
       try {
         const stored = localStorage.getItem("fronex-theme");
-        const theme = stored === "light" ? "light" : "dark";
+        const theme = stored === "dark" ? "dark" : "light";
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.style.colorScheme = theme;
       } catch {
-        document.documentElement.classList.add("dark");
-        document.documentElement.style.colorScheme = "dark";
+        document.documentElement.classList.remove("dark");
+        document.documentElement.style.colorScheme = "light";
       }
     })();
   `;
