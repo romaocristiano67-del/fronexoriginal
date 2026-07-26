@@ -14,6 +14,7 @@ import {
   deductToken,
 } from "@/lib/tokens";
 import { readLocalTemplateSummary, TOOL_TEMPLATES } from "@/lib/tools/tool-prompts";
+import { getTemplateWrapper } from "@/lib/tools/template-injector";
 
 function safeStringify(value: unknown) {
   return JSON.stringify(value, null, 2).slice(0, 6000);
@@ -105,7 +106,7 @@ export async function POST(request: NextRequest) {
     try {
       const completion = await getAIChatCompletion(messages, {
         temperature: template.output === "site" ? 0.25 : 0.38,
-        maxTokens: template.output === "site" ? 1800 : 1300,
+        maxTokens: template.output === "site" ? 1800 : 2500, // increased for HTML response
       });
       aiReply = completion.content;
       tokensUsed = completion.tokensUsed;
@@ -147,6 +148,7 @@ export async function POST(request: NextRequest) {
       reply: aiReply,
       outputType: template.output,
       tokensRemaining: tokensAvailable - 1,
+      templateWrapper: template.output === "document" ? getTemplateWrapper() : undefined,
     });
   } catch (err) {
     console.error("[api/tools/generate] erro inesperado:", err);

@@ -16,11 +16,14 @@ import {
   FileArchive,
   Scissors,
   MonitorSmartphone,
+  ChevronDown,
+  ChevronUp,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 import RichMessage from "@/components/rich-message";
 import { assessInnovateIdea } from "@/lib/ai/innovate";
+import { DocumentEditor } from "@/components/document-editor";
 
 type ToolKey =
   | "school-work"
@@ -82,16 +85,15 @@ const toolCards: Array<{
   },
   {
     id: "assistant",
-    title: "Assistente IA",
+    title: "Assistente Educacional",
     description: "Apoio educacional e documental em pt-AO.",
     icon: Bot,
   },
   {
     id: "docs",
-    title: "Fronex Docs",
+    title: "Edição de PDF / Fronex Docs",
     description: "Gerador IA com modelo local, paginação e exportação.",
     icon: FileArchive,
-    badge: "novo",
   },
   {
     id: "site-builder",
@@ -110,9 +112,36 @@ const toolCards: Array<{
   {
     id: "strategist",
     title: "Estrategista IA",
-    description: "A IA da antiga aba Criar/Inovar, agora aqui.",
+    description: "Valida ideias e gera planos de negócios.",
     icon: Wand2,
   },
+];
+
+const toolCategories = [
+  {
+    id: "docs-creation",
+    title: "Criação de Documentos",
+    icon: FileText,
+    tools: ["school-work", "cv", "request", "formal-letter", "invitation"],
+  },
+  {
+    id: "editing",
+    title: "Ferramentas de Edição",
+    icon: Scissors,
+    tools: ["docs", "image-studio"],
+  },
+  {
+    id: "web",
+    title: "Geração Web",
+    icon: MonitorSmartphone,
+    tools: ["site-builder"],
+  },
+  {
+    id: "ai",
+    title: "Assistente IA",
+    icon: Bot,
+    tools: ["assistant", "strategist"],
+  }
 ];
 
 const fields: Partial<Record<ToolKey, Field[]>> = {
@@ -237,20 +266,6 @@ function getSessionId() {
   return created;
 }
 
-function downloadText(filename: string, content: string, type = "text/plain;charset=utf-8") {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(url);
-}
-
-function makeDocHtml(title: string, content: string) {
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${title}</title></head><body style="font-family:Times New Roman,serif;line-height:1.55;padding:48px;white-space:pre-wrap;">${content.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" })[c]!)}</body></html>`;
-}
-
 function parseSiteResponse(reply: string) {
   const cleaned = reply.replace(/^```json\s*/i, "").replace(/```$/g, "").trim();
   try {
@@ -321,9 +336,13 @@ function makeZip(files: Record<string, string>) {
 }
 
 export default function ToolsSection() {
+  const [openCategory, setOpenCategory] = useState<string>("docs-creation");
   const [active, setActive] = useState<ToolKey>("school-work");
+  
   const [form, setForm] = useState<Record<string, string>>(defaultValues);
   const [reply, setReply] = useState("");
+  const [templateWrapper, setTemplateWrapper] = useState("");
+  const [editorOpen, setEditorOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [processedImageUrl, setProcessedImageUrl] = useState<string | null>(null);
@@ -332,8 +351,16 @@ export default function ToolsSection() {
   const activeFields = fields[active] ?? [];
   const activeCard = useMemo(() => toolCards.find((tool) => tool.id === active)!, [active]);
   const isImageStudio = active === "image-studio";
+  const requiresEditor = !isImageStudio && active !== "strategist" && active !== "assistant" && active !== "site-builder";
 
   const update = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
+
+  const handleToolSelect = (toolId: ToolKey) => {
+    setActive(toolId);
+    setReply("");
+    setTemplateWrapper("");
+    setEditorOpen(false);
+  };
 
   const callGenerator = async () => {
     if (isImageStudio) return;
@@ -385,6 +412,10 @@ export default function ToolsSection() {
         throw new Error(payload?.error ?? "Não foi possível gerar.");
       }
       setReply(payload.reply);
+      if (payload.templateWrapper) {
+        setTemplateWrapper(payload.templateWrapper);
+        setEditorOpen(true);
+      }
       if (typeof payload.tokensRemaining === "number") {
         window.dispatchEvent(new CustomEvent("fronex:tokens-updated", { detail: { tokensRemaining: payload.tokensRemaining } }));
       }
@@ -395,21 +426,6 @@ export default function ToolsSection() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const exportDoc = (format: "doc" | "pdf") => {
-    if (!reply) return;
-    const title = activeCard.title.replace(/\s+/g, "-").toLowerCase();
-    if (format === "doc") {
-      downloadText(`${title}.doc`, makeDocHtml(activeCard.title, reply), "application/msword;charset=utf-8");
-      return;
-    }
-    const printWindow = window.open("", "_blank");
-    if (!printWindow) return;
-    printWindow.document.write(makeDocHtml(activeCard.title, reply));
-    printWindow.document.close();
-    printWindow.focus();
-    printWindow.print();
   };
 
   const exportSiteZip = () => {
@@ -470,61 +486,105 @@ export default function ToolsSection() {
 
   return (
     <section id="ferramentas" className="bg-canvas-light py-20 text-ink md:py-28">
+      {editorOpen && templateWrapper && reply && (
+        <DocumentEditor 
+          htmlContent={reply} 
+          templateWrapper={templateWrapper} 
+          title={activeCard.title}
+          onClose={() => setEditorOpen(false)} 
+        />
+      )}
+      
       <div className="container-fronex">
         <div className="mb-10 max-w-3xl">
           <p className="section-label">Ferramentas</p>
           <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
-            Fronex Tools para criar documentos, sites e imagens
+            O seu assistente para documentos, sites e mais
           </h2>
           <p className="mt-4 text-base leading-7 text-ink-muted md:text-lg">
-            Inspirado no temple.html: modelos escolares, CVs, requerimentos, cartas, convites e assistente IA, agora integrados no padrão visual do site e no sistema de créditos.
+            Escolha uma categoria abaixo. Todos os documentos agora usam o padrão profissional com insígnia e estilos avançados.
           </p>
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
-          {toolCards.map((tool) => {
-            const Icon = tool.icon;
-            const selected = active === tool.id;
-            return (
-              <button
-                key={tool.id}
-                onClick={() => {
-                  setActive(tool.id);
-                  setReply("");
-                }}
-                className={`relative min-h-[150px] rounded-xl border p-4 text-left transition-all ${
-                  selected
-                    ? "border-accent bg-accent/10 shadow-neon"
-                    : "border-border bg-surface hover:border-accent/35 hover:bg-canvas/70"
-                }`}
-              >
-                {tool.badge ? (
-                  <span className="absolute right-3 top-3 rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.14em] text-accent">
-                    {tool.badge}
-                  </span>
-                ) : null}
-                <Icon size={20} className="text-accent" />
-                <p className="mt-4 text-sm font-bold text-ink">{tool.title}</p>
-                <p className="mt-2 text-xs leading-5 text-ink-muted">{tool.description}</p>
-              </button>
-            );
-          })}
-        </div>
+        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+          
+          {/* Categorias - Mobile First Accordion */}
+          <div className="space-y-4">
+            {toolCategories.map((cat) => {
+              const isOpen = openCategory === cat.id;
+              const CatIcon = cat.icon;
+              return (
+                <div key={cat.id} className="overflow-hidden rounded-2xl border border-border bg-surface transition-all shadow-sm">
+                  <button
+                    onClick={() => setOpenCategory(isOpen ? "" : cat.id)}
+                    className={`flex w-full min-h-[80px] items-center justify-between px-5 py-4 transition-colors ${isOpen ? 'bg-accent/5' : 'hover:bg-canvas/50'}`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${isOpen ? 'bg-accent text-white' : 'bg-canvas text-ink-muted'}`}>
+                        <CatIcon size={24} />
+                      </div>
+                      <span className="text-lg font-bold text-ink text-left">{cat.title}</span>
+                    </div>
+                    {isOpen ? <ChevronUp className="text-accent" /> : <ChevronDown className="text-ink-muted" />}
+                  </button>
+                  
+                  {isOpen && (
+                    <div className="border-t border-border bg-canvas/30 px-3 py-4 flex flex-col gap-2">
+                      {cat.tools.map((toolId) => {
+                        const tool = toolCards.find((t) => t.id === toolId);
+                        if (!tool) return null;
+                        const isSelected = active === tool.id;
+                        const ToolIcon = tool.icon;
+                        
+                        return (
+                          <button
+                            key={tool.id}
+                            onClick={() => handleToolSelect(tool.id)}
+                            className={`flex items-start gap-4 rounded-xl px-4 py-3 text-left transition-all ${
+                              isSelected
+                                ? "bg-white shadow-md border border-accent/20 ring-1 ring-accent/10"
+                                : "hover:bg-white/60"
+                            }`}
+                          >
+                            <ToolIcon size={20} className={`mt-0.5 shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
+                            <div>
+                              <p className={`font-semibold ${isSelected ? 'text-accent' : 'text-ink'}`}>
+                                {tool.title} {tool.badge && <span className="ml-2 rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">{tool.badge}</span>}
+                              </p>
+                              <p className="mt-1 text-xs text-ink-muted leading-tight">{tool.description}</p>
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-[0.92fr_1.08fr]">
-          <div className="card-fronex p-5 md:p-6">
-            <div className="flex items-start justify-between gap-4">
+          {/* Área de Trabalho */}
+          <div className="card-fronex flex flex-col p-5 md:p-8">
+            <div className="flex items-start justify-between gap-4 mb-6">
               <div>
-                <p className="section-label">Questionário</p>
-                <h3 className="mt-2 font-display text-2xl font-bold text-ink">{activeCard.title}</h3>
+                <div className="flex items-center gap-2">
+                  {(() => {
+                    const ActiveIcon = activeCard.icon;
+                    return <ActiveIcon className="text-accent" size={24} />;
+                  })()}
+                  <h3 className="font-display text-2xl font-bold text-ink">{activeCard.title}</h3>
+                </div>
+                <p className="mt-2 text-sm text-ink-muted">{activeCard.description}</p>
               </div>
-              <span className="rounded-full border border-border bg-canvas/70 px-3 py-1 text-xs font-medium text-ink-muted">
-                1 crédito / geração
-              </span>
+              {!isImageStudio && (
+                <span className="shrink-0 rounded-full border border-border bg-canvas/70 px-3 py-1 text-xs font-medium text-ink-muted">
+                  1 crédito / geração
+                </span>
+              )}
             </div>
 
             {isImageStudio ? (
-              <div className="mt-6 space-y-4">
+              <div className="mt-2 space-y-6 flex-1">
                 <input
                   ref={fileRef}
                   type="file"
@@ -532,128 +592,114 @@ export default function ToolsSection() {
                   className="hidden"
                   onChange={(event) => event.target.files?.[0] && loadImage(event.target.files[0])}
                 />
-                <button onClick={() => fileRef.current?.click()} className="btn-secondary w-full justify-center">
-                  <ImageIcon size={16} />
-                  Carregar imagem
+                <button onClick={() => fileRef.current?.click()} className="btn-secondary w-full justify-center min-h-[60px] text-base">
+                  <ImageIcon size={20} className="mr-2" />
+                  Carregar imagem do dispositivo
                 </button>
-                <div className="grid grid-cols-2 gap-2">
+                
+                <div className="grid grid-cols-2 gap-3">
                   {imageActions.map(({ mode, label, icon: Icon }) => (
                     <button
                       key={mode}
                       onClick={() => processImage(mode)}
                       disabled={!imageUrl}
-                      className="btn-secondary px-3 py-2.5 text-xs disabled:cursor-not-allowed disabled:opacity-40"
+                      className="btn-secondary px-4 py-3 text-sm disabled:cursor-not-allowed disabled:opacity-40"
                     >
-                      <Icon size={14} />
+                      <Icon size={16} />
                       {label}
                     </button>
                   ))}
                 </div>
-              </div>
-            ) : (
-              <div className="mt-6 grid gap-4">
-                {activeFields.map((field) => (
-                  <label key={field.key} className="block">
-                    <span className="text-sm font-medium text-ink">{field.label}</span>
-                    {field.type === "textarea" ? (
-                      <textarea
-                        value={form[field.key] ?? ""}
-                        onChange={(event) => update(field.key, event.target.value)}
-                        placeholder={field.placeholder}
-                        className="mt-2 min-h-24 w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none placeholder:text-muted focus:border-accent/50"
-                      />
-                    ) : field.type === "select" ? (
-                      <select
-                        value={form[field.key] ?? field.options?.[0] ?? ""}
-                        onChange={(event) => update(field.key, event.target.value)}
-                        className="mt-2 min-h-12 w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none focus:border-accent/50"
-                      >
-                        {field.options?.map((option) => (
-                          <option key={option}>{option}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <input
-                        value={form[field.key] ?? ""}
-                        onChange={(event) => update(field.key, event.target.value)}
-                        placeholder={field.placeholder}
-                        className="mt-2 min-h-12 w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none placeholder:text-muted focus:border-accent/50"
-                      />
-                    )}
-                  </label>
-                ))}
-                <button onClick={callGenerator} disabled={loading} className="btn-primary min-h-12 disabled:cursor-not-allowed disabled:opacity-50">
-                  {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
-                  Gerar com IA
-                </button>
-              </div>
-            )}
-          </div>
 
-          <div className="card-fronex overflow-hidden">
-            <div className="flex items-center justify-between border-b border-border bg-canvas/50 px-5 py-4">
-              <div>
-                <p className="text-sm font-semibold text-ink">Pré-visualização</p>
-                <p className="mt-0.5 text-xs text-ink-muted">
-                  {isImageStudio ? "Processamento local no navegador" : "Resultado gerado com Groq e créditos Fronex"}
-                </p>
-              </div>
-              {!isImageStudio && reply ? (
-                <div className="flex gap-2">
-                  {active === "site-builder" ? (
-                    <button onClick={exportSiteZip} className="btn-secondary px-3 py-2 text-xs">
-                      <Download size={14} />
-                      ZIP
-                    </button>
-                  ) : (
-                    <>
-                      <button onClick={() => exportDoc("pdf")} className="btn-secondary px-3 py-2 text-xs">PDF</button>
-                      <button onClick={() => exportDoc("doc")} className="btn-secondary px-3 py-2 text-xs">DOCX</button>
-                    </>
-                  )}
-                </div>
-              ) : null}
-            </div>
-
-            <div className="min-h-[520px] p-5">
-              {isImageStudio ? (
-                <div className="grid gap-4 md:grid-cols-2">
+                <div className="grid gap-4 pt-6 mt-6 border-t md:grid-cols-2">
                   <div className="rounded-xl border border-border bg-canvas/60 p-3">
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted">Original</p>
-                    {imageUrl ? <img src={imageUrl} alt="Imagem original" className="max-h-[420px] w-full rounded-lg object-contain" /> : <div className="flex h-72 items-center justify-center text-sm text-muted">Carregue uma imagem</div>}
+                    {imageUrl ? <img src={imageUrl} alt="Imagem original" className="max-h-[300px] w-full rounded-lg object-contain" /> : <div className="flex h-48 items-center justify-center text-sm text-muted">Aguardando...</div>}
                   </div>
                   <div className="rounded-xl border border-border bg-canvas/60 p-3">
                     <p className="mb-3 text-xs font-semibold uppercase tracking-[0.18em] text-muted">Resultado</p>
                     {processedImageUrl ? (
                       <>
-                        <img src={processedImageUrl} alt="Imagem processada" className="max-h-[420px] w-full rounded-lg object-contain" />
-                        <a href={processedImageUrl} download="fronex-image.png" className="btn-primary mt-3 w-full">Descarregar imagem</a>
+                        <img src={processedImageUrl} alt="Imagem processada" className="max-h-[300px] w-full rounded-lg object-contain" />
+                        <a href={processedImageUrl} download="fronex-image.png" className="btn-primary mt-3 w-full">Baixar imagem</a>
                       </>
                     ) : (
-                      <div className="flex h-72 items-center justify-center text-sm text-muted">Escolha uma operação</div>
+                      <div className="flex h-48 items-center justify-center text-sm text-muted">Aguardando...</div>
                     )}
                   </div>
                 </div>
-              ) : reply ? (
-                active === "site-builder" ? (
-                  <SitePreview reply={reply} />
-                ) : (
-                  <div className="rounded-xl border border-border bg-canvas/50 p-5">
-                    <RichMessage content={reply} />
-                  </div>
-                )
-              ) : (
-                <div className="flex min-h-[460px] items-center justify-center rounded-xl border border-dashed border-border bg-canvas/40 text-center">
-                  <div className="max-w-sm px-6">
-                    <Sparkles className="mx-auto text-accent" size={28} />
-                    <p className="mt-3 text-sm font-semibold text-ink">A ferramenta está pronta</p>
-                    <p className="mt-2 text-sm leading-6 text-ink-muted">
-                      Preencha o questionário e gere uma resposta com a IA Fronex.
-                    </p>
-                  </div>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-6 flex-1">
+                <div className="grid gap-5 sm:grid-cols-2">
+                  {activeFields.map((field) => (
+                    <label key={field.key} className={`block ${field.type === 'textarea' ? 'sm:col-span-2' : ''}`}>
+                      <span className="text-sm font-medium text-ink mb-1.5 block">{field.label}</span>
+                      {field.type === "textarea" ? (
+                        <textarea
+                          value={form[field.key] ?? ""}
+                          onChange={(event) => update(field.key, event.target.value)}
+                          placeholder={field.placeholder}
+                          className="min-h-[100px] w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none placeholder:text-muted focus:border-accent/50 transition-colors"
+                        />
+                      ) : field.type === "select" ? (
+                        <select
+                          value={form[field.key] ?? field.options?.[0] ?? ""}
+                          onChange={(event) => update(field.key, event.target.value)}
+                          className="min-h-[50px] w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none focus:border-accent/50 transition-colors"
+                        >
+                          {field.options?.map((option) => (
+                            <option key={option}>{option}</option>
+                          ))}
+                        </select>
+                      ) : (
+                        <input
+                          value={form[field.key] ?? ""}
+                          onChange={(event) => update(field.key, event.target.value)}
+                          placeholder={field.placeholder}
+                          className="min-h-[50px] w-full rounded-xl border border-border bg-canvas px-4 py-3 text-sm text-ink outline-none placeholder:text-muted focus:border-accent/50 transition-colors"
+                        />
+                      )}
+                    </label>
+                  ))}
                 </div>
-              )}
-            </div>
+
+                <div className="mt-auto pt-6 border-t flex flex-col gap-4">
+                  <button onClick={callGenerator} disabled={loading} className="btn-primary w-full min-h-[56px] text-base font-semibold disabled:cursor-not-allowed disabled:opacity-50">
+                    {loading ? <Loader2 size={20} className="animate-spin mr-2" /> : <Sparkles size={20} className="mr-2" />}
+                    Gerar Documento com IA
+                  </button>
+
+                  {/* Resultados Inline (Assistente ou Site) */}
+                  {reply && !requiresEditor && (
+                    <div className="mt-4">
+                      {active === "site-builder" ? (
+                        <div>
+                          <div className="flex justify-between items-center mb-4">
+                            <span className="font-semibold text-ink">Pré-visualização do Site</span>
+                            <button onClick={exportSiteZip} className="btn-secondary px-3 py-2 text-xs">
+                              <Download size={14} className="mr-1" /> Descarregar ZIP
+                            </button>
+                          </div>
+                          <SitePreview reply={reply} />
+                        </div>
+                      ) : (
+                        <div className="rounded-xl border border-border bg-canvas/50 p-5">
+                          <RichMessage content={reply} />
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Link para reabrir o editor caso fechado acidentalmente */}
+                  {reply && requiresEditor && !editorOpen && (
+                    <button onClick={() => setEditorOpen(true)} className="btn-secondary w-full text-accent border-accent/20">
+                      Reabrir Editor Visual do Documento Gerado
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -669,7 +715,7 @@ function SitePreview({ reply }: { reply: string }) {
       <iframe
         title="Pré-visualização do site"
         srcDoc={srcDoc}
-        className="h-[420px] w-full rounded-xl border border-border bg-white"
+        className="h-[500px] w-full rounded-xl border border-border bg-white"
       />
       {site.notes ? (
         <div className="rounded-xl border border-border bg-canvas/50 p-4 text-sm leading-6 text-ink-muted">

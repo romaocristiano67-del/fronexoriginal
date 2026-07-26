@@ -248,6 +248,81 @@
     .gen-layout { grid-template-columns: 1fr; }
     .preview-panel { position: static; max-height: none; }
   }
+
+  /* ---- PRINT STYLES ---- */
+  @media print {
+    @page {
+      size: A4;
+      margin: 2cm;
+    }
+    
+    body {
+      background: white !important;
+      color: black !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    /* Hide UI elements */
+    .nav, .sidebar, .usage-card, .upgrade-btn, 
+    .chat-input-area, .gen-form, .form-card,
+    .toast, .gen-loading, .hi-actions, .doc-card,
+    button, .nav-btn, .plan-badge {
+      display: none !important;
+    }
+    
+    /* Show only content */
+    .main, .dashboard, .preview-panel, 
+    .gen-layout, .chat-messages {
+      display: block !important;
+      width: 100% !important;
+      max-width: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      overflow: visible !important;
+    }
+    
+    /* Ensure document content is visible */
+    .doc-content, .document-preview, 
+    .paper, .page-content {
+      display: block !important;
+      visibility: visible !important;
+    }
+    
+    /* Preserve Angola flag colors */
+    .flag-stripe, .flag-stripe::after {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      background: linear-gradient(90deg, #CC1A1A 50%, #000000 50%) !important;
+    }
+    
+    /* Preserve accent colors */
+    [style*="--red"], [style*="#CC1A1A"],
+    .accent-red, .red {
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    
+    /* Text styling for print */
+    p, h1, h2, h3, h4, h5, h6, span, div {
+      color: black !important;
+    }
+    
+    /* Links styling */
+    a {
+      text-decoration: underline;
+      color: black !important;
+    }
+    
+    /* Ensure images and emblems are printed */
+    img, .emblem, .brasao {
+      display: block !important;
+      max-width: 100% !important;
+      height: auto !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+  }
 </style>
 </head>
 <body>

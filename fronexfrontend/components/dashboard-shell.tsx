@@ -164,26 +164,26 @@ function ProgressRing({
   const clamped = Math.max(0, Math.min(100, value));
 
   return (
-    <div className="rounded-2xl border border-border bg-surface p-4">
-      <div className="flex items-center justify-between gap-3">
-        <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
-          <Icon size={16} />
+    <div className="rounded-2xl border border-border bg-surface p-3 sm:p-4">
+      <div className="flex items-center justify-between gap-2">
+        <span className="flex h-8 w-8 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent sm:h-9 sm:w-9">
+          <Icon size={14} sm:size={16} />
         </span>
-        <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:text-[11px]">
           {label}
         </span>
       </div>
-      <div className="mt-4 flex items-center gap-4">
+      <div className="mt-3 flex items-center gap-3 sm:mt-4 sm:gap-4">
         <div
-          className="relative h-20 w-20 shrink-0 rounded-full"
+          className="relative h-16 w-16 shrink-0 rounded-full sm:h-20 sm:w-20"
           style={{
             background: `conic-gradient(${accent} ${clamped * 3.6}deg, rgba(255,255,255,0.12) 0deg)`,
           }}
         >
-          <div className="absolute inset-[0.3rem] rounded-full border border-border bg-canvas" />
+          <div className="absolute inset-[0.25rem] rounded-full border border-border bg-canvas sm:inset-[0.3rem]" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center">
-              <div className="text-lg font-bold text-ink">
+              <div className="text-base font-bold text-ink sm:text-lg">
                 {Math.round(clamped)}
                 {suffix}
               </div>
@@ -193,7 +193,7 @@ function ProgressRing({
         <div className="min-w-0">
           <p className="text-sm font-bold text-ink">{caption}</p>
           <p className="mt-1 text-xs leading-5 text-ink-muted">
-            Atualizado em tempo real com base na sessão actual.
+            Atualizado em tempo real.
           </p>
         </div>
       </div>
@@ -216,10 +216,10 @@ function QuickActionButton({
     <button
       type="button"
       onClick={onClick}
-      className="flex min-h-24 flex-col justify-between rounded-2xl border border-border bg-surface p-4 text-left transition-colors hover:border-accent/30 active:scale-[0.98]"
+      className="flex min-h-20 flex-col justify-between rounded-2xl border border-border bg-surface p-3 text-left transition-colors hover:border-accent/30 active:scale-[0.98] sm:min-h-24 sm:p-4"
     >
-      <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent">
-        <Icon size={18} />
+      <span className="flex h-9 w-9 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 text-accent sm:h-10 sm:w-10">
+        <Icon size={16} sm:size={18} />
       </span>
       <span>
         <span className="block text-sm font-bold text-ink">{label}</span>
@@ -640,26 +640,26 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
         </aside>
 
         <section className="flex min-w-0 flex-1 flex-col pb-24 lg:pb-0">
-          <header className="sticky top-0 z-20 border-b border-border bg-canvas/90 px-4 py-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
-                  <PanelLeft size={14} />
+          <header className="sticky top-0 z-20 border-b border-border bg-canvas/90 px-3 py-3 sm:px-4 sm:py-4 lg:px-8">
+            <div className="flex items-center justify-between gap-2">
+              <div className="min-w-0 flex-1">
+                <div className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted sm:gap-2 sm:text-[11px]">
+                  <PanelLeft size={12} sm:size={14} />
                   Dashboard
                 </div>
-                <h1 className="mt-1 truncate font-display text-2xl font-bold tracking-tight sm:text-3xl">
+                <h1 className="mt-0.5 truncate font-display text-xl font-bold tracking-tight sm:mt-1 sm:text-2xl lg:text-3xl">
                   {activeTabLabel}
                 </h1>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <button
                   type="button"
                   onClick={() => setPaletteOpen(true)}
                   aria-label="Abrir pesquisa rápida"
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent lg:h-10 lg:w-auto lg:gap-2 lg:px-3"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:h-11 sm:w-11 lg:h-10 lg:w-auto lg:gap-2 lg:px-3"
                 >
-                  <Search size={17} />
+                  <Search size={16} sm:size={17} />
                   <span className="hidden text-xs font-semibold lg:inline">
                     Pesquisar
                   </span>
@@ -672,24 +672,23 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       ? "Ativar modo escuro"
                       : "Ativar modo claro"
                   }
-                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/40 hover:text-accent sm:h-11 sm:w-11"
                 >
-                  {theme === "light" ? <Moon size={17} /> : <Sun size={17} />}
+                  {theme === "light" ? <Moon size={16} sm:size={17} /> : <Sun size={16} sm:size={17} />}
                 </button>
                 <button
                   type="button"
                   onClick={handleLogout}
                   aria-label="Terminar sessão"
-                  className="btn-primary hidden h-11 px-4 text-sm font-bold sm:flex"
+                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-border bg-red-50 text-red-600 transition-colors hover:bg-red-100 sm:h-11 sm:w-11"
                 >
-                  <LogOut size={16} />
-                  Sair
+                  <LogOut size={16} sm:size={17} />
                 </button>
               </div>
             </div>
           </header>
 
-          <div className="px-4 py-5 sm:px-6 lg:px-8 lg:py-8">
+          <div className="px-4 py-4 sm:px-6 lg:px-8 lg:py-6">
             {activeTab === "overview" && (
               <motion.div
                 key="overview"
@@ -697,34 +696,32 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 animate={{ opacity: 1, y: 0 }}
                 className="grid gap-4 lg:grid-cols-12"
               >
-                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-7 lg:p-6">
-                  <div className="flex flex-col gap-5">
-                    <div className="flex items-start justify-between gap-4">
-                      <div>
-                        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-accent/10 px-3 py-1.5 text-xs font-semibold text-ink-muted">
-                          <Sparkles size={13} className="text-accent" />
+                <div className="rounded-2xl border border-border bg-surface p-4 lg:col-span-7 lg:p-5">
+                  <div className="flex flex-col gap-4">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                      <div className="flex-1">
+                        <div className="inline-flex items-center gap-2 rounded-full border border-border bg-accent/10 px-3 py-1.5 text-[11px] font-semibold text-ink-muted">
+                          <Sparkles size={12} className="text-accent" />
                           Resumo da conta
                         </div>
-                        <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold leading-tight text-ink sm:text-4xl">
+                        <h2 className="mt-3 font-display text-xl font-bold leading-tight text-ink sm:text-2xl lg:text-3xl">
                           {displayName || "Conta Fronex"}, a sua área está pronta
-                          para operar.
                         </h2>
-                        <p className="mt-3 max-w-2xl text-sm leading-7 text-ink-muted sm:text-base">
-                          A visão geral foi compactada para leitura rápida no
-                          telemóvel, com os dados da conta ligados ao Supabase.
+                        <p className="mt-2 text-xs leading-6 text-ink-muted sm:text-sm">
+                          Visão geral otimizada para telemóvel com dados em tempo real.
                         </p>
                       </div>
 
                       <button
                         type="button"
                         onClick={() => setPaletteOpen(true)}
-                        className="hidden h-12 w-12 items-center justify-center rounded-xl border border-border bg-surface text-accent transition-colors hover:border-accent/40 sm:flex"
+                        className="hidden h-10 w-10 items-center justify-center rounded-xl border border-border bg-surface text-accent transition-colors hover:border-accent/40 sm:flex shrink-0"
                       >
-                        <Command size={18} />
+                        <Command size={16} />
                       </button>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                    <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 xl:grid-cols-4">
                       <QuickActionButton
                         icon={PhoneCall}
                         label="WhatsApp"
@@ -758,22 +755,22 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                   </div>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-5 lg:p-6">
-                  <div className="flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-border bg-surface p-4 lg:col-span-5 lg:p-5">
+                  <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
                         Sinais da conta
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                      <h3 className="mt-1 font-display text-lg font-bold text-ink sm:text-xl">
                         Métricas essenciais
                       </h3>
                     </div>
-                    <span className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                    <span className="rounded-full border border-border bg-surface px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                       Agora
                     </span>
                   </div>
 
-                  <div className="mt-5 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
+                  <div className="mt-4 grid gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
                     <ProgressRing
                       label="Conta"
                       caption="Dados usados nas propostas."
@@ -799,21 +796,27 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                 </div>
 
                 <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-8 lg:p-6">
-                  <div className="flex items-center justify-between gap-4">
-                    <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
-                        Serviços em curso
-                      </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
-                        Estado dos serviços
-                      </h3>
-                    </div>
-                    <span className="rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
-                      {serviceMetrics.pending} em revisão
-                    </span>
-                  </div>
+                  <details className="group" open>
+                    <summary className="flex items-center justify-between gap-3 cursor-pointer outline-none list-none [&::-webkit-details-marker]:hidden select-none">
+                      <div>
+                        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+                          Serviços em curso
+                        </p>
+                        <h3 className="mt-1 font-display text-lg font-bold text-ink group-hover:text-accent transition-colors sm:text-xl">
+                          Estado dos serviços
+                        </h3>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="rounded-full border border-border bg-surface px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                          {serviceMetrics.pending} em revisão
+                        </span>
+                        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-canvas text-ink-muted transition-transform group-open:rotate-90 md:hidden shrink-0">
+                          <ChevronRight size={14} />
+                        </div>
+                      </div>
+                    </summary>
 
-                  <div className="mt-5 grid gap-3">
+                  <div className="mt-4 grid gap-3">
                     {ACTIVE_SERVICES.map((service, index) => {
                       const accent =
                         index === 0
@@ -825,31 +828,31 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       return (
                         <article
                           key={service.title}
-                          className="rounded-2xl border border-border bg-canvas/50 p-4"
+                          className="rounded-2xl border border-border bg-canvas/50 p-3"
                         >
-                          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                             <div className="min-w-0">
-                              <p className="font-display text-lg font-bold text-ink">
+                              <p className="font-display text-base font-bold text-ink sm:text-lg">
                                 {service.title}
                               </p>
-                              <p className="mt-2 text-sm leading-6 text-ink-muted">
+                              <p className="mt-1 text-xs leading-5 text-ink-muted sm:text-sm">
                                 {service.detail}
                               </p>
                             </div>
-                            <div className="flex shrink-0 items-center gap-3">
+                            <div className="flex shrink-0 items-center gap-2">
                               <div
-                                className="relative h-14 w-14 rounded-full"
+                                className="relative h-12 w-12 rounded-full sm:h-14 sm:w-14"
                                 style={{
                                 background: `conic-gradient(${accent} ${index === 0 ? 72 : index === 1 ? 48 : 48}deg, rgba(17,17,17,0.10) 0deg)`,
                                 }}
                               >
                                 <div className="absolute inset-[0.22rem] rounded-full border border-border bg-canvas" />
-                                <div className="absolute inset-0 flex items-center justify-center text-[11px] font-bold text-ink">
+                                <div className="absolute inset-0 flex items-center justify-center text-[10px] font-bold text-ink sm:text-[11px]">
                                   {index === 0 ? "72%" : "48%"}
                                 </div>
                               </div>
                               <span
-                                className={`rounded-full px-3 py-1.5 text-xs font-semibold ${
+                                className={`rounded-full px-2 py-1 text-[10px] font-semibold sm:px-3 sm:py-1.5 sm:text-xs ${
                                   service.status === "A aguardar verificação"
                                     ? "bg-accent/15 text-ink"
                                     : "bg-accent/10 text-ink-muted"
@@ -863,24 +866,25 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       );
                     })}
                   </div>
+                  </details>
                 </div>
 
-                <div className="rounded-2xl border border-border bg-surface p-5 lg:col-span-4 lg:p-6">
-                  <div className="flex items-center justify-between gap-4">
+                <div className="rounded-2xl border border-border bg-surface p-4 lg:col-span-4 lg:p-5">
+                  <div className="flex items-center justify-between gap-3">
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted">
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
                         Perfil
                       </p>
-                      <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                      <h3 className="mt-1 font-display text-lg font-bold text-ink sm:text-xl">
                         Identidade da conta
                       </h3>
                     </div>
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 font-semibold text-accent">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-accent/25 bg-accent/10 font-semibold text-accent sm:h-12 sm:w-12">
                       {initials || "F"}
                     </span>
                   </div>
 
-                  <div className="mt-5 grid gap-4">
+                  <div className="mt-4 grid gap-3">
                     <label className="grid gap-2 text-sm font-bold text-ink">
                       Nome completo
                       <input
