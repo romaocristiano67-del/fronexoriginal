@@ -3,33 +3,29 @@ import { ArrowRight, BarChart3, Rocket, Shield } from "lucide-react";
 const FEATURES = [
   {
     icon: Rocket,
-    title: "Inovação",
+    title: "Engenharia",
     description:
-      "Soluções digitais pensadas para o mercado angolano, com tecnologia actual e execução rápida.",
+      "Stack moderno com React, Next.js e infraestrutura de escala. Cada projeto é construído com código que cresce com você, não contra você.",
   },
   {
     icon: Shield,
-    title: "Confiança",
+    title: "Transparência",
     description:
-      "Processo transparente, contacto directo e entrega com qualidade internacional em cada projecto.",
+      "Sem jargão corporativo. Preços alinhados, comunicação directa, e você sabe exactamente o que está a pagar e porquê em cada etapa.",
   },
   {
     icon: BarChart3,
-    title: "Resultados",
+    title: "Performance",
     description:
-      "Sites, apps e sistemas desenhados para converter, organizar operação e fazer a marca crescer.",
+      "Sites rápidos, apps responsivos, conversão medida. O que construímos é desenhado para vender, engajar ou organizar operação — com resultados que se veem no seu negócio.",
   },
 ];
 
 export default function AboutSection() {
   return (
     <section id="sobre" className="relative bg-canvas py-20 md:py-28">
-      <div
-        aria-hidden
-        className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(37,99,235,0.07),transparent_60%),radial-gradient(ellipse_at_bottom_right,rgba(34,211,238,0.06),transparent_45%)]"
-      />
 
-      <div className="container-fronex relative">
+      <div className="container-fronex">
         <div className="mb-14 grid gap-8 md:mb-16 md:grid-cols-[1fr_1fr] md:items-end">
           <div className="flex flex-col gap-4">
             <p className="section-label">Sobre nós</p>

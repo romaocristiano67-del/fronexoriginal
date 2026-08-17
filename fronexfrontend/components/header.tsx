@@ -138,7 +138,7 @@ export default function Header() {
           )}
 
           <button
-            className="flex h-9 w-9 items-center justify-center rounded-md text-accent transition-colors hover:bg-accent/10 md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-accent transition-colors hover:bg-accent/10 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label="Abrir menu"
           >
@@ -161,7 +161,7 @@ export default function Header() {
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="rounded-lg px-3 py-2.5 text-sm font-medium text-ink-muted hover:bg-canvas/60 hover:text-accent"
+                  className="flex h-11 items-center rounded-lg px-4 text-sm font-medium text-ink-muted transition-colors hover:bg-canvas/60 hover:text-accent"
                 >
                   {link.label}
                 </a>

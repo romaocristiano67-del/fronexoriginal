@@ -181,7 +181,11 @@ export default function AIChatWidget() {
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
         aria-label="Abrir atendimento Fronex"
-        className="fixed bottom-5 right-5 z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
+        className="fixed z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
+        style={{
+          bottom: "max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom)))",
+          right: "max(1.25rem, calc(1.25rem + env(safe-area-inset-right)))",
+        }}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span

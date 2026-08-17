@@ -133,7 +133,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
-          className="relative flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-border bg-surface text-ink shadow-soft-lg md:rounded-2xl"
+          className="relative flex max-h-[min(92vh,_calc(100dvh-40px))] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-border bg-surface text-ink shadow-soft-lg md:rounded-2xl"
         >
           <div className="relative h-32 w-full shrink-0 overflow-hidden border-b border-accent/25">
             <Image

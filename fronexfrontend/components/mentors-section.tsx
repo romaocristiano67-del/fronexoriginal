@@ -144,13 +144,38 @@ export default function MentorsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[380px_1fr]">
-          <div className="flex flex-col gap-3">
+        {/* Mobile: Mentor Selection Tabs */}
+        <div className="mb-8 lg:mb-0 grid grid-cols-2 gap-3 sm:flex sm:gap-3 sm:overflow-x-auto sm:pb-2 lg:hidden">
+          {MENTORS.map((mentor) => (
+            <button
+              key={mentor.id}
+              onClick={() => setSelected(mentor.id)}
+              className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl border transition-all shrink-0 min-h-[2.75rem] ${
+                selected === mentor.id
+                  ? "border-accent/50 bg-accent/10 text-accent"
+                  : "border-border bg-surface hover:border-accent/20 text-ink-muted"
+              }`}
+            >
+              <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+                selected === mentor.id
+                  ? "bg-accent text-canvas"
+                  : "bg-canvas text-ink-muted"
+              }`}>
+                {mentor.icon}
+              </span>
+              <p className="text-xs font-semibold text-center w-20 truncate">{mentor.name}</p>
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+          {/* Desktop: Mentor Sidebar */}
+          <div className="hidden lg:flex flex-col gap-3">
             {MENTORS.map((mentor) => (
               <button
                 key={mentor.id}
                 onClick={() => setSelected(mentor.id)}
-                className={`flex items-start gap-4 rounded-xl border p-4 text-left transition-colors ${
+                className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors ${
                   selected === mentor.id
                     ? "border-accent/50 bg-accent/10 text-ink"
                     : "border-border bg-surface hover:border-accent/30"
@@ -160,18 +185,16 @@ export default function MentorsSection() {
                   className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-lg ${
                     selected === mentor.id
                       ? "bg-accent text-canvas"
-                      : "border border-accent/25 bg-accent/10 text-accent"
+                      : "bg-canvas text-accent"
                   }`}
                 >
                   {mentor.icon}
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-ink">{mentor.name}</p>
-                  <p
-                    className={`mt-0.5 text-xs ${
-                      selected === mentor.id ? "text-accent/80" : "text-muted"
-                    }`}
-                  >
+                  <p className={`mt-0.5 text-xs ${
+                    selected === mentor.id ? "text-accent/80" : "text-muted"
+                  }`}>
                     {mentor.role}
                   </p>
                 </div>
@@ -183,21 +206,23 @@ export default function MentorsSection() {
             key={activeMentor.id}
             initial={false}
             animate={{ opacity: 1 }}
-            className="card-fronex flex min-h-[460px] flex-col p-6"
+            className="card-fronex flex min-h-[460px] lg:min-h-[520px] flex-col p-5 md:p-6"
           >
-            <div>
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg border border-accent/25 bg-accent/10 text-accent">
+            {/* Mentor Info */}
+            <div className="hidden lg:block mb-6 pb-6 border-b border-border/50">
+              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/15 text-accent mb-3">
                 {activeMentor.icon}
               </span>
-              <h3 className="mt-5 font-display text-xl font-bold text-ink">
+              <h3 className="font-display text-lg font-bold text-ink">
                 {activeMentor.name}
               </h3>
-              <p className="mt-2 max-w-md text-sm text-ink-muted">
+              <p className="mt-2 text-xs text-ink-muted leading-5">
                 {activeMentor.description}
               </p>
             </div>
 
-            <div className="mt-6 flex min-h-0 flex-1 flex-col rounded-2xl border border-border bg-canvas/60">
+            {/* Chat Area */}
+            <div className="flex min-h-0 flex-1 flex-col rounded-2xl border border-border/50 bg-canvas/40 overflow-hidden">
               <div className="flex-1 space-y-3 overflow-y-auto p-4">
                 {messages.map((message) => (
                   <div
@@ -205,10 +230,10 @@ export default function MentorsSection() {
                     className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <p
-                      className={`max-w-[82%] rounded-lg px-3.5 py-2.5 text-sm leading-relaxed ${
+                      className={`max-w-[85%] md:max-w-[80%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                         message.role === "user"
                           ? "bg-accent text-canvas"
-                          : "bg-surface text-ink-muted"
+                          : "bg-surface text-ink-muted border border-border/30"
                       }`}
                     >
                       {message.content}
@@ -218,7 +243,7 @@ export default function MentorsSection() {
 
                 {loading && (
                   <div className="flex justify-start">
-                    <div className="flex items-center gap-2 rounded-lg bg-surface px-3.5 py-2.5 text-xs text-muted">
+                    <div className="flex items-center gap-2 rounded-xl bg-surface px-3.5 py-2.5 text-xs text-muted border border-border/30">
                       <Loader2 size={14} className="animate-spin text-accent" />
                       A pensar
                     </div>
@@ -226,21 +251,22 @@ export default function MentorsSection() {
                 )}
               </div>
 
-              <div className="flex items-center gap-2 border-t border-border p-3">
+              {/* Input Area */}
+              <div className="flex items-center gap-2 border-t border-border/50 p-3 bg-canvas/20">
                 <input
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={(event) => event.key === "Enter" && sendMessage()}
-                  placeholder={`Pergunte ao ${activeMentor.name.toLowerCase()}...`}
-                  className="min-h-11 flex-1 rounded-xl border border-border bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
+                  placeholder="Sua pergunta..."
+                  className="min-h-10 flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || loading}
-                  aria-label="Enviar pergunta ao mentor"
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-canvas transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  aria-label="Enviar"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-canvas transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
-                  {loading ? <Loader2 size={15} className="animate-spin" /> : <Send size={15} />}
+                  {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </button>
               </div>
             </div>
