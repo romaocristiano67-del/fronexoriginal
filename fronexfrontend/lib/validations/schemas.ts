@@ -61,6 +61,7 @@ export const toolGenerateRequestSchema = z.object({
     'request',
     'formal-letter',
     'invitation',
+    'flyer',
     'docs',
     'site-builder',
     'assistant',

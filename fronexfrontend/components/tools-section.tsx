@@ -31,6 +31,7 @@ type ToolKey =
   | "request"
   | "formal-letter"
   | "invitation"
+  | "flyer"
   | "docs"
   | "site-builder"
   | "image-studio"
@@ -51,97 +52,117 @@ const toolCards: Array<{
   description: string;
   icon: typeof FileText;
   badge?: string;
+  helper: string;
 }> = [
   {
     id: "school-work",
-    title: "Trabalhos Escolares",
-    description: "Capa angolana, índice, desenvolvimento e referências.",
+    title: "Trabalho Escolar",
+    description: "Trabalhos com estrutura académica: capa, índice, capítulos e referências.",
     icon: FileText,
-    badge: "temple.html",
+    badge: "MULTI-PAGE",
+    helper: "Documentos escolares e universitários com páginas separadas e formatação profissional.",
   },
   {
     id: "cv",
-    title: "Currículos (CV)",
-    description: "CV profissional adaptado ao mercado angolano.",
+    title: "Currículo",
+    description: "Curriculum focado com perfil, experiência e competências direcionadas.",
     icon: UserRound,
+    helper: "Estrutura o seu perfil para candidaturas e entrevistas com clareza.",
   },
   {
     id: "request",
-    title: "Requerimentos",
-    description: "Pedidos formais com linguagem administrativa.",
+    title: "Requerimento",
+    description: "Pedidos formais, declarativos e com linguagem institucional adequada.",
     icon: PenLine,
+    helper: "Melhor para solicitações, declarações, autorização e pedidos administrativos.",
   },
   {
     id: "formal-letter",
-    title: "Cartas Formais",
-    description: "Pedido, reclamação, motivação e solicitação.",
+    title: "Carta Formal",
+    description: "Cartas de pedido, reclamação, motivação e recomendação bem estruturadas.",
     icon: MessageSquareText,
+    helper: "Mantém tom respeitoso, claro e útil para empresas, escolas e entidades públicas.",
   },
   {
     id: "invitation",
-    title: "Convites",
-    description: "Eventos, formaturas, aniversários e cerimónias.",
+    title: "Convite",
+    description: "Textos elegantes para eventos, celebrações e momentos especiais.",
     icon: Sparkles,
+    helper: "Ajusta estilo, tom e estrutura conforme o tipo de evento e público.",
+  },
+  {
+    id: "flyer",
+    title: "Panfleto",
+    description: "Cartazes e flyers com design visual forte, logo e call-to-action claro.",
+    icon: ImageIcon,
+    badge: "IMAGEM",
+    helper: "Peças promocionais com paleta visual, foto e mensagem bem posicionadas.",
   },
   {
     id: "assistant",
-    title: "Assistente Educacional",
-    description: "Apoio educacional e documental em pt-AO.",
+    title: "Consultor",
+    description: "Ajuda prática para estruturar, organizar e resolver dúvidas específicas.",
     icon: Bot,
+    helper: "Responde dúvidas, revisa estruturas e oferece orientação clara.",
   },
   {
     id: "docs",
-    title: "Edição de PDF / Fronex Docs",
-    description: "Gerador IA com modelo local, paginação e exportação.",
+    title: "Fronex Docs",
+    description: "Criação de documentos a partir de objetivos, público e contexto real.",
     icon: FileArchive,
+    badge: "editor",
+    helper: "Optimizado para criar, ajustar e exportar conteúdo com aparência profissional.",
   },
   {
     id: "site-builder",
-    title: "Fronex Site Builder",
-    description: "Questionário, site responsivo e pacote ZIP.",
+    title: "Site Builder",
+    description: "Landing page ou site funcional com estrutura e visual profissional.",
     icon: MonitorSmartphone,
     badge: "ZIP",
+    helper: "Gera estrutura responsiva, conteúdo orientado ao cliente e pacote pronto para usar.",
   },
   {
     id: "image-studio",
-    title: "Fronex Image Studio",
-    description: "Remover fundo, recortar, comprimir e converter.",
+    title: "Image Studio",
+    description: "Ajuste rápido de imagens para reforçar apresentação visual.",
     icon: ImageIcon,
     badge: "local",
+    helper: "Ferramenta simples para recorte, compressão e acabamento visual.",
   },
   {
     id: "strategist",
-    title: "Estrategista IA",
-    description: "Valida ideias e gera planos de negócios.",
+    title: "Planeador",
+    description: "Estrutura a sua ideia em passos claros, recursos e próximas ações.",
     icon: Wand2,
+    helper: "Transforma ideias em planos práticos e accionáveis.",
   },
 ];
 
 const toolCategories = [
   {
     id: "docs-creation",
-    title: "Criação de Documentos",
+    title: "Documentos",
     icon: FileText,
-    tools: ["school-work", "cv", "request", "formal-letter", "invitation"],
+    tools: ["school-work", "cv", "request", "formal-letter", "invitation", "flyer"],
   },
   {
     id: "editing",
-    title: "Ferramentas de Edição",
+    title: "Edição e imagem",
     icon: Scissors,
     tools: ["docs", "image-studio"],
   },
   {
     id: "web",
-    title: "Geração Web",
+    title: "Web e presença",
     icon: MonitorSmartphone,
     tools: ["site-builder"],
   },
   {
     id: "ai",
-    title: "Assistente IA",
+    title: "IA para decisão",
     icon: Bot,
     tools: ["assistant", "strategist"],
-  }
+  },
 ];
 
 const fields: Partial<Record<ToolKey, Field[]>> = {
@@ -203,6 +224,16 @@ const fields: Partial<Record<ToolKey, Field[]>> = {
     { key: "date", label: "Data e hora", placeholder: "Ex: 15 de Agosto, 18h" },
     { key: "place", label: "Local", placeholder: "Ex: Talatona, Luanda" },
     { key: "tone", label: "Tom", type: "select", options: ["Elegante", "Familiar", "Jovem", "Institucional"] },
+    { key: "imageUrl", label: "URL da foto / imagem", placeholder: "https://..." },
+    { key: "layout", label: "Estilo visual", type: "select", options: ["Premium elegante", "Minimalista", "Festivo", "Institucional"] },
+  ],
+  flyer: [
+    { key: "title", label: "Título do panfleto", placeholder: "Ex: Desconto especial de lançamento" },
+    { key: "audience", label: "Público-alvo", placeholder: "Ex: clientes de Luanda e Benguela" },
+    { key: "offer", label: "Oferta / mensagem principal", placeholder: "Ex: 30% de desconto até ao final do mês", type: "textarea" },
+    { key: "imageUrl", label: "URL da imagem principal", placeholder: "https://..." },
+    { key: "palette", label: "Paleta visual", placeholder: "Ex: vermelho, dourado e branco" },
+    { key: "cta", label: "Call to action", placeholder: "Ex: Contacte-me agora" },
   ],
   docs: [
     {
@@ -243,6 +274,7 @@ const defaultValues: Record<string, string> = {
   subject: "Química",
   eventType: "Formatura",
   tone: "Elegante",
+  layout: "Premium elegante",
 };
 
 const imageActions: Array<{
@@ -284,6 +316,25 @@ function parseSiteResponse(reply: string) {
       notes: reply,
     };
   }
+}
+
+function normalizeGeneratedHtml(raw: string) {
+  const cleaned = raw
+    .replace(/^```html\s*/i, "")
+    .replace(/^```\s*/i, "")
+    .replace(/```$/g, "")
+    .trim();
+
+  const withoutWrappers = cleaned
+    .replace(/<html[^>]*>/gi, "")
+    .replace(/<\/html>/gi, "")
+    .replace(/<body[^>]*>/gi, "")
+    .replace(/<\/body>/gi, "")
+    .replace(/<meta[^>]*>/gi, "")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+    .trim();
+
+  return withoutWrappers || raw;
 }
 
 function crc32(input: string) {
@@ -336,7 +387,7 @@ function makeZip(files: Record<string, string>) {
 }
 
 export default function ToolsSection() {
-  const [openCategory, setOpenCategory] = useState<string>("docs-creation");
+  const [openCategory, setOpenCategory] = useState<string | null>(null);
   const [active, setActive] = useState<ToolKey>("school-work");
   
   const [form, setForm] = useState<Record<string, string>>(defaultValues);
@@ -356,10 +407,26 @@ export default function ToolsSection() {
   const update = (key: string, value: string) => setForm((prev) => ({ ...prev, [key]: value }));
 
   const handleToolSelect = (toolId: ToolKey) => {
+    const tool = toolCards.find((item) => item.id === toolId);
+    const category = toolCategories.find((item) => item.tools.includes(toolId));
     setActive(toolId);
+    setOpenCategory(category?.id ?? "docs-creation");
     setReply("");
     setTemplateWrapper("");
     setEditorOpen(false);
+    if (tool) {
+      toast.success(`${tool.title} selecionado`, {
+        description: tool.helper,
+      });
+    }
+  };
+
+  const getPrimaryActionLabel = () => {
+    if (isImageStudio) return "Ajustar imagem";
+    if (active === "site-builder") return "Gerar site com IA";
+    if (active === "assistant") return "Perguntar ao assistente";
+    if (active === "strategist") return "Validar e estruturar ideia";
+    return "Gerar com IA";
   };
 
   const callGenerator = async () => {
@@ -411,7 +478,9 @@ export default function ToolsSection() {
         }
         throw new Error(payload?.error ?? "Não foi possível gerar.");
       }
-      setReply(payload.reply);
+
+      const finalReply = payload.outputType === "document" ? normalizeGeneratedHtml(payload.reply) : payload.reply;
+      setReply(finalReply);
       if (payload.templateWrapper) {
         setTemplateWrapper(payload.templateWrapper);
         setEditorOpen(true);
@@ -499,88 +568,106 @@ export default function ToolsSection() {
         <div className="mb-10 max-w-3xl">
           <p className="section-label">Ferramentas</p>
           <h2 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
-            O seu assistente para documentos, sites e mais
+            Ferramentas que ajudam a trabalhar melhor, sem ruído
           </h2>
           <p className="mt-4 text-base leading-7 text-ink-muted md:text-lg">
-            Escolha uma categoria abaixo. Todos os documentos agora usam o padrão profissional com insígnia e estilos avançados.
+            Escolha a tarefa certa e gere conteúdo, documentos e páginas com mais clareza, contexto e rigor profissional.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr]">
+        <div className="grid gap-8 lg:grid-cols-[300px_1fr]">
           
-          {/* Categorias - Mobile First Accordion */}
-          <div className="space-y-4">
+          {/* Categorias - Lateral Vertical */}
+          <div className="space-y-3 max-h-screen overflow-y-auto hidden lg:block">
             {toolCategories.map((cat) => {
-              const isOpen = openCategory === cat.id;
               const CatIcon = cat.icon;
+              const catHasSelected = cat.tools.some((t) => t === active);
               return (
-                <div key={cat.id} className="overflow-hidden rounded-2xl border border-border bg-surface transition-all shadow-sm">
-                  <button
-                    onClick={() => setOpenCategory(isOpen ? "" : cat.id)}
-                    className={`flex w-full min-h-[80px] items-center justify-between px-5 py-4 transition-colors ${isOpen ? 'bg-accent/5' : 'hover:bg-canvas/50'}`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className={`flex h-12 w-12 items-center justify-center rounded-xl ${isOpen ? 'bg-accent text-white' : 'bg-canvas text-ink-muted'}`}>
-                        <CatIcon size={24} />
-                      </div>
-                      <span className="text-lg font-bold text-ink text-left">{cat.title}</span>
+                <div key={cat.id} className="space-y-2">
+                  <div className="flex items-center gap-2.5 px-4 py-2">
+                    <div className={`flex h-8 w-8 items-center justify-center rounded-lg ${
+                      catHasSelected ? 'bg-accent/20 text-accent' : 'bg-canvas text-ink-muted'
+                    }`}>
+                      <CatIcon size={16} />
                     </div>
-                    {isOpen ? <ChevronUp className="text-accent" /> : <ChevronDown className="text-ink-muted" />}
-                  </button>
-                  
-                  {isOpen && (
-                    <div className="border-t border-border bg-canvas/30 px-3 py-4 flex flex-col gap-2">
-                      {cat.tools.map((toolId) => {
-                        const tool = toolCards.find((t) => t.id === toolId);
-                        if (!tool) return null;
-                        const isSelected = active === tool.id;
-                        const ToolIcon = tool.icon;
-                        
-                        return (
-                          <button
-                            key={tool.id}
-                            onClick={() => handleToolSelect(tool.id)}
-                            className={`flex items-start gap-4 rounded-xl px-4 py-3 text-left transition-all ${
-                              isSelected
-                                ? "bg-white shadow-md border border-accent/20 ring-1 ring-accent/10"
-                                : "hover:bg-white/60"
-                            }`}
-                          >
-                            <ToolIcon size={20} className={`mt-0.5 shrink-0 ${isSelected ? 'text-accent' : 'text-ink-muted'}`} />
-                            <div>
-                              <p className={`font-semibold ${isSelected ? 'text-accent' : 'text-ink'}`}>
-                                {tool.title} {tool.badge && <span className="ml-2 rounded-full border border-accent/25 bg-accent/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-accent">{tool.badge}</span>}
-                              </p>
-                              <p className="mt-1 text-xs text-ink-muted leading-tight">{tool.description}</p>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
+                    <span className="text-xs font-semibold uppercase tracking-wider text-muted">{cat.title}</span>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    {cat.tools.map((toolId) => {
+                      const tool = toolCards.find((t) => t.id === toolId);
+                      if (!tool) return null;
+                      const isSelected = active === tool.id;
+                      const ToolIcon = tool.icon;
+                      
+                      return (
+                        <button
+                          key={tool.id}
+                          onClick={() => handleToolSelect(tool.id)}
+                          className={`flex items-start gap-2.5 rounded-lg px-3.5 py-2.5 text-left text-sm transition-all ${
+                            isSelected
+                              ? "bg-accent/15 border border-accent/30 text-accent font-medium"
+                              : "text-ink-muted hover:bg-canvas/50 hover:text-ink"
+                          }`}
+                        >
+                          <ToolIcon size={16} className="mt-0.5 shrink-0" />
+                          <div className="flex-1 min-w-0">
+                            <p className="font-medium truncate">{tool.title}</p>
+                            {isSelected && tool.badge && (
+                              <p className="text-xs mt-0.5 inline-block rounded-full border border-accent/25 bg-accent/10 px-1.5 py-0.5 font-bold uppercase tracking-wider text-accent">{tool.badge}</p>
+                            )}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
                 </div>
               );
             })}
           </div>
 
+          {/* Mobile: Dropdown Selector */}
+          <div className="lg:hidden mb-6">
+            <label className="block text-sm font-semibold text-ink mb-2">Escolha uma ferramenta</label>
+            <select
+              value={active}
+              onChange={(e) => handleToolSelect(e.target.value as ToolKey)}
+              className="w-full px-4 py-3 rounded-xl border border-border bg-surface text-ink font-medium focus:border-accent/50 outline-none transition-colors"
+            >
+              {toolCategories.map((cat) => (
+                <optgroup key={cat.id} label={cat.title}>
+                  {cat.tools.map((toolId) => {
+                    const tool = toolCards.find((t) => t.id === toolId);
+                    return tool ? <option key={toolId} value={toolId}>{tool.title}</option> : null;
+                  })}
+                </optgroup>
+              ))}
+            </select>
+          </div>
+
           {/* Área de Trabalho */}
           <div className="card-fronex flex flex-col p-5 md:p-8">
-            <div className="flex items-start justify-between gap-4 mb-6">
-              <div>
-                <div className="flex items-center gap-2">
-                  {(() => {
-                    const ActiveIcon = activeCard.icon;
-                    return <ActiveIcon className="text-accent" size={24} />;
-                  })()}
-                  <h3 className="font-display text-2xl font-bold text-ink">{activeCard.title}</h3>
+            <div className="mb-6 space-y-4">
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-2">
+                    {(() => {
+                      const ActiveIcon = activeCard.icon;
+                      return <ActiveIcon className="text-accent" size={24} />;
+                    })()}
+                    <h3 className="font-display text-2xl font-bold text-ink">{activeCard.title}</h3>
+                  </div>
+                  <p className="mt-2 text-sm text-ink-muted">{activeCard.description}</p>
                 </div>
-                <p className="mt-2 text-sm text-ink-muted">{activeCard.description}</p>
+                {!isImageStudio && (
+                  <span className="shrink-0 rounded-full border border-border bg-canvas/70 px-3 py-1 text-xs font-medium text-ink-muted">
+                    1 crédito / geração
+                  </span>
+                )}
               </div>
-              {!isImageStudio && (
-                <span className="shrink-0 rounded-full border border-border bg-canvas/70 px-3 py-1 text-xs font-medium text-ink-muted">
-                  1 crédito / geração
-                </span>
-              )}
+
+              <div className="rounded-2xl border border-accent/15 bg-accent/5 p-3 text-sm leading-6 text-ink-muted">
+                <span className="font-semibold text-ink">Contexto:</span> {activeCard.helper}
+              </div>
             </div>
 
             {isImageStudio ? (
@@ -667,7 +754,7 @@ export default function ToolsSection() {
                 <div className="mt-auto pt-6 border-t flex flex-col gap-4">
                   <button onClick={callGenerator} disabled={loading} className="btn-primary w-full min-h-[56px] text-base font-semibold disabled:cursor-not-allowed disabled:opacity-50">
                     {loading ? <Loader2 size={20} className="animate-spin mr-2" /> : <Sparkles size={20} className="mr-2" />}
-                    Gerar Documento com IA
+                    {loading ? "A gerar..." : getPrimaryActionLabel()}
                   </button>
 
                   {/* Resultados Inline (Assistente ou Site) */}

@@ -49,12 +49,11 @@ export function DocumentEditor({
 
   const handleExportDocx = () => {
     if (!iframeRef.current || !iframeRef.current.contentDocument) return;
-    
-    // Obter o HTML final com as edições do utilizador
+
     const doc = iframeRef.current.contentDocument;
-    const finalHtml = doc.documentElement.outerHTML;
-    
-    // Exportar como HTML com extensão .docx (compatível com Word e Pages)
+    const innerHtml = doc.body.innerHTML;
+    const finalHtml = `<!DOCTYPE html><html lang="pt"><head><meta charset="UTF-8" /><style>body{font-family:Arial,sans-serif; margin:0; padding:24px; color:#111;} .doc-page{page-break-after:always; padding:20px 28px; min-height:260mm;} .doc-photo{max-width:100%; border-radius:16px; margin:18px 0;} .doc-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px;} .doc-card{background:#f7f7f7; padding:14px; border-radius:12px;} .doc-section-title{font-weight:700; border-bottom:1px solid #ddd; padding-bottom:8px; margin:18px 0 10px;} .doc-text{line-height:1.7; text-align:justify;} .doc-capa{text-align:center; padding:30px 20px;}</style></head><body>${innerHtml}</body></html>`;
+
     const blob = new Blob(['\ufeff', finalHtml], {
       type: "application/msword"
     });
@@ -138,6 +137,9 @@ export function DocumentEditor({
               const doc = (e.target as HTMLIFrameElement).contentDocument;
               if (doc) {
                 doc.documentElement.style.setProperty("--red", accentColor);
+                doc.querySelectorAll('.doc-text, .doc-tema, .doc-escola, .doc-disciplina, .doc-autores, .doc-section-title, .doc-card, .doc-badge, p, h1, h2, h3, h4, li').forEach((element) => {
+                  element.setAttribute('contenteditable', 'true');
+                });
               }
             }}
           />

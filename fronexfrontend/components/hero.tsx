@@ -79,22 +79,11 @@ export default function Hero() {
             </a>
           </motion.div>
 
-          <div className="mt-7 flex flex-wrap gap-2.5">
-            {["Mobile-first", "Site tech", "Dark moderno"].map((item) => (
-              <span
-                key={item}
-                className="inline-flex items-center rounded-full border border-border bg-surface px-3 py-1.5 text-[11px] font-semibold text-muted"
-              >
-                {item}
-              </span>
-            ))}
-          </div>
-
           <a
             href="#sobre"
-            className="mt-10 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-accent"
+            className="mt-12 inline-flex items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-accent"
           >
-            Descobrir a estrutura
+            Explorar mais
             <MoveDown size={16} />
           </a>
         </motion.div>
