@@ -12,9 +12,9 @@ export default function ServicesSection() {
   );
 
   return (
-    <section id="servicos" className="bg-canvas-light py-20 text-ink md:py-28">
+    <section id="servicos" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-14 flex flex-col gap-4 md:mb-20 md:max-w-2xl">
+        <div className="mb-9 flex flex-col gap-4 md:mb-14 md:max-w-2xl">
           <p className="section-label">Serviços</p>
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
             Serviços que resolvem e ainda elevam a marca
@@ -26,13 +26,18 @@ export default function ServicesSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div
+          role="region"
+          aria-label="Serviços disponíveis"
+          tabIndex={0}
+          className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 focus-visible:outline-offset-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
+        >
           {SERVICES.map((service) => (
             <div
               key={service.id}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-accent/45"
+              className="glass group flex w-[min(84vw,340px)] shrink-0 snap-start flex-col overflow-hidden rounded-[22px] transition-all duration-300 hover:-translate-y-1 hover:border-accent/45 sm:w-auto"
             >
-              <div className="relative h-44 w-full overflow-hidden border-b border-accent/20">
+              <div className="relative h-44 w-full shrink-0 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -40,7 +45,7 @@ export default function ServicesSection() {
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-canvas/70 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
               </div>
 
               <div className="flex flex-1 flex-col p-6">
@@ -64,7 +69,7 @@ export default function ServicesSection() {
 
                   <button
                     onClick={() => setActiveService(service)}
-                    className="btn-primary min-h-10 px-4 text-xs"
+                    className="btn-primary min-h-11 px-4 text-xs"
                   >
                     Estou Interessado
                     <ArrowUpRight size={13} />

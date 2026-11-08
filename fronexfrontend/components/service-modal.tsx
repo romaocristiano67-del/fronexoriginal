@@ -124,7 +124,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="fixed inset-0 z-[100] flex items-end justify-center bg-black/50 backdrop-blur-sm md:items-center"
+        className="fixed inset-0 z-[100] flex items-end justify-center bg-black/55 backdrop-blur-md backdrop-saturate-150 supports-[backdrop-filter]:bg-black/30 md:items-center"
         onClick={onClose}
       >
         <motion.div
@@ -133,7 +133,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
-          className="relative flex max-h-[min(92vh,_calc(100dvh-40px))] w-full max-w-lg flex-col overflow-hidden rounded-t-2xl border border-border bg-surface text-ink shadow-soft-lg md:rounded-2xl"
+          className="glass relative flex max-h-[min(92dvh,_calc(100dvh-20px))] w-full max-w-lg flex-col overflow-hidden rounded-t-[26px] text-ink shadow-soft-lg md:rounded-[26px]"
         >
           <div className="relative h-32 w-full shrink-0 overflow-hidden border-b border-accent/25">
             <Image
@@ -159,7 +159,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
             <button
               onClick={onClose}
               aria-label="Fechar questionário"
-              className="flex h-8 w-8 items-center justify-center rounded-full text-ink-muted hover:bg-canvas/60 hover:text-accent"
+              className="flex h-11 w-11 items-center justify-center rounded-full text-ink-muted transition-colors hover:bg-canvas/60 hover:text-accent"
             >
               <X size={16} />
             </button>
@@ -300,7 +300,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           </div>
 
           {/* Rodapé com navegação */}
-          <div className="flex items-center justify-between gap-3 border-t border-border px-6 py-5">
+          <div className="flex items-center justify-between gap-3 border-t border-border px-6 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))] md:pb-5">
             <button
               onClick={step === 0 ? onClose : goBack}
               className="flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium text-muted hover:bg-canvas/60 hover:text-ink"
