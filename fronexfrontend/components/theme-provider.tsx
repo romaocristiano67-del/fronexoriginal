@@ -17,7 +17,14 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const stored = window.localStorage.getItem("fronex-theme");
-    const initial: Theme = stored === "dark" ? "dark" : "light";
+    const initial: Theme =
+      stored === "dark"
+        ? "dark"
+        : stored === "light"
+          ? "light"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
     window.localStorage.setItem("fronex-theme", initial);
     setTheme(initial);
     document.documentElement.classList.toggle("dark", initial === "dark");

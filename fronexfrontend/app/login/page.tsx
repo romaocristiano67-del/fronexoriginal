@@ -332,7 +332,6 @@ function LoginContent() {
               style={{ transform: "rotate(-14deg) skewY(5deg)" }}
             />
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-canvas/90 to-transparent p-8">
-              <p className="section-label mb-2">Fronex Studio</p>
               <p className="max-w-sm font-display text-2xl font-bold leading-snug text-ink">
                 Presença digital com ritmo, confiança e leitura mobile.
               </p>

@@ -1,95 +1,23 @@
-import Link from "next/link";
-import { Github, Instagram, Linkedin, Mail, MessageCircle } from "lucide-react";
-import Wordmark from "@/components/wordmark";
+import { Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-border bg-canvas py-14 text-ink">
-      <div className="container-fronex flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-        <div className="max-w-xs">
-          <div className="flex items-center">
-            <Wordmark textClassName="text-[1rem]" />
-          </div>
-          <p className="mt-4 text-sm leading-6 text-ink-muted">
-            Tecnologia e serviços digitais feitos em Angola, para negócios que
-            querem crescer com presença forte e acabamento cuidadoso.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 gap-10 sm:grid-cols-3">
-          <div>
-            <p className="section-label">Navegação</p>
-            <ul className="mt-3 flex flex-col gap-2 text-sm text-ink-muted">
-              <li><a href="#sobre" className="transition-colors hover:text-accent">Sobre</a></li>
-              <li><a href="#servicos" className="transition-colors hover:text-accent">Serviços</a></li>
-              <li><a href="#mentores" className="transition-colors hover:text-accent">Mentores</a></li>
-              <li><a href="#ferramentas" className="transition-colors hover:text-accent">Ferramentas</a></li>
-              <li><a href="#portfolio" className="transition-colors hover:text-accent">Portfólio</a></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="section-label">Conta</p>
-            <ul className="mt-3 flex flex-col gap-2 text-sm text-ink-muted">
-              <li><Link href="/login" className="transition-colors hover:text-accent">Entrar</Link></li>
-              <li><Link href="/login" className="transition-colors hover:text-accent">Criar Conta</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <p className="section-label">Contacto</p>
-            <ul className="mt-3 flex flex-col gap-3 text-sm text-ink-muted">
-              <li>
-                <a
-                  href="https://wa.me/244946419129"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 transition-colors hover:text-accent"
-                >
-                  <MessageCircle size={15} className="text-accent" />
-                  +244 946 419 129
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:geral@fronex.ao"
-                  className="flex items-center gap-2 transition-colors hover:text-accent"
-                >
-                  <Mail size={15} className="text-accent" />
-                  geral@fronex.ao
-                </a>
-              </li>
-            </ul>
-            <div className="mt-5 flex items-center gap-3">
-              <a
-                href="#"
-                aria-label="LinkedIn"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
-              >
-                <Linkedin size={16} />
-              </a>
-              <a
-                href="#"
-                aria-label="Instagram"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
-              >
-                <Instagram size={16} />
-              </a>
-              <a
-                href="#"
-                aria-label="GitHub"
-                className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-accent transition-colors hover:border-accent/40 hover:bg-accent/10"
-              >
-                <Github size={16} />
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="container-fronex mt-12 flex flex-col gap-2 border-t border-border pt-6 text-xs text-muted md:flex-row md:justify-between">
-        <p>© {new Date().getFullYear()} Fronex. Todos os direitos reservados.</p>
-        <p>Design, tecnologia e produto digital em Angola.</p>
+    <footer className="border-t border-border/70 bg-surface/50 py-5 text-ink backdrop-blur-xl">
+      <div className="container-fronex flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-6">
+        <a
+          href="tel:+244946419129"
+          className="inline-flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium text-ink-muted transition-colors hover:bg-surface/70 hover:text-accent"
+        >
+          <Phone size={16} aria-hidden="true" className="text-accent" />
+          946419129
+        </a>
+        <a
+          href="mailto:romacristiao77@gmail.com"
+          className="inline-flex min-h-11 items-center gap-3 rounded-xl px-3 text-sm font-medium text-ink-muted transition-colors hover:bg-surface/70 hover:text-accent"
+        >
+          <Mail size={16} aria-hidden="true" className="text-accent" />
+          romacristiao77@gmail.com
+        </a>
       </div>
     </footer>
   );

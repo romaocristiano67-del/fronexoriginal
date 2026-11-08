@@ -130,40 +130,36 @@ export default function MentorsSection() {
   };
 
   return (
-    <section id="mentores" className="bg-canvas py-20 text-ink md:py-28">
+    <section id="mentores" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-14 flex flex-col gap-4 md:mb-16 md:max-w-2xl">
+        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
           <p className="section-label">Mentores</p>
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
             Mentoria rápida para decisões com mais contexto
           </h2>
-          <p className="text-base text-ink-muted md:text-lg">
-            Quando a próxima decisão ainda está em aberto, use um mentor
-            especializado para organizar finanças, comunicação ou formalização
-            com contexto local e linguagem clara.
-          </p>
         </div>
 
         {/* Mobile: Mentor Selection Tabs */}
-        <div className="mb-8 lg:mb-0 grid grid-cols-2 gap-3 sm:flex sm:gap-3 sm:overflow-x-auto sm:pb-2 lg:hidden">
+        <div className="-mx-5 mb-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 lg:hidden">
           {MENTORS.map((mentor) => (
             <button
               key={mentor.id}
               onClick={() => setSelected(mentor.id)}
-              className={`flex flex-col items-center justify-center gap-2 px-4 py-3 rounded-xl border transition-all shrink-0 min-h-[2.75rem] ${
+              aria-pressed={selected === mentor.id}
+              className={`flex min-h-12 shrink-0 snap-start items-center gap-2.5 rounded-full border px-4 py-2 transition-all ${
                 selected === mentor.id
-                  ? "border-accent/50 bg-accent/10 text-accent"
-                  : "border-border bg-surface hover:border-accent/20 text-ink-muted"
+                  ? "border-accent/45 bg-accent/10 text-accent"
+                  : "border-border bg-surface/80 text-ink-muted hover:border-accent/30"
               }`}
             >
-              <span className={`flex h-10 w-10 items-center justify-center rounded-lg ${
+              <span className={`flex h-7 w-7 items-center justify-center rounded-full ${
                 selected === mentor.id
-                  ? "bg-accent text-canvas"
-                  : "bg-canvas text-ink-muted"
+                  ? "bg-accent text-white"
+                  : "bg-canvas text-accent"
               }`}>
                 {mentor.icon}
               </span>
-              <p className="text-xs font-semibold text-center w-20 truncate">{mentor.name}</p>
+              <span className="whitespace-nowrap text-xs font-semibold">{mentor.name}</span>
             </button>
           ))}
         </div>
@@ -175,10 +171,11 @@ export default function MentorsSection() {
               <button
                 key={mentor.id}
                 onClick={() => setSelected(mentor.id)}
-                className={`flex items-start gap-3 rounded-xl border p-4 text-left transition-colors ${
+                aria-pressed={selected === mentor.id}
+                className={`glass flex min-h-20 items-start gap-3 rounded-2xl p-4 text-left transition-all hover:-translate-y-0.5 ${
                   selected === mentor.id
-                    ? "border-accent/50 bg-accent/10 text-ink"
-                    : "border-border bg-surface hover:border-accent/30"
+                    ? "border-accent/50 text-ink"
+                    : "hover:border-accent/30"
                 }`}
               >
                 <span
@@ -206,24 +203,26 @@ export default function MentorsSection() {
             key={activeMentor.id}
             initial={false}
             animate={{ opacity: 1 }}
-            className="card-fronex flex min-h-[460px] lg:min-h-[520px] flex-col p-5 md:p-6"
+            className="glass flex min-h-[min(68svh,560px)] flex-col rounded-[24px] p-4 md:p-6 lg:min-h-[520px]"
           >
             {/* Mentor Info */}
-            <div className="hidden lg:block mb-6 pb-6 border-b border-border/50">
-              <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-accent/15 text-accent mb-3">
+            <div className="mb-4 flex items-start gap-3 border-b border-border/60 pb-4 md:mb-6 md:pb-6">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent">
                 {activeMentor.icon}
               </span>
-              <h3 className="font-display text-lg font-bold text-ink">
-                {activeMentor.name}
-              </h3>
-              <p className="mt-2 text-xs text-ink-muted leading-5">
-                {activeMentor.description}
-              </p>
+              <div>
+                <h3 className="font-display text-base font-bold text-ink md:text-lg">
+                  {activeMentor.name}
+                </h3>
+                <p className="mt-1 text-xs leading-5 text-ink-muted md:text-sm">
+                  {activeMentor.description}
+                </p>
+              </div>
             </div>
 
             {/* Chat Area */}
-            <div className="flex min-h-0 flex-1 flex-col rounded-2xl border border-border/50 bg-canvas/40 overflow-hidden">
-              <div className="flex-1 space-y-3 overflow-y-auto p-4">
+            <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[20px] border border-border/60 bg-canvas/35">
+              <div className="flex-1 space-y-3 overflow-y-auto p-3 md:p-4">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -232,8 +231,8 @@ export default function MentorsSection() {
                     <p
                       className={`max-w-[85%] md:max-w-[80%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                         message.role === "user"
-                          ? "bg-accent text-canvas"
-                          : "bg-surface text-ink-muted border border-border/30"
+                          ? "bg-accent text-white"
+                          : "border border-border/50 bg-surface/80 text-ink-muted"
                       }`}
                     >
                       {message.content}
@@ -252,19 +251,20 @@ export default function MentorsSection() {
               </div>
 
               {/* Input Area */}
-              <div className="flex items-center gap-2 border-t border-border/50 p-3 bg-canvas/20">
+              <div className="flex items-center gap-2 border-t border-border/60 bg-surface/45 p-3">
                 <input
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   onKeyDown={(event) => event.key === "Enter" && sendMessage()}
                   placeholder="Sua pergunta..."
-                  className="min-h-10 flex-1 rounded-lg border border-border bg-surface px-3 py-2 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
+                  aria-label="Sua pergunta..."
+                  className="min-h-11 min-w-0 flex-1 rounded-xl border border-border bg-surface/90 px-4 py-2.5 text-sm text-ink outline-none transition-colors placeholder:text-muted focus:border-accent/50"
                 />
                 <button
                   onClick={sendMessage}
                   disabled={!input.trim() || loading}
                   aria-label="Enviar"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent text-canvas transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </button>

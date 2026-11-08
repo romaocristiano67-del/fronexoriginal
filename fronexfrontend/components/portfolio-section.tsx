@@ -91,26 +91,27 @@ export default function PortfolioSection() {
   };
 
   return (
-    <section id="portfolio" className="bg-canvas py-20 text-ink md:py-28">
+    <section id="portfolio" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-12 grid gap-6 md:mb-16 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+        <div className="mb-8 grid gap-6 md:mb-12 md:grid-cols-[0.9fr_1.1fr] md:items-end">
           <div className="flex flex-col gap-4">
             <p className="section-label">Portfólio</p>
             <h2 className="font-display text-4xl font-extrabold leading-tight text-ink md:text-5xl">
               Portfólio com matéria, não com enfeite
             </h2>
           </div>
-          <p className="text-lg leading-8 text-ink-muted">
-            Em vez de mockups genéricos, a secção mostra peças visuais pensadas
-            para comunicar contexto, entrega e nível de acabamento.
-          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
+        <div
+          role="region"
+          aria-label="Projetos do portfólio"
+          tabIndex={0}
+          className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 focus-visible:outline-offset-2 lg:mx-0 lg:grid lg:grid-cols-12 lg:overflow-visible lg:px-0 lg:pb-0"
+        >
           {PORTFOLIO_ITEMS.map((item) => (
             <article
               key={item.title}
-              className={`group overflow-hidden rounded-2xl border border-border bg-surface transition-colors hover:border-accent/25 ${
+              className={`glass group w-[min(88vw,420px)] shrink-0 snap-start overflow-hidden rounded-[22px] transition-all duration-300 hover:-translate-y-1 hover:border-accent/35 lg:w-auto ${
                 item.featured ? "lg:col-span-7" : "lg:col-span-5"
               }`}
             >
@@ -122,7 +123,7 @@ export default function PortfolioSection() {
                   sizes={item.featured ? "(min-width: 1024px) 58vw, 100vw" : "(min-width: 1024px) 42vw, 100vw"}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.025]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-canvas/80 via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
               </div>
 
               <div className="p-5 sm:p-6">

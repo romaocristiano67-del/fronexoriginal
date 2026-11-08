@@ -180,7 +180,8 @@ export default function AIChatWidget() {
         transition={{ delay: 0.5, type: "spring", stiffness: 200, damping: 16 }}
         whileHover={{ scale: 1.06 }}
         whileTap={{ scale: 0.95 }}
-        aria-label="Abrir atendimento Fronex"
+        aria-label={open ? "Fechar atendimento Fronex" : "Abrir atendimento Fronex"}
+        aria-expanded={open}
         className="fixed z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
         style={{
           bottom: "max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom)))",
@@ -208,13 +209,13 @@ export default function AIChatWidget() {
             exit={{ opacity: 0, y: 24, scale: 0.97 }}
             transition={{ duration: 0.24, ease: "easeOut" }}
             style={panelStyle}
-            className={`fixed z-[100] flex flex-col overflow-hidden border border-border bg-surface text-ink shadow-soft-dark backdrop-blur-2xl ${
+            className={`glass fixed z-[100] flex flex-col overflow-hidden text-ink shadow-soft-dark ${
               isMobile
                 ? "left-2 right-2 rounded-[1.35rem]"
                 : "bottom-24 right-6 h-[620px] w-[min(92vw,26rem)] rounded-[1.75rem]"
             }`}
           >
-            <div className="flex items-center justify-between border-b border-border bg-canvas/40 px-4 py-4">
+            <div className="flex items-center justify-between border-b border-border/70 bg-surface/55 px-4 py-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-accent">
                   <Sparkles size={16} />
@@ -237,7 +238,7 @@ export default function AIChatWidget() {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Fechar atendimento Fronex"
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface text-ink-muted transition-colors hover:border-accent/45 hover:text-accent"
+                  className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface/80 text-ink-muted transition-colors hover:border-accent/45 hover:text-accent"
                 >
                   <X size={17} />
                 </button>
@@ -257,14 +258,14 @@ export default function AIChatWidget() {
                 <div
                   className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-soft ${
                       msg.role === "user"
-                        ? "bg-accent text-canvas"
-                        : "border border-border bg-canvas/60 text-ink-muted"
+                        ? "bg-accent text-white"
+                        : "border border-border/60 bg-surface/75 text-ink-muted"
                     }`}
                   >
                     {msg.role === "assistant" ? (
                       <RichMessage content={msg.content} />
                     ) : (
-                      <p className="whitespace-pre-wrap text-sm leading-6 text-canvas">
+                      <p className="whitespace-pre-wrap text-sm leading-6 text-white">
                         {msg.content}
                       </p>
                     )}
@@ -274,8 +275,8 @@ export default function AIChatWidget() {
 
               {isTyping && (
                 <div className="flex justify-start">
-                  <div className="w-[min(18rem,88%)] rounded-3xl border border-border bg-white/[0.05] px-4 py-3">
-                    <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-zinc-400">
+                  <div className="w-[min(18rem,88%)] rounded-3xl border border-border bg-surface/80 px-4 py-3">
+                    <div className="mb-2 flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.18em] text-ink-muted">
                       <Loader2 size={12} className="animate-spin" />
                       A preparar resposta
                     </div>
@@ -283,7 +284,7 @@ export default function AIChatWidget() {
                       {[0, 1, 2].map((i) => (
                         <span
                           key={i}
-                          className="h-2 w-2 animate-pulse rounded-full bg-white/50"
+                          className="h-2 w-2 animate-pulse rounded-full bg-accent/70"
                           style={{ animationDelay: `${i * 0.16}s` }}
                         />
                       ))}
@@ -293,9 +294,9 @@ export default function AIChatWidget() {
               )}
             </div>
 
-            <div className="border-t border-border bg-black/30 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+            <div className="border-t border-border/70 bg-surface/65 p-3 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
               <div className="flex items-end gap-2">
-                <div className="flex-1 rounded-3xl border border-border bg-white/[0.05] px-4 py-3 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.65)]">
+                <div className="flex-1 rounded-3xl border border-border bg-surface/85 px-4 py-3 shadow-[0_10px_30px_-20px_rgba(0,0,0,0.3)]">
                   <input
                     ref={inputRef}
                     value={input}
@@ -303,6 +304,7 @@ export default function AIChatWidget() {
                     onKeyDown={(event) => event.key === "Enter" && !event.shiftKey && handleSend()}
                     onFocus={() => requestAnimationFrame(() => scrollToBottom("smooth"))}
                     placeholder="Escreva a sua pergunta..."
+                    aria-label="Escreva a sua pergunta..."
                     className="w-full bg-transparent text-sm text-ink outline-none placeholder:text-muted"
                   />
                 </div>
@@ -314,7 +316,7 @@ export default function AIChatWidget() {
                   whileTap={{ scale: 0.96 }}
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 520, damping: 34 }}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-canvas shadow-neon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-neon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {isTyping ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </motion.button>
