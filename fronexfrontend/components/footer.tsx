@@ -20,10 +20,8 @@ export default function Footer() {
           <div>
             <p className="section-label">Navegação</p>
             <ul className="mt-3 flex flex-col gap-2 text-sm text-ink-muted">
-              <li><a href="#sobre" className="transition-colors hover:text-accent">Sobre</a></li>
               <li><a href="#servicos" className="transition-colors hover:text-accent">Serviços</a></li>
               <li><a href="#mentores" className="transition-colors hover:text-accent">Mentores</a></li>
-              <li><a href="#ferramentas" className="transition-colors hover:text-accent">Ferramentas</a></li>
               <li><a href="#portfolio" className="transition-colors hover:text-accent">Portfólio</a></li>
             </ul>
           </div>
