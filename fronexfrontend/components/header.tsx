@@ -13,7 +13,6 @@ import {
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import Wordmark from "@/components/wordmark";
-import ThemeToggle from "@/components/theme-toggle";
 
 const NAV_LINKS = [
   { label: "Serviços", href: "#servicos" },
@@ -108,8 +107,6 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle className="h-11 w-11" />
-
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
               <span className="flex items-center gap-1.5 rounded-md border border-border bg-canvas/60 px-3 py-2 text-xs font-medium text-ink-muted">
@@ -156,9 +153,9 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="glass fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-border/60 text-ink md:hidden"
+            className="glass absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border/60 text-ink md:hidden"
           >
-            <nav aria-label="Navegação principal móvel" className="container-fronex flex min-h-full flex-col gap-1 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
+            <nav aria-label="Navegação principal móvel" className="container-fronex flex flex-col gap-1 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}

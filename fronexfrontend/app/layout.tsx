@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { MotionConfig } from "framer-motion";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import AIChatWidget from "@/components/ai-chat-widget";
@@ -48,9 +49,11 @@ export default function RootLayout({
       <body className="font-body">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ThemeProvider>
-          {children}
-          <AIChatWidget />
-          <Toaster richColors position="top-right" toastOptions={{ duration: 3600 }} />
+          <MotionConfig reducedMotion="user">
+            {children}
+            <AIChatWidget />
+            <Toaster richColors position="top-right" toastOptions={{ duration: 3600 }} />
+          </MotionConfig>
         </ThemeProvider>
       </body>
     </html>

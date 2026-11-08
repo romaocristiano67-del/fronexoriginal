@@ -14,16 +14,11 @@ export default function ServicesSection() {
   return (
     <section id="servicos" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-9 flex flex-col gap-4 md:mb-14 md:max-w-2xl">
+        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
           <p className="section-label">Serviços</p>
           <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
             Serviços que resolvem e ainda elevam a marca
           </h2>
-          <p className="text-base text-ink-muted md:text-lg">
-            Cada entrega parte de uma necessidade real: vender melhor,
-            organizar operação, lançar produto ou apresentar a marca com mais
-            força no mobile.
-          </p>
         </div>
 
         <div

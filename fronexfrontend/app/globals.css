@@ -24,6 +24,7 @@
     --color-accent-dim: 37 99 235;
     --radius-surface: 22px;
     --blur-glass: 20px;
+    --shadow-glass: 0 18px 48px -36px rgba(27, 39, 58, 0.34), 0 1px 3px rgba(20, 30, 50, 0.05);
   }
 
   .dark {
@@ -44,6 +45,7 @@
     --color-accent: 96 165 250;
     --color-accent-soft: 147 197 253;
     --color-accent-dim: 96 165 250;
+    --shadow-glass: 0 18px 48px -34px rgba(0, 0, 0, 0.62), 0 1px 3px rgba(0, 0, 0, 0.22);
   }
 
   html {
@@ -121,9 +123,10 @@
   }
 
   .glass {
-    @apply border shadow-soft-dark;
+    @apply border;
     background-color: rgb(var(--color-glass) / 0.76);
     border-color: rgb(var(--color-glass-border) / 0.62);
+    box-shadow: var(--shadow-glass);
     backdrop-filter: blur(var(--blur-glass)) saturate(180%);
     -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
   }

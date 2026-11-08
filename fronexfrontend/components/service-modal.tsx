@@ -133,6 +133,9 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           exit={{ opacity: 0, y: 40, scale: 0.98 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           onClick={(e) => e.stopPropagation()}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="service-quote-title"
           className="glass relative flex max-h-[min(92dvh,_calc(100dvh-20px))] w-full max-w-lg flex-col overflow-hidden rounded-t-[26px] text-ink shadow-soft-lg md:rounded-[26px]"
         >
           <div className="relative h-32 w-full shrink-0 overflow-hidden border-b border-accent/25">
@@ -149,7 +152,7 @@ export default function ServiceModal({ service, onClose }: ServiceModalProps) {
           {/* Cabeçalho */}
           <div className="flex items-center justify-between border-b border-border px-6 py-5">
             <div>
-              <p className="text-xs text-muted">
+              <p id="service-quote-title" className="text-xs text-muted">
                 Orçamento — {service.title}
               </p>
               <p className="mt-0.5 font-display text-sm font-semibold text-ink">
