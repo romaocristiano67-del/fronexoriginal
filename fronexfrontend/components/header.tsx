@@ -16,10 +16,8 @@ import Wordmark from "@/components/wordmark";
 import ThemeToggle from "@/components/theme-toggle";
 
 const NAV_LINKS = [
-  { label: "Sobre", href: "#sobre" },
   { label: "Serviços", href: "#servicos" },
   { label: "Mentores", href: "#mentores" },
-  { label: "Ferramentas", href: "#ferramentas" },
   { label: "Portfólio", href: "#portfolio" },
 ];
 
@@ -86,10 +84,10 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full transition-all duration-300 ${
+      className={`fixed top-0 z-50 w-full border-b border-border/50 bg-surface/95 text-ink shadow-[0_8px_32px_-24px_rgba(15,23,42,0.28)] backdrop-blur-xl backdrop-saturate-[180%] transition-all duration-300 supports-[backdrop-filter]:bg-surface/70 ${
         scrolled
-          ? "border-b border-border bg-surface/90 text-ink shadow-[0_18px_60px_-38px_rgba(0,0,0,0.18)] backdrop-blur-xl"
-          : "bg-transparent text-ink"
+          ? "shadow-[0_12px_36px_-26px_rgba(15,23,42,0.34)]"
+          : ""
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
@@ -110,7 +108,7 @@ export default function Header() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          <ThemeToggle className="h-11 w-11" />
 
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
@@ -132,15 +130,18 @@ export default function Header() {
             </div>
           ) : (
             <Link href="/login" className="btn-primary hidden h-9 px-4 text-sm md:flex">
-              Entrar / Criar Conta
+              Entrar
               <ArrowRight size={14} />
             </Link>
           )}
 
           <button
-            className="flex h-11 w-11 items-center justify-center rounded-md text-accent transition-colors hover:bg-accent/10 md:hidden"
+            type="button"
+            className="flex h-11 w-11 items-center justify-center rounded-xl text-accent transition-colors hover:bg-accent/10 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
-            aria-label="Abrir menu"
+            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-navigation"
           >
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -150,18 +151,20 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t border-border bg-surface/95 text-ink backdrop-blur-xl md:hidden"
+            id="mobile-navigation"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+            className="glass fixed inset-x-0 bottom-0 top-16 overflow-y-auto border-t border-border/60 text-ink md:hidden"
           >
-            <div className="container-fronex flex flex-col gap-1 py-4">
+            <nav aria-label="Navegação principal móvel" className="container-fronex flex min-h-full flex-col gap-1 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
               {NAV_LINKS.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="flex h-11 items-center rounded-lg px-4 text-sm font-medium text-ink-muted transition-colors hover:bg-canvas/60 hover:text-accent"
+                  className="flex min-h-12 items-center rounded-xl px-4 text-base font-medium text-ink-muted transition-colors hover:bg-canvas/60 hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -183,11 +186,11 @@ export default function Header() {
                 </div>
               ) : (
                 <Link href="/login" className="btn-primary mt-2 justify-center">
-                  Entrar / Criar Conta
+                  Entrar
                   <ArrowRight size={14} />
                 </Link>
               )}
-            </div>
+            </nav>
           </motion.div>
         )}
       </AnimatePresence>
