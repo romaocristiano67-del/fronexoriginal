@@ -56,11 +56,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        display: ["var(--font-inter)", "sans-serif"],
-        body: ["var(--font-inter)", "sans-serif"],
+        display: ['-apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui, sans-serif'],
+        body: ['-apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui, sans-serif'],
       },
       borderRadius: {
         "4xl": "2rem",
+        surface: "var(--radius-surface)",
       },
       boxShadow: {
         soft: "0 2px 20px -4px rgba(0,0,0,0.4)",

@@ -4,39 +4,45 @@
 
 @layer base {
   :root {
-    --color-canvas: 243 247 251;
-    --color-canvas-light: 249 251 255;
-    --color-canvas-dark: 6 10 18;
+    --color-canvas: 247 248 250;
+    --color-canvas-light: 252 252 253;
+    --color-canvas-dark: 10 12 16;
     --color-surface: 255 255 255;
-    --color-surface-dark: 12 18 30;
-    --color-surface-elevated: 243 247 251;
-    --color-border: 213 224 238;
-    --color-border-dark: 33 44 62;
-    --color-ink: 15 23 42;
-    --color-ink-dark: 241 245 249;
-    --color-ink-muted: 71 85 105;
-    --color-muted: 100 116 139;
-    --color-muted-dark: 148 163 184;
+    --color-surface-dark: 22 25 31;
+    --color-surface-elevated: 242 244 247;
+    --color-glass: 255 255 255;
+    --color-glass-border: 255 255 255;
+    --color-border: 222 226 232;
+    --color-border-dark: 55 61 70;
+    --color-ink: 24 28 36;
+    --color-ink-dark: 244 246 249;
+    --color-ink-muted: 78 86 99;
+    --color-muted: 99 107 120;
+    --color-muted-dark: 161 168 178;
     --color-accent: 37 99 235;
-    --color-accent-soft: 34 211 238;
-    --color-accent-dim: 14 165 233;
+    --color-accent-soft: 96 165 250;
+    --color-accent-dim: 37 99 235;
+    --radius-surface: 22px;
+    --blur-glass: 20px;
   }
 
   .dark {
-    --color-canvas: 6 10 18;
-    --color-canvas-light: 11 18 31;
-    --color-surface: 12 18 30;
-    --color-surface-dark: 8 13 23;
-    --color-surface-elevated: 18 28 45;
-    --color-border: 31 41 55;
-    --color-border-dark: 31 41 55;
-    --color-ink: 241 245 249;
-    --color-ink-dark: 241 245 249;
-    --color-ink-muted: 148 163 184;
-    --color-muted: 113 128 150;
-    --color-muted-dark: 113 128 150;
-    --color-accent: 56 189 248;
-    --color-accent-soft: 34 211 238;
+    --color-canvas: 10 12 16;
+    --color-canvas-light: 17 20 25;
+    --color-surface: 22 25 31;
+    --color-surface-dark: 15 18 23;
+    --color-surface-elevated: 29 33 40;
+    --color-glass: 28 32 39;
+    --color-glass-border: 110 119 132;
+    --color-border: 55 61 70;
+    --color-border-dark: 55 61 70;
+    --color-ink: 244 246 249;
+    --color-ink-dark: 244 246 249;
+    --color-ink-muted: 177 184 194;
+    --color-muted: 161 168 178;
+    --color-muted-dark: 161 168 178;
+    --color-accent: 96 165 250;
+    --color-accent-soft: 147 197 253;
     --color-accent-dim: 96 165 250;
   }
 
@@ -46,6 +52,9 @@
 
   body {
     background-color: rgb(var(--color-canvas));
+    background-image:
+      radial-gradient(ellipse 75% 34% at 50% 0%, rgb(var(--color-accent) / 0.06), transparent 78%),
+      radial-gradient(ellipse 48% 28% at 100% 24%, rgb(var(--color-accent-soft) / 0.045), transparent 82%);
     color: rgb(var(--color-ink));
     @apply font-body antialiased;
     transition: background-color 0.4s ease, color 0.4s ease;
@@ -112,7 +121,11 @@
   }
 
   .glass {
-    @apply border border-border bg-surface/80 shadow-soft-dark backdrop-blur-2xl;
+    @apply border shadow-soft-dark;
+    background-color: rgb(var(--color-glass) / 0.76);
+    border-color: rgb(var(--color-glass-border) / 0.62);
+    backdrop-filter: blur(var(--blur-glass)) saturate(180%);
+    -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
   }
 
   .container-fronex {
@@ -129,6 +142,12 @@
 
   .text-gradient-neon {
     @apply bg-gradient-to-r from-accent via-ink to-accent-soft bg-clip-text text-transparent;
+  }
+}
+
+@supports not (backdrop-filter: blur(1px)) {
+  .glass {
+    background-color: rgb(var(--color-surface) / 0.97);
   }
 }
 

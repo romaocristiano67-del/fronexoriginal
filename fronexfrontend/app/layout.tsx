@@ -1,21 +1,8 @@
 import type { Metadata } from "next";
-import { Inter, Manrope } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import AIChatWidget from "@/components/ai-chat-widget";
 import { Toaster } from "sonner";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  variable: "--font-manrope",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Fronex | Tecnologia e Serviços Digitais em Angola",
@@ -40,7 +27,13 @@ export default function RootLayout({
     (() => {
       try {
         const stored = localStorage.getItem("fronex-theme");
-        const theme = stored === "dark" ? "dark" : "light";
+        const theme = stored === "dark"
+          ? "dark"
+          : stored === "light"
+            ? "light"
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
         document.documentElement.classList.toggle("dark", theme === "dark");
         document.documentElement.style.colorScheme = theme;
       } catch {
@@ -52,7 +45,7 @@ export default function RootLayout({
 
   return (
     <html lang="pt-AO" suppressHydrationWarning>
-      <body className={`${inter.variable} ${manrope.variable} font-body`}>
+      <body className="font-body">
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <ThemeProvider>
           {children}
