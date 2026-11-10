@@ -4,48 +4,60 @@
 
 @layer base {
   :root {
-    --color-canvas: 247 248 250;
-    --color-canvas-light: 252 252 253;
-    --color-canvas-dark: 10 12 16;
+    --color-canvas: 247 246 241;
+    --color-canvas-light: 252 251 247;
+    --color-canvas-dark: 7 28 47;
     --color-surface: 255 255 255;
-    --color-surface-dark: 22 25 31;
-    --color-surface-elevated: 242 244 247;
+    --color-surface-dark: 12 38 59;
+    --color-surface-elevated: 236 242 245;
     --color-glass: 255 255 255;
     --color-glass-border: 255 255 255;
-    --color-border: 222 226 232;
-    --color-border-dark: 55 61 70;
-    --color-ink: 24 28 36;
-    --color-ink-dark: 244 246 249;
-    --color-ink-muted: 78 86 99;
-    --color-muted: 99 107 120;
-    --color-muted-dark: 161 168 178;
-    --color-accent: 37 99 235;
-    --color-accent-soft: 96 165 250;
-    --color-accent-dim: 37 99 235;
-    --radius-surface: 22px;
-    --blur-glass: 20px;
-    --shadow-glass: 0 18px 48px -36px rgba(27, 39, 58, 0.34), 0 1px 3px rgba(20, 30, 50, 0.05);
+    --color-border: 218 226 232;
+    --color-border-dark: 45 68 87;
+    --color-ink: 13 35 54;
+    --color-ink-dark: 244 247 248;
+    --color-ink-muted: 76 96 112;
+    --color-muted: 81 101 117;
+    --color-muted-dark: 178 194 204;
+    --color-accent: 14 103 166;
+    --color-accent-soft: 115 207 232;
+    --color-accent-dim: 8 79 132;
+    --color-accent-ink: 255 255 255;
+    --color-action-ink: 7 36 57;
+    --color-chart-3: 36 142 174;
+    --color-nav: 7 31 51;
+    --color-nav-ink: 244 247 248;
+    --color-nav-muted: 198 213 222;
+    --radius-surface: 8px;
+    --blur-glass: 16px;
+    --shadow-glass: 0 12px 32px -24px rgba(7, 31, 51, 0.24), 0 1px 2px rgba(7, 31, 51, 0.04);
   }
 
   .dark {
-    --color-canvas: 10 12 16;
-    --color-canvas-light: 17 20 25;
-    --color-surface: 22 25 31;
-    --color-surface-dark: 15 18 23;
-    --color-surface-elevated: 29 33 40;
-    --color-glass: 28 32 39;
-    --color-glass-border: 110 119 132;
-    --color-border: 55 61 70;
-    --color-border-dark: 55 61 70;
-    --color-ink: 244 246 249;
-    --color-ink-dark: 244 246 249;
-    --color-ink-muted: 177 184 194;
-    --color-muted: 161 168 178;
-    --color-muted-dark: 161 168 178;
-    --color-accent: 96 165 250;
-    --color-accent-soft: 147 197 253;
-    --color-accent-dim: 96 165 250;
-    --shadow-glass: 0 18px 48px -34px rgba(0, 0, 0, 0.62), 0 1px 3px rgba(0, 0, 0, 0.22);
+    --color-canvas: 7 22 37;
+    --color-canvas-light: 11 31 49;
+    --color-surface: 12 38 59;
+    --color-surface-dark: 7 28 47;
+    --color-surface-elevated: 22 51 72;
+    --color-glass: 15 43 65;
+    --color-glass-border: 83 119 143;
+    --color-border: 45 68 87;
+    --color-border-dark: 45 68 87;
+    --color-ink: 244 247 248;
+    --color-ink-dark: 244 247 248;
+    --color-ink-muted: 185 201 211;
+    --color-muted: 178 194 204;
+    --color-muted-dark: 178 194 204;
+    --color-accent: 107 202 228;
+    --color-accent-soft: 139 220 240;
+    --color-accent-dim: 107 202 228;
+    --color-accent-ink: 7 36 57;
+    --color-action-ink: 7 36 57;
+    --color-chart-3: 72 169 195;
+    --color-nav: 7 31 51;
+    --color-nav-ink: 244 247 248;
+    --color-nav-muted: 198 213 222;
+    --shadow-glass: 0 16px 40px -28px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.18);
   }
 
   html {
@@ -55,8 +67,7 @@
   body {
     background-color: rgb(var(--color-canvas));
     background-image:
-      radial-gradient(ellipse 75% 34% at 50% 0%, rgb(var(--color-accent) / 0.06), transparent 78%),
-      radial-gradient(ellipse 48% 28% at 100% 24%, rgb(var(--color-accent-soft) / 0.045), transparent 82%);
+      radial-gradient(ellipse 75% 34% at 50% 0%, rgb(var(--color-accent) / 0.035), transparent 78%);
     color: rgb(var(--color-ink));
     @apply font-body antialiased;
     transition: background-color 0.4s ease, color 0.4s ease;
@@ -70,7 +81,7 @@
   }
 
   ::selection {
-    background-color: rgba(37, 99, 235, 0.18);
+    background-color: rgb(var(--color-accent) / 0.18);
     color: rgb(var(--color-ink));
   }
 
@@ -97,15 +108,20 @@
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-white transition-all duration-200 hover:bg-accent-soft hover:text-ink hover:shadow-neon;
+    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent-soft px-5 py-3 text-sm font-semibold transition-colors duration-200 hover:bg-accent hover:shadow-neon;
+    color: rgb(var(--color-action-ink));
+  }
+
+  .btn-primary:hover {
+    color: rgb(var(--color-accent-ink));
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-transparent px-5 py-3 text-sm font-semibold text-ink transition-all duration-200 hover:border-accent hover:bg-accent/10 hover:text-ink;
+    @apply inline-flex items-center justify-center gap-2 rounded-md border border-border bg-transparent px-5 py-3 text-sm font-semibold text-ink transition-colors duration-200 hover:border-accent hover:bg-accent/10 hover:text-accent;
   }
 
   .card-surface {
-    @apply rounded-2xl border border-border bg-surface p-6 transition-colors duration-300;
+    @apply rounded-lg border border-border bg-surface p-6 transition-colors duration-300;
   }
 
   .link-accent {
@@ -124,11 +140,9 @@
 
   .glass {
     @apply border;
-    background-color: rgb(var(--color-glass) / 0.76);
-    border-color: rgb(var(--color-glass-border) / 0.62);
+    background-color: rgb(var(--color-surface));
+    border-color: rgb(var(--color-border));
     box-shadow: var(--shadow-glass);
-    backdrop-filter: blur(var(--blur-glass)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(180%);
   }
 
   .container-fronex {
@@ -136,7 +150,7 @@
   }
 
   .card-fronex {
-    @apply rounded-2xl border border-border bg-surface shadow-soft-dark transition-colors duration-300;
+    @apply rounded-lg border border-border bg-surface shadow-soft-dark transition-colors duration-300;
   }
 
   .safe-bottom {

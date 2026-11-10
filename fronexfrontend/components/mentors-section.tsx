@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Loader2, Megaphone, Scale, Send, TrendingUp } from "lucide-react";
+import ScrollReveal from "@/components/scroll-reveal";
 import { toast } from "sonner";
 
 interface Mentor {
@@ -132,15 +133,15 @@ export default function MentorsSection() {
   return (
     <section id="mentores" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
+        <ScrollReveal className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
           <p className="section-label">Mentores</p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
+          <h2 className="font-editorial text-3xl font-semibold tracking-tight text-ink md:text-5xl">
             Mentoria rápida para decisões com mais contexto
           </h2>
-        </div>
+        </ScrollReveal>
 
         {/* Mobile: Mentor Selection Tabs */}
-        <div className="-mx-5 mb-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 lg:hidden">
+        <ScrollReveal className="-mx-5 mb-6 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-2 lg:hidden">
           {MENTORS.map((mentor) => (
             <button
               key={mentor.id}
@@ -154,7 +155,7 @@ export default function MentorsSection() {
             >
               <span className={`flex h-7 w-7 items-center justify-center rounded-full ${
                 selected === mentor.id
-                  ? "bg-accent text-white"
+                  ? "bg-accent text-accent-contrast"
                   : "bg-canvas text-accent"
               }`}>
                 {mentor.icon}
@@ -162,9 +163,9 @@ export default function MentorsSection() {
               <span className="whitespace-nowrap text-xs font-semibold">{mentor.name}</span>
             </button>
           ))}
-        </div>
+        </ScrollReveal>
 
-        <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+        <ScrollReveal className="grid gap-6 lg:grid-cols-[300px_1fr]">
           {/* Desktop: Mentor Sidebar */}
           <div className="hidden lg:flex flex-col gap-3">
             {MENTORS.map((mentor) => (
@@ -203,7 +204,7 @@ export default function MentorsSection() {
             key={activeMentor.id}
             initial={false}
             animate={{ opacity: 1 }}
-            className="glass flex min-h-[min(68svh,560px)] flex-col rounded-[24px] p-4 md:p-6 lg:min-h-[520px]"
+            className="flex min-h-[min(68svh,560px)] flex-col rounded-md border border-border bg-surface p-4 md:p-6 lg:min-h-[520px]"
           >
             {/* Mentor Info */}
             <div className="mb-4 flex items-start gap-3 border-b border-border/60 pb-4 md:mb-6 md:pb-6">
@@ -211,7 +212,7 @@ export default function MentorsSection() {
                 {activeMentor.icon}
               </span>
               <div>
-                <h3 className="font-display text-base font-bold text-ink md:text-lg">
+                <h3 className="font-editorial text-lg font-semibold text-ink md:text-xl">
                   {activeMentor.name}
                 </h3>
                 <p className="mt-1 text-xs leading-5 text-ink-muted md:text-sm">
@@ -231,7 +232,7 @@ export default function MentorsSection() {
                     <p
                       className={`max-w-[85%] md:max-w-[80%] rounded-xl px-3.5 py-2.5 text-sm leading-relaxed ${
                         message.role === "user"
-                          ? "bg-accent text-white"
+                          ? "bg-accent text-accent-contrast"
                           : "border border-border/50 bg-surface/80 text-ink-muted"
                       }`}
                     >
@@ -264,14 +265,14 @@ export default function MentorsSection() {
                   onClick={sendMessage}
                   disabled={!input.trim() || loading}
                   aria-label="Enviar"
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-contrast transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {loading ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </button>
               </div>
             </div>
           </motion.div>
-        </div>
+        </ScrollReveal>
       </div>
     </section>
   );

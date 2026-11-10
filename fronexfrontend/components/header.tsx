@@ -10,14 +10,17 @@ import {
   Coins,
   LogOut,
   LayoutDashboard,
+  BriefcaseBusiness,
+  UsersRound,
+  PanelsTopLeft,
 } from "lucide-react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 import Wordmark from "@/components/wordmark";
 
 const NAV_LINKS = [
-  { label: "Serviços", href: "#servicos" },
-  { label: "Mentores", href: "#mentores" },
-  { label: "Portfólio", href: "#portfolio" },
+  { label: "Serviços", href: "#servicos", icon: BriefcaseBusiness, tone: "navy" },
+  { label: "Mentores", href: "#mentores", icon: UsersRound, tone: "sky" },
+  { label: "Portfólio", href: "#portfolio", icon: PanelsTopLeft, tone: "blue" },
 ];
 
 export default function Header() {
@@ -83,15 +86,15 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full border-b border-border/50 bg-surface/95 text-ink shadow-[0_8px_32px_-24px_rgba(15,23,42,0.28)] backdrop-blur-xl backdrop-saturate-[180%] transition-all duration-300 supports-[backdrop-filter]:bg-surface/70 ${
+      className={`fixed top-0 ${menuOpen ? "z-[90]" : "z-50"} w-full border-b border-white/10 bg-nav text-nav-ink shadow-[0_2px_12px_-8px_rgba(0,0,0,0.5)] transition-colors duration-300 ${
         scrolled
-          ? "shadow-[0_12px_36px_-26px_rgba(15,23,42,0.34)]"
+          ? "shadow-[0_4px_18px_-10px_rgba(0,0,0,0.55)]"
           : ""
       }`}
     >
       <div className="container-fronex flex h-16 items-center justify-between md:h-20">
         <Link href="/" className="group flex min-w-0 items-center">
-          <Wordmark textClassName="text-[1.06rem] sm:text-[1.16rem]" />
+          <Wordmark textClassName="text-nav-ink text-[1.06rem] sm:text-[1.16rem]" />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">
@@ -99,7 +102,7 @@ export default function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-ink-muted transition-colors hover:text-accent"
+              className="text-sm font-medium text-nav-muted transition-colors hover:text-white"
             >
               {link.label}
             </a>
@@ -109,8 +112,8 @@ export default function Header() {
         <div className="flex items-center gap-3">
           {email ? (
             <div className="hidden items-center gap-2 md:flex">
-              <span className="flex items-center gap-1.5 rounded-md border border-border bg-canvas/60 px-3 py-2 text-xs font-medium text-ink-muted">
-                <Coins size={14} className="text-accent" />
+              <span className="flex items-center gap-1.5 rounded-md border border-white/15 bg-white/10 px-3 py-2 text-xs font-medium text-nav-ink">
+                <Coins size={14} className="text-accent-soft" />
                 {tokens ?? "..."} tokens
               </span>
               <Link href="/dashboard" className="btn-primary h-9 px-4 text-sm">
@@ -120,7 +123,7 @@ export default function Header() {
               <button
                 onClick={handleLogout}
                 aria-label="Terminar sessão"
-                className="flex h-9 w-9 items-center justify-center rounded-md border border-border bg-surface text-ink transition-colors hover:border-accent/40 hover:text-accent"
+                className="flex h-9 w-9 items-center justify-center rounded-md border border-white/20 bg-white/10 text-nav-ink transition-colors hover:border-accent-soft hover:text-accent-soft"
               >
                 <LogOut size={15} />
               </button>
@@ -134,7 +137,7 @@ export default function Header() {
 
           <button
             type="button"
-            className="flex h-11 w-11 items-center justify-center rounded-xl text-accent transition-colors hover:bg-accent/10 md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-md text-accent-soft transition-colors hover:bg-white/10 md:hidden"
             onClick={() => setMenuOpen((v) => !v)}
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
             aria-expanded={menuOpen}
@@ -153,19 +156,39 @@ export default function Header() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -8 }}
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-            className="glass absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] overflow-y-auto border-t border-border/60 text-ink md:hidden"
+            className="absolute inset-x-0 top-full z-[60] h-[calc(100dvh-4.05rem)] overflow-y-auto border-t border-border bg-canvas text-ink shadow-[0_20px_48px_-26px_rgba(7,31,51,0.32)] md:hidden"
           >
-            <nav aria-label="Navegação principal móvel" className="container-fronex flex flex-col gap-1 py-5 pb-[calc(1.25rem+env(safe-area-inset-bottom))]">
-              {NAV_LINKS.map((link) => (
+            <nav aria-label="Navegação principal móvel" className="container-fronex flex min-h-full flex-col gap-3 py-6 pb-[calc(1.5rem+env(safe-area-inset-bottom))]">
+              <p className="mb-1 px-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted">
+                Navegação
+              </p>
+              {NAV_LINKS.map((link, index) => {
+                const Icon = link.icon;
+                const toneClass = {
+                  navy: "bg-nav text-white",
+                  sky: "bg-accent-soft/35 text-accent-dim",
+                  blue: "bg-accent/10 text-accent",
+                }[link.tone];
+
+                return (
                 <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="flex min-h-12 items-center rounded-xl px-4 text-base font-medium text-ink-muted transition-colors hover:bg-canvas/60 hover:text-accent"
+                  className="group flex min-h-[76px] items-center gap-4 rounded-md border border-border bg-surface px-4 py-3 text-left shadow-[0_5px_18px_-16px_rgba(7,31,51,0.35)] transition-colors duration-200 hover:border-accent/40 hover:bg-white"
                 >
-                  {link.label}
+                  <span className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-md ${toneClass}`}>
+                    <Icon size={21} strokeWidth={1.7} />
+                  </span>
+                  <span className="flex-1 text-base font-semibold text-ink">
+                    {link.label}
+                  </span>
+                  <span className="flex h-8 min-w-8 items-center justify-center rounded-full bg-canvas px-2 text-[11px] font-semibold tabular-nums text-muted">
+                    0{index + 1}
+                  </span>
                 </a>
-              ))}
+                );
+              })}
               {email ? (
                 <div className="mt-2 grid gap-2">
                   <Link

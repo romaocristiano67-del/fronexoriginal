@@ -562,11 +562,11 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
     <main className="min-h-screen bg-canvas text-ink">
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(180deg,rgba(37,99,235,0.05)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgba(34,211,238,0.08),transparent_45%)]"
+        className="fixed inset-0 bg-[linear-gradient(180deg,rgb(var(--color-accent)/0.05)_0%,transparent_22%),radial-gradient(ellipse_at_top_right,rgb(var(--color-chart-3)/0.08),transparent_45%)]"
       />
       <div
         aria-hidden
-        className="fixed inset-0 bg-[linear-gradient(rgba(37,99,235,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(34,211,238,0.04)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
+        className="fixed inset-0 bg-[linear-gradient(rgb(var(--color-accent)/0.035)_1px,transparent_1px),linear-gradient(90deg,rgb(var(--color-chart-3)/0.035)_1px,transparent_1px)] bg-[size:36px_36px] opacity-30"
       />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[1600px]">
@@ -775,21 +775,21 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                       label="Conta"
                       caption="Dados usados nas propostas."
                       value={serviceMetrics.profileProgress}
-                      accent="#2563EB"
+                      accent="rgb(var(--color-accent))"
                       icon={UserRound}
                     />
                     <ProgressRing
                       label="Projetos"
                       caption={`${serviceMetrics.totalServices - serviceMetrics.pending}/${serviceMetrics.totalServices} em curso`}
                       value={serviceMetrics.projectProgress}
-                      accent="#22D3EE"
+                      accent="rgb(var(--color-accent-soft))"
                       icon={CircleDashed}
                     />
                     <ProgressRing
                       label="Tokens"
                       caption={`${tokensRemaining ?? 25} disponíveis hoje`}
                       value={serviceMetrics.tokensProgress}
-                      accent="#14B8A6"
+                      accent="rgb(var(--color-chart-3))"
                       icon={ShieldCheck}
                     />
                   </div>
@@ -820,10 +820,10 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                     {ACTIVE_SERVICES.map((service, index) => {
                       const accent =
                         index === 0
-                          ? "#2563EB"
+                          ? "rgb(var(--color-accent))"
                           : index === 1
-                            ? "#22D3EE"
-                            : "#14B8A6";
+                            ? "rgb(var(--color-accent-soft))"
+                            : "rgb(var(--color-chart-3))";
 
                       return (
                         <article
@@ -1135,8 +1135,8 @@ export default function DashboardShell({ user }: { user: DashboardUser }) {
                             width: `${index === 0 ? 72 : 48}%`,
                             background:
                               index === 0
-                                ? "linear-gradient(90deg,#2563EB,#22D3EE)"
-                                : "linear-gradient(90deg,#22D3EE,#2563EB)",
+                                ? "linear-gradient(90deg,rgb(var(--color-accent)),rgb(var(--color-accent-soft)))"
+                                : "linear-gradient(90deg,rgb(var(--color-accent-soft)),rgb(var(--color-accent)))",
                           }}
                         />
                       </div>

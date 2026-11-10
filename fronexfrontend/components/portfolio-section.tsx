@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import ScrollReveal from "@/components/scroll-reveal";
 import { ArrowUpRight, BriefcaseBusiness, MonitorSmartphone } from "lucide-react";
 import { toast } from "sonner";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
@@ -93,14 +94,14 @@ export default function PortfolioSection() {
   return (
     <section id="portfolio" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-8 grid gap-6 md:mb-12 md:grid-cols-[0.9fr_1.1fr] md:items-end">
+        <ScrollReveal className="mb-8 grid gap-6 md:mb-12 md:grid-cols-[0.9fr_1.1fr] md:items-end">
           <div className="flex flex-col gap-4">
             <p className="section-label">Portfólio</p>
-            <h2 className="font-display text-4xl font-extrabold leading-tight text-ink md:text-5xl">
+            <h2 className="font-editorial text-4xl font-semibold leading-tight text-ink md:text-5xl">
               Portfólio com matéria, não com enfeite
             </h2>
           </div>
-        </div>
+        </ScrollReveal>
 
         <div
           role="region"
@@ -108,13 +109,15 @@ export default function PortfolioSection() {
           tabIndex={0}
           className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 focus-visible:outline-offset-2 lg:mx-0 lg:grid lg:grid-cols-12 lg:overflow-visible lg:px-0 lg:pb-0"
         >
-          {PORTFOLIO_ITEMS.map((item) => (
-            <article
+          {PORTFOLIO_ITEMS.map((item, index) => (
+            <ScrollReveal
               key={item.title}
-              className={`glass group w-[min(88vw,420px)] shrink-0 snap-start overflow-hidden rounded-[22px] transition-all duration-300 hover:-translate-y-1 hover:border-accent/35 lg:w-auto ${
+              delay={Math.min(index * 0.07, 0.28)}
+              className={`w-[min(88vw,420px)] shrink-0 snap-start lg:w-auto ${
                 item.featured ? "lg:col-span-7" : "lg:col-span-5"
               }`}
             >
+            <article className="group h-full overflow-hidden rounded-md border border-border bg-surface transition-colors duration-300 hover:border-accent/35">
               <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
                 <Image
                   src={item.image}
@@ -137,7 +140,7 @@ export default function PortfolioSection() {
                   </span>
                 </div>
 
-                <h3 className="font-display text-2xl font-bold leading-tight text-ink">
+                <h3 className="font-editorial text-2xl font-semibold leading-tight text-ink">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-sm leading-7 text-ink-muted">
@@ -154,6 +157,7 @@ export default function PortfolioSection() {
                 </button>
               </div>
             </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Cpu, Loader2, Send, Sparkles, X } from "lucide-react";
+import { Cpu, Loader2, MessageCircle, Send, X } from "lucide-react";
 import { toast } from "sonner";
 import RichMessage from "@/components/rich-message";
 
@@ -182,7 +182,7 @@ export default function AIChatWidget() {
         whileTap={{ scale: 0.95 }}
         aria-label={open ? "Fechar atendimento Fronex" : "Abrir atendimento Fronex"}
         aria-expanded={open}
-        className="fixed z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-accent/40 bg-accent text-white shadow-neon backdrop-blur-xl"
+        className={`fixed z-[80] flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-nav text-accent-soft shadow-[0_10px_28px_-12px_rgba(7,31,51,0.65)] transition-colors duration-200 hover:bg-accent-soft hover:text-accent-action ${open ? "text-accent-soft" : ""}`}
         style={{
           bottom: "max(1.25rem, calc(1.25rem + env(safe-area-inset-bottom)))",
           right: "max(1.25rem, calc(1.25rem + env(safe-area-inset-right)))",
@@ -196,7 +196,7 @@ export default function AIChatWidget() {
             exit={{ opacity: 0, rotate: 45 }}
             transition={{ duration: 0.2 }}
           >
-            {open ? <X size={22} /> : <Sparkles size={22} />}
+            {open ? <X size={21} strokeWidth={1.8} /> : <MessageCircle size={23} strokeWidth={1.7} />}
           </motion.span>
         </AnimatePresence>
       </motion.button>
@@ -218,7 +218,7 @@ export default function AIChatWidget() {
             <div className="flex items-center justify-between border-b border-border/70 bg-surface/55 px-4 py-4">
               <div className="flex items-center gap-3">
                 <span className="flex h-10 w-10 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-accent">
-                  <Sparkles size={16} />
+                  <MessageCircle size={16} strokeWidth={1.7} />
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-ink">Atendimento Fronex</p>
@@ -258,7 +258,7 @@ export default function AIChatWidget() {
                 <div
                   className={`max-w-[88%] rounded-2xl px-4 py-3 shadow-soft ${
                       msg.role === "user"
-                        ? "bg-accent text-white"
+                        ? "bg-accent text-accent-contrast"
                         : "border border-border/60 bg-surface/75 text-ink-muted"
                     }`}
                   >
@@ -316,7 +316,7 @@ export default function AIChatWidget() {
                   whileTap={{ scale: 0.96 }}
                   whileHover={{ scale: 1.03 }}
                   transition={{ type: "spring", stiffness: 520, damping: 34 }}
-                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-white shadow-neon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-accent-contrast shadow-neon transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"
                 >
                   {isTyping ? <Loader2 size={16} className="animate-spin" /> : <Send size={16} />}
                 </motion.button>

@@ -22,7 +22,7 @@ export default function Hero() {
       <div aria-hidden className="absolute inset-0 -z-10 bg-hero-glow" />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.08),transparent_38%)]"
+        className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgb(var(--color-accent)/0.07),transparent_38%)]"
       />
 
       <div className="container-fronex grid items-start gap-8 py-6 pb-10 lg:min-h-[72svh] lg:grid-cols-[1.02fr_0.98fr] lg:items-center lg:gap-12 lg:py-16">
@@ -32,7 +32,7 @@ export default function Hero() {
             initial="hidden"
             animate="show"
             transition={{ ...transition, delay: 0.06 }}
-            className="max-w-[14ch] font-display text-[2.4rem] font-extrabold leading-[0.96] tracking-tight text-ink sm:max-w-3xl sm:text-5xl sm:leading-[0.98] md:text-6xl lg:text-[4rem]"
+            className="max-w-[14ch] font-editorial text-[2.65rem] font-semibold leading-[0.99] tracking-tight text-ink sm:max-w-3xl sm:text-5xl sm:leading-[1.02] md:text-6xl lg:text-[4rem]"
           >
             <span className="block">Presença digital</span>
             <span className="block">com corpo, ritmo e detalhe.</span>
@@ -62,7 +62,7 @@ export default function Hero() {
           transition={{ ...transition, delay: 0.2 }}
           className="relative hidden lg:block"
         >
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[26px] border border-border/70 bg-surface shadow-[0_32px_90px_-48px_rgba(20,30,50,0.42)]">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-md border border-border/70 bg-surface shadow-[0_22px_60px_-42px_rgba(7,31,51,0.45)]">
             <Image
               src="/portfolio/websites-fronex.jpg"
               alt="Exemplos de websites responsivos desenvolvidos pela Fronex"

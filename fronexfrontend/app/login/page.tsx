@@ -127,7 +127,7 @@ function LoginContent() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(37,99,235,0.08),transparent_50%)]"
+        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgb(var(--color-accent)/0.08),transparent_50%)]"
       />
 
       <div className="relative mx-auto grid min-h-screen max-w-[1440px] grid-cols-1 lg:grid-cols-2">
@@ -308,14 +308,14 @@ function LoginContent() {
             <div className="relative h-full min-h-[calc(100vh-3rem)] overflow-hidden rounded-[1.35rem] border border-border bg-surface">
               <div
                 aria-hidden
-                className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgba(37,99,235,0.16),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgba(34,211,238,0.12),transparent_45%)]"
+                className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,rgb(var(--color-accent)/0.16),transparent_55%),radial-gradient(ellipse_at_80%_20%,rgb(var(--color-chart-3)/0.12),transparent_45%)]"
               />
               <div
                 aria-hidden
                 className="absolute inset-[12%] opacity-[0.14]"
                 style={{
                   backgroundImage:
-                  "linear-gradient(rgba(37,99,235,0.42) 1px, transparent 1px), linear-gradient(90deg, rgba(34,211,238,0.42) 1px, transparent 1px)",
+                  "linear-gradient(rgb(var(--color-accent)/0.42) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--color-chart-3)/0.42) 1px, transparent 1px)",
                   backgroundSize: "36px 36px",
                   maskImage:
                     "radial-gradient(ellipse at center, black 25%, transparent 72%)",

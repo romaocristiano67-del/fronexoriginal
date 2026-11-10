@@ -10,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Fronex — tech-focused brand palette
+        // Fronex — deep navy, warm ivory and pool-blue palette
         canvas: {
           DEFAULT: "rgb(var(--color-canvas) / <alpha-value>)",
           dark: "rgb(var(--color-canvas-dark) / <alpha-value>)",
@@ -39,24 +39,32 @@ const config: Config = {
           DEFAULT: "rgb(var(--color-accent) / <alpha-value>)",
           soft: "rgb(var(--color-accent-soft) / <alpha-value>)",
           dim: "rgb(var(--color-accent-dim) / <alpha-value>)",
+          contrast: "rgb(var(--color-accent-ink) / <alpha-value>)",
+          action: "rgb(var(--color-action-ink) / <alpha-value>)",
+        },
+        nav: {
+          DEFAULT: "rgb(var(--color-nav) / <alpha-value>)",
+          ink: "rgb(var(--color-nav-ink) / <alpha-value>)",
+          muted: "rgb(var(--color-nav-muted) / <alpha-value>)",
         },
         // Mantidos para compatibilidade com componentes existentes
         angola: {
-          black: "#111111",
-          red: "#2563EB",
-          gold: "#22D3EE",
+          black: "#0D2336",
+          red: "#0E67A6",
+          gold: "#73CFE8",
         },
         fronex: {
-          DEFAULT: "#2563EB",
-          red: "#2563EB",
-          gold: "#22D3EE",
-          neon: "#22D3EE",
-          navy: "#0F172A",
+          DEFAULT: "#0E67A6",
+          red: "#0E67A6",
+          gold: "#73CFE8",
+          neon: "#73CFE8",
+          navy: "#071F33",
           surface: "#FFFFFF",
         },
       },
       fontFamily: {
         display: ['-apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui, sans-serif'],
+        editorial: ['"Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif'],
         body: ['-apple-system, BlinkMacSystemFont, "SF Pro Display", Inter, system-ui, sans-serif'],
       },
       borderRadius: {
@@ -67,14 +75,14 @@ const config: Config = {
         soft: "0 2px 20px -4px rgba(0,0,0,0.4)",
         "soft-lg": "0 20px 60px -15px rgba(0,0,0,0.5)",
         "soft-dark": "0 20px 60px -15px rgba(0,0,0,0.7)",
-        neon: "0 0 24px -4px rgba(37,99,235,0.28)",
-        "neon-lg": "0 0 48px -8px rgba(34,211,238,0.24)",
+        neon: "0 6px 18px -10px rgb(var(--color-accent) / 0.4)",
+        "neon-lg": "0 12px 30px -18px rgb(var(--color-accent-soft) / 0.32)",
       },
       backgroundImage: {
         "flag-thread":
-          "linear-gradient(90deg, #0F172A 0%, #2563EB 52%, #22D3EE 100%)",
+          "linear-gradient(90deg, #071F33 0%, #0E67A6 58%, #73CFE8 100%)",
         "hero-glow":
-          "radial-gradient(ellipse 80% 60% at 70% 40%, rgba(37,99,235,0.16), transparent 55%), radial-gradient(ellipse 50% 40% at 20% 80%, rgba(34,211,238,0.12), transparent 50%), radial-gradient(ellipse 45% 35% at 50% 20%, rgba(15,23,42,0.06), transparent 45%)",
+          "radial-gradient(ellipse 70% 58% at 75% 38%, rgb(var(--color-accent-soft) / 0.11), transparent 56%), radial-gradient(ellipse 52% 38% at 15% 82%, rgb(var(--color-chart-3) / 0.07), transparent 52%)",
         "section-fade":
           "linear-gradient(180deg, rgb(var(--color-canvas)) 0%, rgb(var(--color-canvas-light)) 50%, rgb(var(--color-canvas)) 100%)",
       },

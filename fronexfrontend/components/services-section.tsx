@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
+import ScrollReveal from "@/components/scroll-reveal";
 import { SERVICES, formatKz, ServiceDefinition } from "@/lib/pricing";
 import ServiceModal from "@/components/service-modal";
 
@@ -14,12 +15,12 @@ export default function ServicesSection() {
   return (
     <section id="servicos" className="scroll-mt-24 py-16 text-ink md:py-24">
       <div className="container-fronex">
-        <div className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
+        <ScrollReveal className="mb-8 flex flex-col gap-4 md:mb-12 md:max-w-2xl">
           <p className="section-label">Serviços</p>
-          <h2 className="font-display text-3xl font-extrabold tracking-tight text-ink md:text-5xl">
+          <h2 className="font-editorial text-3xl font-semibold tracking-tight text-ink md:text-5xl">
             Serviços que resolvem e ainda elevam a marca
           </h2>
-        </div>
+        </ScrollReveal>
 
         <div
           role="region"
@@ -27,20 +28,22 @@ export default function ServicesSection() {
           tabIndex={0}
           className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 focus-visible:outline-offset-2 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 lg:grid-cols-3"
         >
-          {SERVICES.map((service) => (
-            <div
+          {SERVICES.map((service, index) => (
+            <ScrollReveal
               key={service.id}
-              className="glass group flex w-[min(84vw,340px)] shrink-0 snap-start flex-col overflow-hidden rounded-[22px] transition-all duration-300 hover:-translate-y-1 hover:border-accent/45 sm:w-auto"
+              delay={Math.min(index * 0.07, 0.28)}
+              className="w-[min(84vw,340px)] shrink-0 snap-start sm:w-auto"
             >
-              <div className="relative h-44 w-full shrink-0 overflow-hidden">
+              <article className="group flex h-full w-full flex-col overflow-hidden rounded-md border border-border bg-surface transition-colors duration-300 hover:border-accent/45">
+              <div className="relative h-48 w-full shrink-0 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
                   fill
                   sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/5 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-nav/45 via-transparent to-transparent" />
               </div>
 
               <div className="flex flex-1 flex-col p-6">
@@ -71,7 +74,8 @@ export default function ServicesSection() {
                   </button>
                 </div>
               </div>
-            </div>
+              </article>
+            </ScrollReveal>
           ))}
         </div>
       </div>
